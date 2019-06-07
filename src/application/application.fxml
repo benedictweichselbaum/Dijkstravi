@@ -12,12 +12,13 @@
       <menus>
         <Menu mnemonicParsing="false" text="Über">
           <items>
-            <MenuItem mnemonicParsing="false" text="Close" />
+            <MenuItem mnemonicParsing="false" text="Informationen" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Einstellungen">
           <items>
-            <MenuItem mnemonicParsing="false" text="Delete" />
+            <MenuItem mnemonicParsing="false" text="Optionen" />
+            <MenuItem mnemonicParsing="false" text="Beenden" />
           </items>
         </Menu>
       </menus>
