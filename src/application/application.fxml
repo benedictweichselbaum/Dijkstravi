@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <children>
+    <MenuBar layoutX="0.0" layoutY="0.0" prefHeight="26.0" prefWidth="1000.0">
+      <menus>
+        <Menu mnemonicParsing="false" text="Über">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Close" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Einstellungen">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Delete" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+    <Label layoutX="28.0" layoutY="52.0" prefHeight="26.0" prefWidth="55.0" text="Von" />
+    <Label layoutX="28.0" layoutY="100.0" prefHeight="26.0" prefWidth="55.0" text="Nach" />
+    <TextField fx:id="txtFrom" layoutX="28.0" layoutY="78.0" prefWidth="200.0" />
+    <TextField fx:id="txtTo" layoutX="28.0" layoutY="126.0" prefWidth="200.0" />
+  </children>
+</AnchorPane>
