@@ -1,4 +1,4 @@
-# Dijstravi
+# Dijkstravi
 
 # Scenebuilder
 https://gluonhq.com/products/scene-builder/
