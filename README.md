@@ -15,7 +15,9 @@ Das XML mit dem Autobahnnetz ist über die Overpass API entstanden.
 Man kann es sich selbst über den "Overpass Turbo" holen.
 Dafür muss man folgenden Query-Code auf dem seitlichen Feld ausführen:
 
-[out:xml][timeout:1000];
+
+<pre><code>
+  [out:xml][timeout:1000];
 // fetch area “germany” to search in
 {{geocodeArea:germany}}->.searchArea;
 // gather results
@@ -31,6 +33,7 @@ Dafür muss man folgenden Query-Code auf dem seitlichen Feld ausführen:
 out body;
 >;
 out skel qt;
+</code></pre>
 
 Im Gegensatz zum Namen dauert das aber seine Zeit. Also Geduld.
 Wenn er fertig ist auf "Export" clicken und die .osm herunterladen.
