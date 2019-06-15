@@ -11,10 +11,10 @@ Die module-Datei ist bereits im Repository. Das müsst ihr also nicht machen!
 http://www.ba-horb.de/~pl/Programmieren/Projekt_Dijkstra.pdf
 
 # Hinweise:
-Das XML mit dem Autobahnnetz ist über die Overpass API entstanden.
-Man kann es sich selbst über den "Overpass Turbo" holen.
-Dafür muss man folgenden Query-Code auf dem seitlichen Feld ausführen:
-
+Das XML mit dem Autobahnnetz ist über die Overpass API entstanden.</br>
+Man kann es sich selbst über den "Overpass Turbo" holen.</br>
+https://overpass-turbo.eu </br>
+Dafür muss man folgenden Query-Code auf dem seitlichen Feld ausführen:</br>
 
 <pre><code>
   [out:xml][timeout:1000];
@@ -35,5 +35,5 @@ out body;
 out skel qt;
 </code></pre>
 
-Im Gegensatz zum Namen dauert das aber seine Zeit. Also Geduld.
+Im Gegensatz zum Namen dauert das aber seine Zeit. Also Geduld.</br>
 Wenn er fertig ist auf "Export" clicken und die .osm herunterladen.
