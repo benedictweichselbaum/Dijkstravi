@@ -39,7 +39,7 @@ Im Gegensatz zum Namen dauert das aber seine Zeit. Also Geduld.</br>
 Wenn er fertig ist auf "Export" clicken und die .osm herunterladen. </br>
 
 # Vorgehensweise
-- [ ] Datenstruktur erstellen </br>
+- [X] Datenstruktur erstellen </br>
 - [ ] OSM einlesen und in Graph übertragen </br>
 - [ ] Algorithmen implementieren.</br>
 - [ ] Routenausgabe implementieren</br>
