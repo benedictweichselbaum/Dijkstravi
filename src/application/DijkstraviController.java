@@ -46,6 +46,9 @@ public class DijkstraviController implements Initializable {
     @FXML
     private ImageView imgViewAutobahn;
 
+    @FXML
+    private MenuItem btnExit;
+
     private ToggleGroup algRadioButtonGroup;
 
     @FXML
@@ -64,6 +67,10 @@ public class DijkstraviController implements Initializable {
         File file = new File("src/autobahnnetz_DE.png");
         Image image = new Image(file.toURI().toString());
         imgViewAutobahn.setImage(image);
+    }
+
+    public void pressedExit(ActionEvent actionEvent) {
+        System.exit(0);
     }
 }
 
