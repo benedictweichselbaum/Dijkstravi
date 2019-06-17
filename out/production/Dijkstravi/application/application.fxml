@@ -20,7 +20,7 @@
         <Menu mnemonicParsing="false" text="Einstellungen">
           <items>
             <MenuItem mnemonicParsing="false" text="Optionen" />
-            <MenuItem mnemonicParsing="false" text="Beenden" />
+            <MenuItem mnemonicParsing="false" text="Beenden" fx:id="btnExit" onAction="#pressedExit"/>
           </items>
         </Menu>
       </menus>
