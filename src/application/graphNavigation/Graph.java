@@ -12,7 +12,7 @@ public class Graph {
         this.numberOfAddedNodes = 0;
     }
 
-    int getMatrixNodeNumber(int id){
+    int getMatrixNodeNumberById(int id){
         int pruefer = -1;
         for(int i = 0; i < numberOfAddedNodes; i++){
             if(nodes[i] == null){
@@ -26,7 +26,7 @@ public class Graph {
 
     void addNode(Node node){
         if(nodes.length > numberOfAddedNodes){
-            if(getMatrixNodeNumber(node.getId()) == -1){
+            if(getMatrixNodeNumberById(node.getId()) == -1){
                 nodes[numberOfAddedNodes] = node;
                 autobahn[numberOfAddedNodes][numberOfAddedNodes] = 0;
                 for(int i = 0; i < numberOfAddedNodes; i++){
@@ -37,19 +37,19 @@ public class Graph {
             }
         }
     }
-    void addEdge(Node from, Node to, int weight){
+    void addEdge(int from, int to, int weight){
         int fromNodeMatrixNumber, toNodeMatrixNumber;
 
-        fromNodeMatrixNumber = getMatrixNodeNumber(from.getId());
-        toNodeMatrixNumber = getMatrixNodeNumber(to.getId());
+        fromNodeMatrixNumber = getMatrixNodeNumberById(from);
+        toNodeMatrixNumber = getMatrixNodeNumberById(to);
 
         if(fromNodeMatrixNumber != -1 && toNodeMatrixNumber != -1 && fromNodeMatrixNumber != toNodeMatrixNumber){
             autobahn[fromNodeMatrixNumber][toNodeMatrixNumber] = weight;
         }
     }
 
-    void ausgeben(){
-        int breite = 4;
+    void printOutMartrix(){
+        int width = 4;
         System.out.print("    ");
         for(int i = 0; i < numberOfAddedNodes; i++)
             System.out.print(nodes[i].getId() + "   ");
@@ -60,7 +60,7 @@ public class Graph {
             System.out.print(nodes[i].getId() + "   ");
             for(int j = 0; j < numberOfAddedNodes; j++)
                 if(autobahn[i][j] != -1)
-                    System.out.print((autobahn[i][j]+"   ").substring(0, breite));
+                    System.out.print((autobahn[i][j]+"   ").substring(0, width));
                 else
                     System.out.print("    ");
             System.out.println();

@@ -21,6 +21,6 @@ public class GraphTest {
 
         graph.addEdge(node1, node3, 32);
 
-        graph.ausgeben();
+        graph.printOutMartrix();
     }
 }
