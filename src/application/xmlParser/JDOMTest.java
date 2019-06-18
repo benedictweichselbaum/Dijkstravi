@@ -14,7 +14,12 @@ public class JDOMTest {
 
 
     public static void main(String[] args) {
+        XMLParser xp = new XMLParser();
+        xp.init();
+    }
 
+    @Deprecated
+    public static void quellcodeVonDavor(){
         try {
             File inputFile = new File("german_autobahn.osm");
             SAXBuilder saxBuilder = new SAXBuilder();
@@ -34,10 +39,10 @@ public class JDOMTest {
             int nodes = 0;
             int others = 0;
 
-            for (int i = 0; i < wayList.size(); i++) {
-                Element way = wayList.get(i);
+            for (Element way : wayList) {
+                //Element way = wayList.get(i);
                 //System.out.println("\nAktuelles Element :"
-                       // + way.getName());
+                // + way.getName());
                 if(way.getName().equals("way")) {
                     ways++;
 
@@ -69,7 +74,7 @@ public class JDOMTest {
                     Attribute nodelon =  way.getAttribute("lon");
 
                     // System.out.println("ID: " + nodeid.getValue() + " lat: " + nodelat.getValue() + " lon: " + nodelon.getValue());
-                    }
+                }
                 else
                     others++;
             }
