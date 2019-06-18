@@ -14,7 +14,7 @@ public class JDOMTest {
     public static void main(String[] args) {
 
         try {
-            File inputFile = new File("../german_autobahn.osm");
+            File inputFile = new File("german_autobahn.osm");
             SAXBuilder saxBuilder = new SAXBuilder();
             Document document = saxBuilder.build(inputFile);
             System.out.println("Root element :" + document.getRootElement().getName());
