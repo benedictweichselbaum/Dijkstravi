@@ -40,13 +40,13 @@ public class JDOMTest {
                     ways++;
                 else if(way.getName().equals("node")){
                     nodes++;
-                    if(nodes < 10) {
+
                         Attribute nodeid =  way.getAttribute("id");
                         Attribute nodelat =  way.getAttribute("lat");
                         Attribute nodelon =  way.getAttribute("lon");
 
                         System.out.println("ID: " + nodeid.getValue() + " lat: " + nodelat.getValue() + " lon: " + nodelon.getValue());
-                    }
+
                     }
                 else
                     others++;
