@@ -26,7 +26,7 @@ public class JDOMTest {
             System.out.println("Anzahl Wegpunkte:" + wayList.size());
 
             System.out.println("----------------------------");
-            System.out.println("Erste 10 Einträge");
+            System.out.println("Erste 10 node Einträge");
 
             int ways = 0;
             int nodes = 0;
@@ -38,10 +38,20 @@ public class JDOMTest {
                        // + way.getName());
                 if(way.getName().equals("way"))
                     ways++;
-                else if(way.getName().equals("node"))
+                else if(way.getName().equals("node")){
                     nodes++;
+                    if(nodes < 10) {
+                        Attribute nodeid =  way.getAttribute("id");
+                        Attribute nodelat =  way.getAttribute("lat");
+                        Attribute nodelon =  way.getAttribute("lon");
+
+                        System.out.println("ID: " + nodeid.getValue() + " lat: " + nodelat.getValue() + " lon: " + nodelon.getValue());
+                    }
+                    }
                 else
                     others++;
+
+
             }
             System.out.println("Wege: " + ways + " Knoten: " + nodes + " Andere: " + others);
 
