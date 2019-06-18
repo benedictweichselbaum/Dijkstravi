@@ -8,6 +8,7 @@ import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
+import org.w3c.dom.Attr;
 
 public class JDOMTest {
 
@@ -31,27 +32,47 @@ public class JDOMTest {
             int ways = 0;
             int nodes = 0;
             int others = 0;
+            int motorways = 0;
+            int motorwaylinks = 0;
 
             for (int i = 0; i < wayList.size(); i++) {
                 Element way = wayList.get(i);
                 //System.out.println("\nAktuelles Element :"
                        // + way.getName());
-                if(way.getName().equals("way"))
+                if(way.getName().equals("way")) {
                     ways++;
+
+                    Attribute wayid = way.getAttribute("id");
+                    System.out.println("ID: " + wayid.getValue());
+                    List<Element> ndtagList = way.getChildren();
+                    for (int j = 0; j < ndtagList.size(); j++) {
+                        //System.out.println(j);
+                        Element ndtag = ndtagList.get(j);
+                        if (ndtag.getName().equals("nd")) {
+                            Attribute nd = ndtag.getAttribute("ref");
+                            System.out.println("node " + j + ": " + nd.getValue());
+                        }else if(ndtag.getName().equals("tag")){
+                            Attribute k = ndtag.getAttribute("k");
+                            Attribute v = ndtag.getAttribute("v");
+                            if(k.getValue().equals("highway")) {
+                                System.out.println("Typ: " + v.getValue());
+                            }
+                        }
+                    }
+                    System.out.println("---------------------");
+
+                }
                 else if(way.getName().equals("node")){
                     nodes++;
 
-                        Attribute nodeid =  way.getAttribute("id");
-                        Attribute nodelat =  way.getAttribute("lat");
-                        Attribute nodelon =  way.getAttribute("lon");
+                    Attribute nodeid =  way.getAttribute("id");
+                    Attribute nodelat =  way.getAttribute("lat");
+                    Attribute nodelon =  way.getAttribute("lon");
 
-                        System.out.println("ID: " + nodeid.getValue() + " lat: " + nodelat.getValue() + " lon: " + nodelon.getValue());
-
+                    // System.out.println("ID: " + nodeid.getValue() + " lat: " + nodelat.getValue() + " lon: " + nodelon.getValue());
                     }
                 else
                     others++;
-
-
             }
             System.out.println("Wege: " + ways + " Knoten: " + nodes + " Andere: " + others);
 
