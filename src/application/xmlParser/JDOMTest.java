@@ -33,8 +33,6 @@ public class JDOMTest {
             int ways = 0;
             int nodes = 0;
             int others = 0;
-            int motorways = 0;
-            int motorwaylinks = 0;
 
             for (int i = 0; i < wayList.size(); i++) {
                 Element way = wayList.get(i);
