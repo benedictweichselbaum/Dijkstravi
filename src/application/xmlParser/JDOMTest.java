@@ -12,6 +12,7 @@ import org.w3c.dom.Attr;
 
 public class JDOMTest {
 
+
     public static void main(String[] args) {
 
         try {
