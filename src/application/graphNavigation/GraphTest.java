@@ -19,7 +19,7 @@ public class GraphTest {
         graph.addNode(node5);
         graph.addNode(node6);
 
-        graph.addEdge(node1, node3, 32);
+        graph.addEdge(1, 2, 32);
 
         graph.printOutMartrix();
     }
