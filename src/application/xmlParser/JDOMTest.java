@@ -13,9 +13,21 @@ public class JDOMTest {
 
 
     public static void main(String[] args) {
-        XMLParser xp = new XMLParser();
-        xp.runParser();
+      //  XMLParser xp = new XMLParser();
+       // xp.runParser();
 
+        XMLaltTest xp = new XMLaltTest();
+        xp.init();
+       // -Xmx1024m
+    //arraytest();
+    }
+
+    public static void arraytest(){
+        for (int i = 100000000; i < 2100000000; i += 2000000)
+        {
+            System.out.println(i);
+            double[] d = new double[i];
+        }
     }
 
     @Deprecated

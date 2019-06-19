@@ -164,13 +164,13 @@ public class XMLParser {
 
         graph = new Graph(numberOfNodes, numberOfMotorwayLinkNodes);
 
-        for (Way wayInListOfWays: listOfWays) {
+        /*for (Way wayInListOfWays: listOfWays) {
             graph.addNode(wayInListOfWays.nodes.get(0));
             graph.addNode(wayInListOfWays.nodes.get(wayInListOfWays.nodes.size()-1));
             graph.addEdge(wayInListOfWays.nodes.get(0).getId(),
                     wayInListOfWays.nodes.get(wayInListOfWays.nodes.size()-1).getId(),
                     wayInListOfWays.distance);
-        }
+        }*/
 
         return graph;
     }
