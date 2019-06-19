@@ -22,4 +22,12 @@ public class Node {
     public boolean isLink() {
         return link;
     }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
 }
