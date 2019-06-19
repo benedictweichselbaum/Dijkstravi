@@ -132,6 +132,7 @@ public class XMLParser {
             List<Element> ndTagList = wayToOperateOn.getChildren();
             List<Attribute> nodesInWayByReference = new ArrayList<>();
             boolean motorway_link = false; //true: node is motorway_link; false: node is motorway
+            boolean highway = false;
 
             for (Element ndTag: ndTagList) {
                 if (ndTag.getName().equals("nd")) {
@@ -140,10 +141,14 @@ public class XMLParser {
                 }else if(ndTag.getName().equals("tag")){
                     Attribute k = ndTag.getAttribute("k");
                     Attribute v = ndTag.getAttribute("v");
-                    if(k.getValue().equals("highway") && v.getValue().equals("motorway_link"))
+                    if(k.getValue().equals("highway")) {
+                        highway = true;
+                        if (v.getValue().equals("motorway_link"))
                             motorway_link = true;
+                    }
                 }
             }
+            if (highway)
             listOfWays.add(new Way(createListOfNodesByReference(nodesInWayByReference, nodesInOSM, motorway_link)));
         }
 
