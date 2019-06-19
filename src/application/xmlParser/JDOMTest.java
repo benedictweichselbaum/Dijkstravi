@@ -1,21 +1,21 @@
 package application.xmlParser;
 import java.io.*;
 import java.util.*;
-import org.jdom2.*;
 
+import application.graphNavigation.Graph;
 import org.jdom2.Attribute;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
-import org.w3c.dom.Attr;
 
 public class JDOMTest {
 
 
     public static void main(String[] args) {
         XMLParser xp = new XMLParser();
-        xp.init();
+        xp.runParser();
+
     }
 
     @Deprecated

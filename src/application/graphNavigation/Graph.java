@@ -4,12 +4,16 @@ public class Graph {
 
     private int[][] autobahn;
     private Node[] nodes;
+    private Node[] motorway_linkNodes;
     private int numberOfAddedNodes;
+    private int numberOfAddedMotorwayLinks;
 
-    public Graph(int numberOfNodes) {
+    public Graph(int numberOfNodes, int numberOfMotorway_links) {
         this.autobahn = new int[numberOfNodes][numberOfNodes];
         this.nodes = new Node[numberOfNodes];
+        this.motorway_linkNodes = new Node[numberOfMotorway_links];
         this.numberOfAddedNodes = 0;
+        this.numberOfAddedMotorwayLinks = 0;
     }
 
     int getMatrixNodeNumberById(int id){
@@ -24,7 +28,7 @@ public class Graph {
         return pruefer;
     }
 
-    void addNode(Node node){
+    public void addNode(Node node){
         if(nodes.length > numberOfAddedNodes){
             if(getMatrixNodeNumberById(node.getId()) == -1){
                 nodes[numberOfAddedNodes] = node;
@@ -35,9 +39,14 @@ public class Graph {
                 }
                 numberOfAddedNodes++;
             }
+
+            if (node.link) {
+                motorway_linkNodes[numberOfAddedMotorwayLinks] = node;
+                numberOfAddedMotorwayLinks++;
+            }
         }
     }
-    void addEdge(int from, int to, int weight){
+    public void addEdge(int from, int to, int weight){
         int fromNodeMatrixNumber, toNodeMatrixNumber;
 
         fromNodeMatrixNumber = getMatrixNodeNumberById(from);
@@ -48,7 +57,7 @@ public class Graph {
         }
     }
 
-    void printOutMartrix(){
+    public void printOutMartrix(){
         int width = 4;
         System.out.print("    ");
         for(int i = 0; i < numberOfAddedNodes; i++)

@@ -10,7 +10,7 @@ public class GraphTest {
         Node node5 = new Node(5, false, 12, 13);
         Node node6 = new Node(6, false, 12, 13);
 
-        Graph graph = new Graph(6);
+        Graph graph = new Graph(6, 6);
 
         graph.addNode(node1);
         graph.addNode(node2);

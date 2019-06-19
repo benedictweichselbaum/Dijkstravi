@@ -3,6 +3,7 @@ package application.graphNavigation;
 public class Node {
 
     int id;
+
     boolean link;
     double longitude;
     double latitude;
@@ -16,5 +17,9 @@ public class Node {
 
     public int getId() {
         return id;
+    }
+
+    public boolean isLink() {
+        return link;
     }
 }
