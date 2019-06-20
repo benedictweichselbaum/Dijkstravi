@@ -2,8 +2,8 @@ package application.graphNavigation;
 
 public class Graph {
 
-    private int[][] autobahn;
-    private Node[] nodes;
+    public int[][] autobahn;
+    public Node[] nodes;
     private int numberOfAddedNodes;
 
     public Graph(int numberOfNodes) {
