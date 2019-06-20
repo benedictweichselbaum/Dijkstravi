@@ -1,5 +1,9 @@
 package application.graphNavigation;
 
+import java.util.*;
+
+import static java.util.Map.entry;
+
 public class Dijkstra implements Navigator{
 
 
@@ -15,13 +19,16 @@ public class Dijkstra implements Navigator{
         boolean[] besucht = new boolean[anzahlKnoten];
         int[] distanz = new int[anzahlKnoten];
         int[] kommtVon = new int[anzahlKnoten];
+        // die rot markierten Knoten -> PP
+        Map<Integer, Integer> nodeAndDistance = new HashMap<>();
+        nodeAndDistance.put(startNode, 0);
 
         {
             int knotenNummer, neueDistanz;
             String pfad;
 
             // Vorbereitung
-            for (int i = 0; i < g.nodes.length; i++)
+            for (int i = 0; i < anzahlKnoten; i++)
             {
                 besucht[i]=false;
                 distanz[i]=Integer.MAX_VALUE;
@@ -34,13 +41,16 @@ public class Dijkstra implements Navigator{
             {
                 // der unbesuchte Knoten mit der minimalen Distanz wird zum aktiven Knoten
 
-                knotenNummer = getPosMinNode(anzahlKnoten, besucht, distanz);
+                knotenNummer = getPosMinNode(nodeAndDistance);
+                //knotenNummer = getPosMinNode(anzahlKnoten, besucht, distanz);
+
                 System.out.println("Knoten mit min. Distanz zu Startknoten: " + knoten[knotenNummer].getId());
                 //um nicht zu allen Knoten den kürzesten Weg vom Startknoten aus zu berechnen
                 if(knoten[knotenNummer].getId() == knoten[targetNode].getId()){
                     break;
                 }
                 besucht[knotenNummer] = true;
+                nodeAndDistance.remove(knotenNummer);
 
                 // f�r alle Abzweigungen vom aktiven Knoten zu unbesuchten Knoten
                 for (int abzweigNummer = 0; abzweigNummer < anzahlKnoten; abzweigNummer++)
@@ -58,7 +68,12 @@ public class Dijkstra implements Navigator{
                             // g�nstige Richtung anpassen
                             kommtVon[abzweigNummer] = knotenNummer;
 
+                            nodeAndDistance.put(abzweigNummer, neueDistanz);
+
                             System.out.println("von " + knoten[knotenNummer].getId() + " zu " + knoten[abzweigNummer].getId() + " neue kuerzeste Distanz: " + neueDistanz);
+                        }
+                        else{
+                            nodeAndDistance.put(abzweigNummer, distanz[abzweigNummer]);
                         }
                     }
                 }
@@ -79,7 +94,7 @@ public class Dijkstra implements Navigator{
         }
     }
 
-    private int getPosMinNode(int anzahlKnoten, boolean[] besucht, int[] distanz) {
+    /*private int getPosMinNode(int anzahlKnoten, boolean[] besucht, int[] distanz) {
         int minPos = 0;
         int minWert = Integer.MAX_VALUE;
 
@@ -92,5 +107,16 @@ public class Dijkstra implements Navigator{
             }
         }
         return minPos;
+    }*/
+
+    private int getPosMinNode(Map<Integer, Integer> nodeAndDistance) {
+
+        Map.Entry<Integer, Integer> min = null;
+        for (Map.Entry<Integer, Integer> entry : nodeAndDistance.entrySet()) {
+            if (min == null || min.getValue() > entry.getValue()) {
+                min = entry;
+            }
+        }
+        return min.getKey();
     }
 }
