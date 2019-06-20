@@ -1,5 +1,6 @@
 package application.graphNavigation;
 
+//needed for BellmanFord
 class Edge {
 
     private int src;
