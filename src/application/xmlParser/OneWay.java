@@ -12,10 +12,12 @@ import org.jdom2.input.SAXBuilder;
 public class OneWay {
     ArrayList<Attribute> nodeList;
     boolean motorway_link;
+    long id;
 
-    public OneWay(ArrayList<Attribute> list, boolean ismw_link){
+    public OneWay(long wayID, ArrayList<Attribute> list, boolean ismw_link){
         nodeList = list;
         motorway_link = ismw_link;
+        id = wayID;
     }
 
     public int getLength(){
@@ -36,5 +38,13 @@ public class OneWay {
         }catch (Exception e){
             return 0;
         }
+    }
+
+    public ArrayList<Attribute> getListofIDsOfNodes (){
+        return  nodeList;
+    }
+
+    public long getID(){
+        return  id;
     }
 }

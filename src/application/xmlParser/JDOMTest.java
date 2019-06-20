@@ -18,16 +18,6 @@ public class JDOMTest {
 
         XMLaltTest xp = new XMLaltTest();
         xp.init();
-       // -Xmx1024m
-    //arraytest();
-    }
-
-    public static void arraytest(){
-        for (int i = 100000000; i < 2100000000; i += 2000000)
-        {
-            System.out.println(i);
-            double[] d = new double[i];
-        }
     }
 
     @Deprecated
