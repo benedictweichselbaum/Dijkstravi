@@ -29,6 +29,8 @@ public class NavigatorAlgorithmsTests {
         graph.addNode(node9);
 
         graph.addEdge(1, 2, 2);
+
+        //irgendwelche Kanten nicht von Uhl
         graph.addEdge(1, 7, 15);
         graph.addEdge(1, 6, 9);
         graph.addEdge(2, 1, 2);
@@ -59,9 +61,9 @@ public class NavigatorAlgorithmsTests {
         graph.addEdge(9, 7, 2);
         graph.addEdge(9, 8, 4);
 
-        graph.printOutMartrix();
+        graph.printOutMatrix();
 
-        Navigator navigator = new Dijkstra();
-        navigator.calculateShortestWay(graph, 1, 4);
+        Navigator navigator = new BellmanFord();
+        navigator.calculateShortestWay(graph, 1, 5);
     }
 }
