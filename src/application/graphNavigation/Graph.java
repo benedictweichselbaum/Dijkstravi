@@ -10,8 +10,8 @@ public class Graph {
 
     public Graph(int numberOfNodes, int numberOfMotorway_links) {
         this.autobahn = new int[numberOfNodes][numberOfNodes];
-        this.nodes = new Node[numberOfNodes];
-        this.motorway_linkNodes = new Node[numberOfMotorway_links];
+       // this.nodes = new Node[numberOfNodes];
+      //  this.motorway_linkNodes = new Node[numberOfMotorway_links];
         this.numberOfAddedNodes = 0;
         this.numberOfAddedMotorwayLinks = 0;
     }
@@ -30,7 +30,7 @@ public class Graph {
 
     public void addNode(Node node){
         if(nodes.length > numberOfAddedNodes){
-            if(getMatrixNodeNumberById(node.getId()) == -1){
+            if(true){//getMatrixNodeNumberById(node.getId()) == -1){
                 nodes[numberOfAddedNodes] = node;
                 autobahn[numberOfAddedNodes][numberOfAddedNodes] = 0;
                 for(int i = 0; i < numberOfAddedNodes; i++){
