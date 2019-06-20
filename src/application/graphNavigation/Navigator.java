@@ -1,5 +1,5 @@
 package application.graphNavigation;
 
 public interface Navigator {
-    void calculateShortestWay(Graph g, int startNode, int targetNode);
+    void calculateShortestWay(Graph g, long startNode, long targetNode);
 }

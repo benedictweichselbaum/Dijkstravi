@@ -12,7 +12,7 @@ public class Graph {
         this.numberOfAddedNodes = 0;
     }
 
-    int getMatrixNodeNumberById(int id){
+    int getMatrixNodeNumberById(long id){
         int pruefer = -1;
         for(int i = 0; i < numberOfAddedNodes; i++){
             if(nodes[i] == null){

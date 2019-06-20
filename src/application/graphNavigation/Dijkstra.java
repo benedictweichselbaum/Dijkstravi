@@ -2,114 +2,106 @@ package application.graphNavigation;
 
 import java.util.*;
 
-import static java.util.Map.entry;
-
 public class Dijkstra implements Navigator{
 
+    private Node[] nodes;
+    private int[][] autobahn;
 
-    public void calculateShortestWay(Graph g, int startNode, int targetNode){
+    private int startNode;
+    private int targetNode;
 
-        startNode = g.getMatrixNodeNumberById(startNode);
-        targetNode = g.getMatrixNodeNumberById(targetNode);
+    private int numberOfNodes;
+    private boolean[] visited;
+    private int[] distance;
+    private int[] predecessor;
+    private Map<Integer, Integer> nodeAndDistance;
 
-        int anzahlKnoten = g.nodes.length;
 
-        Node[] knoten = g.nodes;
-        int[][] matrix = g.autobahn;
-        boolean[] besucht = new boolean[anzahlKnoten];
-        int[] distanz = new int[anzahlKnoten];
-        int[] kommtVon = new int[anzahlKnoten];
+    private void init(Graph g, long startNodeId, long targetNodeId) {
+        nodes = g.nodes;
+        autobahn = g.autobahn;
+
+        startNode = g.getMatrixNodeNumberById(startNodeId);
+        targetNode = g.getMatrixNodeNumberById(targetNodeId);
+
+        numberOfNodes = nodes.length;
+        visited = new boolean[numberOfNodes];
+        distance = new int[numberOfNodes];
+        predecessor = new int[numberOfNodes];
+
         // die rot markierten Knoten -> PP
-        Map<Integer, Integer> nodeAndDistance = new HashMap<>();
+        nodeAndDistance = new HashMap<>();
         nodeAndDistance.put(startNode, 0);
-
-        {
-            int knotenNummer, neueDistanz;
-            String pfad;
-
-            // Vorbereitung
-            for (int i = 0; i < anzahlKnoten; i++)
-            {
-                besucht[i]=false;
-                distanz[i]=Integer.MAX_VALUE;
-            }
-            distanz[startNode] = 0;
-            kommtVon[startNode] = startNode;
-
-            // wiederhole bis alle Knoten besucht sind
-            for (int i=0; i<anzahlKnoten; i++)
-            {
-                // der unbesuchte Knoten mit der minimalen Distanz wird zum aktiven Knoten
-
-                knotenNummer = getPosMinNode(nodeAndDistance);
-                //knotenNummer = getPosMinNode(anzahlKnoten, besucht, distanz);
-
-                System.out.println("Knoten mit min. Distanz zu Startknoten: " + knoten[knotenNummer].getId());
-                //um nicht zu allen Knoten den kürzesten Weg vom Startknoten aus zu berechnen
-                if(knoten[knotenNummer].getId() == knoten[targetNode].getId()){
-                    break;
-                }
-                besucht[knotenNummer] = true;
-                nodeAndDistance.remove(knotenNummer);
-
-                // f�r alle Abzweigungen vom aktiven Knoten zu unbesuchten Knoten
-                for (int abzweigNummer = 0; abzweigNummer < anzahlKnoten; abzweigNummer++)
-                {
-                    if ((matrix[knotenNummer][abzweigNummer] > -1) && (!besucht[abzweigNummer]))
-                    {
-                        // die Distanz f�r den Weg �ber den aktiven Knoten berechnen
-                        neueDistanz = distanz[knotenNummer] + matrix[knotenNummer][abzweigNummer];
-
-                        // wenn diese Distanz kleiner ist als die des Knoten
-                        if (neueDistanz < distanz[abzweigNummer])
-                        {
-                            // Distanz anpassen
-                            distanz[abzweigNummer] = neueDistanz;
-                            // g�nstige Richtung anpassen
-                            kommtVon[abzweigNummer] = knotenNummer;
-
-                            nodeAndDistance.put(abzweigNummer, neueDistanz);
-
-                            System.out.println("von " + knoten[knotenNummer].getId() + " zu " + knoten[abzweigNummer].getId() + " neue kuerzeste Distanz: " + neueDistanz);
-                        }
-                        else{
-                            nodeAndDistance.put(abzweigNummer, distanz[abzweigNummer]);
-                        }
-                    }
-                }
-            }
-
-            // Fertig! Die Entfernung ausgeben
-            System.out.println("Entfernung: " + distanz[targetNode]);
-
-            // Den Pfad des k�rzesten Weges r�ckw�rts, beim Ziel beginnend ausgeben
-            pfad = String.valueOf(knoten[targetNode].getId());
-            knotenNummer = targetNode;
-            while (knotenNummer != startNode)
-            {
-                knotenNummer = kommtVon[knotenNummer];
-                pfad = knoten[knotenNummer].getId() + "/" + pfad;
-            }
-            System.out.println("Weg: " + pfad);
-        }
     }
 
-    /*private int getPosMinNode(int anzahlKnoten, boolean[] besucht, int[] distanz) {
-        int minPos = 0;
-        int minWert = Integer.MAX_VALUE;
+    public void calculateShortestWay(Graph g, long startNodeId, long targetNodeId){
 
-        for (int i=0; i<anzahlKnoten; i++)
+        int nodeNumber, newDistance;
+
+        init(g, startNodeId, targetNodeId);
+
+        for (int i = 0; i < numberOfNodes; i++) {
+            visited[i] = false;
+            distance[i] = Integer.MAX_VALUE;
+        }
+        distance[startNode] = 0;
+        predecessor[startNode] = startNode;
+
+        // wiederhole bis alle Knoten besucht sind / Zielknoten besucht ist
+        for (int i = 0; i < numberOfNodes; i++)
         {
-            if (!besucht[i] && (minWert > distanz[i]))
+            nodeNumber = getPositionOfUnvisitedNodeWithShortestDistance(nodeAndDistance);
+
+            System.out.println("Knoten mit min. Distanz zu Startknoten: " + nodes[nodeNumber].getId());
+            //um nicht zu allen Knoten den kürzesten Weg vom Startknoten aus zu berechnen
+            if(nodes[nodeNumber].getId() == nodes[targetNode].getId()){
+                break;
+            }
+            visited[nodeNumber] = true;
+            nodeAndDistance.remove(nodeNumber);
+
+            for (int neighboringNode = 0; neighboringNode < numberOfNodes; neighboringNode++)
             {
-                minWert = distanz[i];
-                minPos = i;
+                if ((autobahn[nodeNumber][neighboringNode] > -1) && (!visited[neighboringNode]))
+                {
+                    newDistance = distance[nodeNumber] + autobahn[nodeNumber][neighboringNode];
+
+                    if (newDistance < distance[neighboringNode])
+                    {
+                        distance[neighboringNode] = newDistance;
+                        predecessor[neighboringNode] = nodeNumber;
+
+                        nodeAndDistance.put(neighboringNode, newDistance);
+
+                        System.out.println("von " + nodes[nodeNumber].getId() + " zu " + nodes[neighboringNode].getId() + " neue kuerzeste Distanz: " + newDistance);
+                    }
+                    else{
+                        nodeAndDistance.put(neighboringNode, distance[neighboringNode]);
+                    }
+
+                }
             }
         }
-        return minPos;
-    }*/
 
-    private int getPosMinNode(Map<Integer, Integer> nodeAndDistance) {
+        output();
+    }
+
+    private void output() {
+        int nodeNumber;
+        System.out.println("Entfernung: " + distance[targetNode]);
+
+        String pfad;
+        pfad = String.valueOf(nodes[targetNode].getId());
+        nodeNumber = targetNode;
+        while (nodeNumber != startNode)
+        {
+            nodeNumber = predecessor[nodeNumber];
+            pfad = nodes[nodeNumber].getId() + "/" + pfad;
+        }
+        System.out.println("Weg: " + pfad);
+    }
+
+    private int getPositionOfUnvisitedNodeWithShortestDistance(Map<Integer, Integer> nodeAndDistance) {
 
         Map.Entry<Integer, Integer> min = null;
         for (Map.Entry<Integer, Integer> entry : nodeAndDistance.entrySet()) {
