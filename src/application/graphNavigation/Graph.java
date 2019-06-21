@@ -1,15 +1,25 @@
 package application.graphNavigation;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class Graph {
 
-    public int[][] autobahn;
-    public Node[] nodes;
+    int[][] autobahn;
+    Node[] nodes;
+    private List<Edge> edges;
     private int numberOfAddedNodes;
+    private int numberOfAddedEdges;
 
     public Graph(int numberOfNodes) {
         this.autobahn = new int[numberOfNodes][numberOfNodes];
         this.nodes = new Node[numberOfNodes];
+        edges=new LinkedList<>();
         this.numberOfAddedNodes = 0;
+    }
+
+    Edge[] getEdges() {
+        return edges.toArray(Edge[]::new);
     }
 
     int getMatrixNodeNumberById(long id){
@@ -23,6 +33,20 @@ public class Graph {
         }
         return pruefer;
     }
+
+    /*
+    * read out the Id of the NodeNumber in the matrix, not working, but is needed later
+    long getIdByMatrixNodeNumber(int nodeNumber){
+        long pruefer = -1;
+        for(int i = 0; i < numberOfAddedNodes; i++){
+            if(nodes[i] == null){
+
+            }else if(nodes[i].getId() == id){
+                pruefer = i;
+            }
+        }
+        return pruefer;
+    }*/
 
     void addNode(Node node){
         if(nodes.length > numberOfAddedNodes){
@@ -45,10 +69,13 @@ public class Graph {
 
         if(fromNodeMatrixNumber != -1 && toNodeMatrixNumber != -1 && fromNodeMatrixNumber != toNodeMatrixNumber){
             autobahn[fromNodeMatrixNumber][toNodeMatrixNumber] = weight;
+            Edge edge=new Edge(fromNodeMatrixNumber,toNodeMatrixNumber,weight);
+            edges.add(edge);
         }
     }
 
-    void printOutMartrix(){
+
+    void printOutMatrix(){
         int width = 4;
         System.out.print("    ");
         for(int i = 0; i < numberOfAddedNodes; i++)

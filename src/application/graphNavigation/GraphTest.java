@@ -19,8 +19,8 @@ public class GraphTest {
         graph.addNode(node5);
         graph.addNode(node6);
 
-        graph.addEdge(1, 2, 32);
+        graph.addEdge(1, 2, 2);
 
-        graph.printOutMartrix();
+        graph.printOutMatrix();
     }
 }
