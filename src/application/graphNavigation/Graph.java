@@ -1,69 +1,46 @@
 package application.graphNavigation;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class Graph {
 
-    private int[][] autobahn;
-    private Node[] nodes;
-    private int numberOfAddedNodes;
+    ArrayList<Node> autobahn = new ArrayList<>();
+    HashMap<Integer, ArrayList<Connection>> links = new HashMap<>();
 
-    public Graph(int numberOfNodes) {
-        this.autobahn = new int[numberOfNodes][numberOfNodes];
-        this.nodes = new Node[numberOfNodes];
-        this.numberOfAddedNodes = 0;
+    public void addNodesSorted(Node nd){
+        autobahn.add(nd);
+        links.put(nd.getId(), new ArrayList<>());
     }
 
-    int getMatrixNodeNumberById(int id){
-        int pruefer = -1;
-        for(int i = 0; i < numberOfAddedNodes; i++){
-            if(nodes[i] == null){
+    public void addEdge(int start, int end, int length, int maxspeed, String name, String destination){
+        if(start <= autobahn.size() && end <= autobahn.size()){
+            ArrayList<Connection> al = links.get(start);
+            al.add(new Connection(end, length,false, maxspeed, name, destination));
+            links.put(start, al);
+        }else{
+            System.out.println("Liste war wohl zu kurz");
+        }
+    }
 
-            }else if(nodes[i].getId() == id){
-                pruefer = i;
+    public ArrayList<Connection> getAllConnectionsOfNode(int id){
+        return links.get(id);
+    }
+
+    public int getAmountOfNodes(){
+        return autobahn.size();
+    }
+
+    public ArrayList<ArrayList<Integer>> getListOfAllEdges(){
+        ArrayList<ArrayList<Integer>> list = new ArrayList<>();
+        for(int i = 0; i < autobahn.size(); i++){
+            ArrayList<Integer> listOfAims = new ArrayList<>();
+            for(Connection c: links.get(i)){
+                listOfAims.add(c.aim);
             }
+            list.add(listOfAims);
         }
-        return pruefer;
+        return list;
     }
 
-    void addNode(Node node){
-        if(nodes.length > numberOfAddedNodes){
-            if(getMatrixNodeNumberById(node.getId()) == -1){
-                nodes[numberOfAddedNodes] = node;
-                autobahn[numberOfAddedNodes][numberOfAddedNodes] = 0;
-                for(int i = 0; i < numberOfAddedNodes; i++){
-                    autobahn[i][numberOfAddedNodes] = -1;
-                    autobahn[numberOfAddedNodes][i] = -1;
-                }
-                numberOfAddedNodes++;
-            }
-        }
-    }
-    void addEdge(int from, int to, int weight){
-        int fromNodeMatrixNumber, toNodeMatrixNumber;
-
-        fromNodeMatrixNumber = getMatrixNodeNumberById(from);
-        toNodeMatrixNumber = getMatrixNodeNumberById(to);
-
-        if(fromNodeMatrixNumber != -1 && toNodeMatrixNumber != -1 && fromNodeMatrixNumber != toNodeMatrixNumber){
-            autobahn[fromNodeMatrixNumber][toNodeMatrixNumber] = weight;
-        }
-    }
-
-    void printOutMartrix(){
-        int width = 4;
-        System.out.print("    ");
-        for(int i = 0; i < numberOfAddedNodes; i++)
-            System.out.print(nodes[i].getId() + "   ");
-
-        System.out.println();
-
-        for(int i = 0; i < numberOfAddedNodes; i++){
-            System.out.print(nodes[i].getId() + "   ");
-            for(int j = 0; j < numberOfAddedNodes; j++)
-                if(autobahn[i][j] != -1)
-                    System.out.print((autobahn[i][j]+"   ").substring(0, width));
-                else
-                    System.out.print("    ");
-            System.out.println();
-        }
-    }
 }
