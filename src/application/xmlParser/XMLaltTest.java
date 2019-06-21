@@ -20,6 +20,8 @@ public class XMLaltTest {
     HashMap<Long, Double> hmaplat = new HashMap<>();
     List<OneWay> OneWayList = new ArrayList<>();
 
+    private double progress = 0;
+
 
     public void init(){
         try {
@@ -53,7 +55,9 @@ public class XMLaltTest {
     }
 
     private void saveXML(List<Element> list){
+        double singleProgessUnit = 0.25 / list.size();
         for (Element el : list) {
+            progress = progress + singleProgessUnit;
             if(el.getName().equals("way")) {
                 try {
                     long wayid = el.getAttribute("id").getLongValue();
@@ -131,15 +135,18 @@ public class XMLaltTest {
         System.out.println("Graph erstellt. Füge jetzt die Knoten ein.");
 
         HashMap<Long, Integer> newID = new HashMap<>();
-
+        double singleProgessUnit = 0.25 / allNeededNodes.size();
         for(int i = 0; i < allNeededNodes.size(); i++){
+            progress = progress + singleProgessUnit;
             gr2.addNodesSorted(createNode2(i,allNeededNodes.get(i)));
             newID.put(allNeededNodes.get(i),i);
         }
 
         System.out.println("Alle Knoten eingefügt. Füge jetzt die Wege ein.");
 
+        singleProgessUnit = 0.25 / wayList.size();
         for(OneWay ow : wayList){
+            progress = progress + singleProgessUnit;
             ArrayList<Attribute> nodeIDList = ow.getListOfIDsOfNodes();
             List<Node> nodeList = new ArrayList<>();
             try {
@@ -166,7 +173,9 @@ public class XMLaltTest {
     public ArrayList<Long> createListOfAllNeededNodes(List<OneWay> wayList){
 
         ArrayList<Long> nodeIDs = new ArrayList<>();
+        double singleProgressUnit = 0.25 / wayList.size();
         for(OneWay ow : wayList) {
+            progress = progress + singleProgressUnit;
             Long first = ow.getFirst();
             Long last = ow.getLast();
             boolean firstnew = true;
@@ -187,4 +196,10 @@ public class XMLaltTest {
 
         return nodeIDs;
     }
+
+
+    public double getProgress() {
+        return progress;
+    }
+
 }
