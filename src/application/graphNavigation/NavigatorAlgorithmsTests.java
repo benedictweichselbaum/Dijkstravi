@@ -61,7 +61,38 @@ public class NavigatorAlgorithmsTests {
 
         graph.printOutMartrix();
 
-        Navigator navigator = new Dijkstra();
-        navigator.calculateShortestWay(graph, 1, 4);
+        System.out.println("Dijkstrvigator:");
+        Navigator dijkstrvigator = new DijkstraOrAStar("Dijkstra");
+        dijkstrvigator.calculateShortestWay(graph, 1, 4);
+
+
+        System.out.println("  ");
+
+        Node muenchen = new Node(1, true, 48.140235, 11.560985);
+        Node ingolstadt = new Node(2, true, 48.765942, 11.425247);
+        Node landshut = new Node(3, true, 48.547067, 12.142666);
+        Node nuernberg = new Node(4, true, 49.446800, 11.078967);
+
+        Graph gRoad = new Graph(4);
+
+        gRoad.addNode(muenchen);
+        gRoad.addNode(ingolstadt);
+        gRoad.addNode(landshut);
+        gRoad.addNode(nuernberg);
+
+        gRoad.addEdge(1, 2, 84100);
+        gRoad.addEdge(2, 1, 84100);
+        gRoad.addEdge(2, 4, 94300);
+        gRoad.addEdge(4, 2, 94300);
+        gRoad.addEdge(1, 3, 76600);
+        gRoad.addEdge(3, 1, 76600);
+        gRoad.addEdge(3, 4, 159000);
+        gRoad.addEdge(4, 3, 159000);
+
+        gRoad.printOutMartrix();
+
+        System.out.println("AStarigator:");
+        Navigator aStarigator = new DijkstraOrAStar("AStar");
+        aStarigator.calculateShortestWay(gRoad, 1, 4);
     }
 }

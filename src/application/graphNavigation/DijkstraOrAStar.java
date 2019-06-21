@@ -2,7 +2,7 @@ package application.graphNavigation;
 
 import java.util.*;
 
-public class Dijkstra implements Navigator{
+public class DijkstraOrAStar implements Navigator{
 
     private Node[] nodes;
     private int[][] autobahn;
@@ -10,11 +10,18 @@ public class Dijkstra implements Navigator{
     private int startNode;
     private int targetNode;
 
+    private String typeOfAlgorithm;
     private int numberOfNodes;
     private boolean[] visited;
     private int[] distance;
     private int[] predecessor;
     private Map<Integer, Integer> nodeAndDistance;
+
+    public DijkstraOrAStar(String typeOfAlgorithm){
+        //Dijkstra
+        //AStar
+        this.typeOfAlgorithm = typeOfAlgorithm;
+    }
 
 
     private void init(Graph g, long startNodeId, long targetNodeId) {
@@ -36,9 +43,12 @@ public class Dijkstra implements Navigator{
 
     public void calculateShortestWay(Graph g, long startNodeId, long targetNodeId){
 
-        int nodeNumber, newDistance;
+        int nodeNumber;
 
         init(g, startNodeId, targetNodeId);
+
+        double latTargetNode = nodes[targetNode].latitude;
+        double lngTargetNode = nodes[targetNode].longitude;
 
         for (int i = 0; i < numberOfNodes; i++) {
             visited[i] = false;
@@ -60,10 +70,21 @@ public class Dijkstra implements Navigator{
             visited[nodeNumber] = true;
             nodeAndDistance.remove(nodeNumber);
 
+
+            int newDistance;
+            int predictedDistance;
             for (int neighboringNode = 0; neighboringNode < numberOfNodes; neighboringNode++)
             {
                 if ((autobahn[nodeNumber][neighboringNode] > -1) && (!visited[neighboringNode]))
                 {
+                    if(typeOfAlgorithm.equals("Dijkstra")) {
+                        predictedDistance = 0;
+                    }
+                    else{
+                        //predictedDistance: prognostizierte Distanz vom Nachbarknoten zum Zielknoten
+                        predictedDistance = DistanceCalculator.distance(latTargetNode, lngTargetNode, nodes[neighboringNode].latitude, nodes[neighboringNode].longitude);
+                        System.out.println("Luftlinie von Knoten " + nodes[neighboringNode].getId() + " bis Zielknoten: " +predictedDistance);
+                    }
                     newDistance = distance[nodeNumber] + autobahn[nodeNumber][neighboringNode];
 
                     if (newDistance < distance[neighboringNode])
@@ -71,14 +92,10 @@ public class Dijkstra implements Navigator{
                         distance[neighboringNode] = newDistance;
                         predecessor[neighboringNode] = nodeNumber;
 
-                        nodeAndDistance.put(neighboringNode, newDistance);
+                        nodeAndDistance.put(neighboringNode, (newDistance + predictedDistance));
 
                         System.out.println("von " + nodes[nodeNumber].getId() + " zu " + nodes[neighboringNode].getId() + " neue kuerzeste Distanz: " + newDistance);
                     }
-                    else{
-                        nodeAndDistance.put(neighboringNode, distance[neighboringNode]);
-                    }
-
                 }
             }
         }
