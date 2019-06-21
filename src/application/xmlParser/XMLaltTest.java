@@ -24,6 +24,7 @@ public class XMLaltTest {
 
     public void init(){
         try {
+            System.out.println("Lade die XML.");
             File inputFile = new File("german_autobahn.osm");
             SAXBuilder saxBuilder = new SAXBuilder();
             Document document = saxBuilder.build(inputFile);
@@ -31,6 +32,7 @@ public class XMLaltTest {
 
             List<Element> wayList = classElement.getChildren();
 
+            System.out.println("Starte mit Auslesen der XML.");
             saveXML(wayList);
             System.out.println("XML ausgelesen. Beginne nun Auswertung der Daten.");
             wayInsertion(OneWayList);
@@ -44,7 +46,7 @@ public class XMLaltTest {
     private Node createNode(long node)
     {
       //  Node nd = new Node(node, false, knoten[node][1], knoten[node][0]);
-        Node nd = new Node(node, false, hmaplon.get(node), hmaplat.get(node));
+        Node nd = new Node(hmaplon.get(node), hmaplat.get(node));
         return nd;
     }
 
@@ -93,7 +95,7 @@ public class XMLaltTest {
                                         maxspeed = v.getIntValue();
                                     }catch (Exception e){
                                         maxspeed = -4;
-                                        System.out.println("Error! Maxspeed: " + v.getValue());
+                                        //System.out.println("Error! Maxspeed: " + v.getValue());
                                     }
                                 }
 
@@ -127,7 +129,8 @@ public class XMLaltTest {
         int z = 0;
         System.out.println("Anzahl der Wege: " + wayList.size() + " Ermittle jetzt die Anzahl der relevanten Knoten.");
 
-        ArrayList<Long> allNeededNodes = createListOfAllNeededNodes(wayList);
+        //ArrayList<Long> allNeededNodes = createListOfAllNeededNodes(wayList);
+        ArrayList<Long> allNeededNodes = createListOfAllNeededNodesSpeed(wayList);
        System.out.println("Es werden " + allNeededNodes.size() + " Knoten benötigt. Erstelle jetzt den Graphen.");
 
         gr2 = new Graph2();
@@ -160,13 +163,13 @@ public class XMLaltTest {
             int length = exactLength.intValue();
 
             gr2.addEdge(newID.get(ow.getFirst()), newID.get(ow.getLast()), length, ow.maxspeed, ow.name, ow.destinaton);
-
+/*
             z++;
             if(z % 1000 == 0 || z < 20)
             System.out.println(z + ". Weg (" + ow.name + ") + mit Länge " + length + " Meter, Maximalgeschwindigkeit " + ow.maxspeed + " km/h in Richtung " + ow.destinaton + " erstellt.");
-
+*/
         }
-        System.out.println("Der Graph ist FERTIG!'");
+        System.out.println("Der Graph ist FERTIG!");
     }
 
     public ArrayList<Long> createListOfAllNeededNodes(List<OneWay> wayList){
@@ -196,6 +199,18 @@ public class XMLaltTest {
         return nodeIDs;
     }
 
+    public ArrayList<Long> createListOfAllNeededNodesSpeed(List<OneWay> wayList){
+        HashMap<Long,Boolean> nodeIDsMap = new HashMap<>();
+        double singleProgressUnit = 0.25 / wayList.size();
+        for(OneWay ow : wayList) {
+            progress = progress + singleProgressUnit;
+            nodeIDsMap.put(ow.getFirst(), true);
+            nodeIDsMap.put(ow.getLast(), true);
+        }
+        ArrayList<Long> nodeIDs = new ArrayList<>();
+        nodeIDsMap.forEach((l,b) -> nodeIDs.add(l));
+        return  nodeIDs;
+    }
 
     public double getProgress() {
         return progress;

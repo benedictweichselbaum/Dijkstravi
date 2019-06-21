@@ -33,10 +33,10 @@ public class DistanceCalculator {
     }
 
     public static void main (String... args) {
-        Node n1 = new Node(1, false, 11.2425042, 49.1980249);
-        Node n2 = new Node(2, false, 11.2413157, 49.1993888);
-        Node n3 = new Node(3, false, 11.2376436, 49.2037429);
-        Node n4 = new Node(4, false, 11.2354029, 49.2063958);
+        Node n1 = new Node(11.2425042, 49.1980249);
+        Node n2 = new Node(11.2413157, 49.1993888);
+        Node n3 = new Node(11.2376436, 49.2037429);
+        Node n4 = new Node(11.2354029, 49.2063958);
 
         List<Node> nodeList = new ArrayList<>();
         nodeList.add(n1);
