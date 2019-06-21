@@ -62,7 +62,7 @@ public class DijkstraOrAStar implements Navigator{
         {
             nodeNumber = getPositionOfUnvisitedNodeWithShortestDistance(nodeAndDistance);
 
-            System.out.println("Knoten mit min. Distanz zu Startknoten: " + nodes[nodeNumber].getId());
+            System.out.println("Knoten mit min. Distanz: " + nodes[nodeNumber].getId());
             //um nicht zu allen Knoten den kürzesten Weg vom Startknoten aus zu berechnen
             if(nodes[nodeNumber].getId() == nodes[targetNode].getId()){
                 break;
@@ -105,7 +105,9 @@ public class DijkstraOrAStar implements Navigator{
 
     private void output() {
         int nodeNumber;
-        System.out.println("Entfernung: " + distance[targetNode]);
+        double totalDistance = ((double)distance[targetNode]/1000);
+        System.out.println("Entfernung: " + distance[targetNode] + "m");
+        System.out.println("Entfernung: " + totalDistance + "km");
 
         String pfad;
         pfad = String.valueOf(nodes[targetNode].getId());

@@ -74,7 +74,7 @@ public class NavigatorAlgorithmsTests {
         graph.addEdge(10, 12, 2);
         graph.addEdge(12, 11, 4);
 
-        graph.printOutMartrix();
+        graph.printOutMatrix();
 
         System.out.println("  ");
 
@@ -114,7 +114,9 @@ public class NavigatorAlgorithmsTests {
         gRoad.addEdge(3, 4, 159000);
         gRoad.addEdge(4, 3, 159000);
 
-        gRoad.printOutMartrix();
+        gRoad.printOutMatrix();
+
+        System.out.println("  ");
 
         System.out.println("AStarigator:");
         Navigator aStarigator = new DijkstraOrAStar("AStar");
