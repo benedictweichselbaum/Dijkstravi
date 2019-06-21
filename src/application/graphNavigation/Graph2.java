@@ -13,10 +13,10 @@ public class Graph2 {
         links.put(nd.getId(), new ArrayList<>());
     }
 
-    public void addEdge(int start, int end, int length){
+    public void addEdge(int start, int end, int length, int maxspeed, String name, String destination){
         if(start <= autobahn.size() && end <= autobahn.size()){
             ArrayList<Connection> al = links.get(start);
-            al.add(new Connection(end, length,false, 130, "Beispielautobahn"));
+            al.add(new Connection(end, length,false, maxspeed, name, destination));
             links.put(start, al);
         }else{
             System.out.println("Liste war wohl zu kurz");
@@ -25,6 +25,10 @@ public class Graph2 {
 
     public ArrayList<Connection> getAllConnectionsOfNode(int id){
         return links.get(id);
+    }
+
+    public int getAmountOfNodes(){
+        return autobahn.size();
     }
 
 }

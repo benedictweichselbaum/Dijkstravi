@@ -61,6 +61,9 @@ public class XMLaltTest {
                     ArrayList<Attribute> nodes = new ArrayList<Attribute>();
                     boolean motorway_link = false; //true: node is motorway_link; false: node is motorway
                     boolean ishighway = false;
+                    String name = "";
+                    String destination = "";
+                    int maxspeed = -2;
 
                     for (Element ndtag : ndtagList) {
                         if (ndtag.getName().equals("nd")) {
@@ -73,12 +76,31 @@ public class XMLaltTest {
                                 ishighway = true;
                                 if (v.getValue().equals("motorway_link"))
                                     motorway_link = true;
+                            }else if(k.getValue().equals("ref"))
+                                name = v.getValue();
+                            else if(k.getValue().equals("destination"))
+                                destination = v.getValue();
+                            else if(k.getValue().equals("maxspeed")){
+                                if(v.getValue().equals("none"))
+                                    maxspeed = -1;
+                                else if(v.getValue().equals("signals") || v.getValue().equals("variable"))
+                                    maxspeed = -3;
+                                else{
+                                    try{
+                                        maxspeed = v.getIntValue();
+                                    }catch (Exception e){
+                                        maxspeed = -4;
+                                        System.out.println("Error! Maxspeed: " + v.getValue());
+                                    }
+                                }
+
                             }
+
                         }
                     }
 
                     if (ishighway) {
-                        OneWay ow = new OneWay(wayid ,nodes, motorway_link);
+                        OneWay ow = new OneWay(wayid ,nodes, motorway_link, maxspeed, name, destination);
                         OneWayList.add(ow);
                     }
                 }catch (Exception e){
@@ -130,7 +152,7 @@ public class XMLaltTest {
             createNode(ow.getLast());
             */
 
-            ArrayList<Attribute> nodeIDList = ow.getListofIDsOfNodes();
+            ArrayList<Attribute> nodeIDList = ow.getListOfIDsOfNodes();
             List<Node> nodeList = new ArrayList<>();
             try {
                 for (Attribute a: nodeIDList) {
@@ -143,11 +165,11 @@ public class XMLaltTest {
             Double exactLength = DistanceCalculator.calculateDistanceFromListOfNodes(nodeList);
             int length = exactLength.intValue();
 
-            gr2.addEdge(newID.get(ow.getFirst()), newID.get(ow.getLast()), length);
+            gr2.addEdge(newID.get(ow.getFirst()), newID.get(ow.getLast()), length, ow.maxspeed, ow.name, ow.destinaton);
 
             z++;
             if(z % 1000 == 0 || z < 20)
-            System.out.println(z + ". Weg mit Länge " + length + " Meter erstellt.");
+            System.out.println(z + ". Weg (" + ow.name + ") + mit Länge " + length + " Meter, Maximalgeschwindigkeit " + ow.maxspeed + " km/h in Richtung " + ow.destinaton + " erstellt.");
 
         }
         System.out.println("Der Graph ist FERTIG!'");
