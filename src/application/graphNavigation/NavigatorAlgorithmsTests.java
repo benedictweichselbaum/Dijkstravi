@@ -16,7 +16,12 @@ public class NavigatorAlgorithmsTests {
         Node node8 = new Node(8, true, 12, 13);
         Node node9 = new Node(9, true, 12, 13);
 
-        Graph graph = new Graph(9);
+        Node node10 = new Node(10, true, 12, 13);
+        Node node11 = new Node(11, true, 12, 13);
+        Node node12 = new Node(12, true, 12, 13);
+        Node node13 = new Node(13, true, 12, 13);
+
+        Graph graph = new Graph(13);
 
         graph.addNode(node1);
         graph.addNode(node2);
@@ -27,6 +32,11 @@ public class NavigatorAlgorithmsTests {
         graph.addNode(node7);
         graph.addNode(node8);
         graph.addNode(node9);
+
+        graph.addNode(node10);
+        graph.addNode(node11);
+        graph.addNode(node12);
+        graph.addNode(node13);
 
         graph.addEdge(1, 2, 2);
 
@@ -61,9 +71,13 @@ public class NavigatorAlgorithmsTests {
         graph.addEdge(9, 7, 2);
         graph.addEdge(9, 8, 4);
 
+        graph.addEdge(1, 10, 1);
+        graph.addEdge(10, 12, 2);
+        graph.addEdge(12, 11, 4);
+
         graph.printOutMatrix();
 
         Navigator navigator = new BellmanFord();
-        navigator.calculateShortestWay(graph, 1, 5);
+        navigator.calculateShortestWay(graph, 1, 11);
     }
 }

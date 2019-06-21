@@ -34,6 +34,20 @@ public class Graph {
         return pruefer;
     }
 
+    /*
+    * read out the Id of the NodeNumber in the matrix, not working, but is needed later
+    long getIdByMatrixNodeNumber(int nodeNumber){
+        long pruefer = -1;
+        for(int i = 0; i < numberOfAddedNodes; i++){
+            if(nodes[i] == null){
+
+            }else if(nodes[i].getId() == id){
+                pruefer = i;
+            }
+        }
+        return pruefer;
+    }*/
+
     void addNode(Node node){
         if(nodes.length > numberOfAddedNodes){
             if(getMatrixNodeNumberById(node.getId()) == -1){
