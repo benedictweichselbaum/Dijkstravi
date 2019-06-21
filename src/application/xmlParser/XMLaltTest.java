@@ -112,7 +112,6 @@ public class XMLaltTest {
 
                     hmaplat.put(nodeid, el.getAttribute("lat").getDoubleValue());
                     hmaplon.put(nodeid, el.getAttribute("lon").getDoubleValue());
-                    //>>Graph<<.addNode(nd);
                 }catch (Exception e) {
                     //TODO (Occurs when conversion to int/double failed)
                     System.out.println("Error!" + el.getAttribute("id").getValue());
@@ -127,15 +126,10 @@ public class XMLaltTest {
 
         ArrayList<Long> allNeededNodes = createListOfAllNeededNodes(wayList);
        System.out.println("Es werden " + allNeededNodes.size() + " Knoten benötigt. Erstelle jetzt den Graphen.");
-        int numberOfMotorway_links = 20000;//wayList.size(); //Natürlich falsch... TODO
-        //gr = new Graph(allNeededNodes.size(), numberOfMotorway_links);
+
         gr2 = new Graph2();
         System.out.println("Graph erstellt. Füge jetzt die Knoten ein.");
-        /*
-        for (Long nodeID: allNeededNodes){
-            gr.addNode(createNode(nodeID));
-        }
-         */
+
         HashMap<Long, Integer> newID = new HashMap<>();
 
         for(int i = 0; i < allNeededNodes.size(); i++){
@@ -146,12 +140,6 @@ public class XMLaltTest {
         System.out.println("Alle Knoten eingefügt. Füge jetzt die Wege ein.");
 
         for(OneWay ow : wayList){
-            //TODO: Weg einfügen
-            /*
-            createNode(ow.getFirst());
-            createNode(ow.getLast());
-            */
-
             ArrayList<Attribute> nodeIDList = ow.getListOfIDsOfNodes();
             List<Node> nodeList = new ArrayList<>();
             try {

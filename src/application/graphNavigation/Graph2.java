@@ -31,4 +31,16 @@ public class Graph2 {
         return autobahn.size();
     }
 
+    public ArrayList<ArrayList<Integer>> getListOfAllEdges(){
+        ArrayList<ArrayList<Integer>> list = new ArrayList<>();
+        for(int i = 0; i < autobahn.size(); i++){
+            ArrayList<Integer> listOfAims = new ArrayList<>();
+            for(Connection c: links.get(i)){
+                listOfAims.add(c.aim);
+            }
+            list.add(listOfAims);
+        }
+        return list;
+    }
+
 }
