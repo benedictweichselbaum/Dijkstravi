@@ -22,7 +22,6 @@ public class XMLaltTest {
 
     private double progress = 0;
 
-
     public void init(){
         try {
             File inputFile = new File("german_autobahn.osm");
