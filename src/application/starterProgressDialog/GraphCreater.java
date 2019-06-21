@@ -1,7 +1,6 @@
 package application.starterProgressDialog;
 
-import application.Main;
-import application.xmlParser.XMLaltTest;
+import application.xmlParser.XMLParser;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -20,10 +19,10 @@ public class GraphCreater extends Thread{
 
     @Override
     public void run () {
-        XMLaltTest xmLaltTest = new XMLaltTest();
-        ProgressBarUpdater progressBarUpdater = new ProgressBarUpdater(progressBar, progressText, xmLaltTest);
+        XMLParser xmlParser = new XMLParser();
+        ProgressBarUpdater progressBarUpdater = new ProgressBarUpdater(progressBar, progressText, xmlParser);
         progressBarUpdater.start();
-        xmLaltTest.init();
+        xmlParser.init();
         synchronized (stage) {
             stage.notify();
         }

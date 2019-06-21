@@ -1,6 +1,6 @@
 package application.starterProgressDialog;
 
-import application.xmlParser.XMLaltTest;
+import application.xmlParser.XMLParser;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.text.Text;
 
@@ -8,18 +8,18 @@ public class ProgressBarUpdater extends Thread{
 
     ProgressBar progressBar;
     Text progressText;
-    XMLaltTest xmLaltTest;
+    XMLParser xmlParser;
 
-    ProgressBarUpdater (ProgressBar pb, Text pt, XMLaltTest xmlAL){
+    ProgressBarUpdater (ProgressBar pb, Text pt, XMLParser xmlAL){
         this.progressBar = pb;
         this.progressText = pt;
-        this. xmLaltTest = xmlAL;
+        this.xmlParser = xmlAL;
     }
 
     @Override
     public void run() {
         while (progressBar.getProgress() < 1.00) {
-            progressBar.setProgress(xmLaltTest.getProgress());
+            progressBar.setProgress(xmlParser.getProgress());
             double progress = progressBar.getProgress();
             if (progress < 0.45 && progress > 0.25) {
                 progressText.setText("Erzeuge Liste von benötigten Knotenpunkten");

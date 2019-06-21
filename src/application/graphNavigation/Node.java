@@ -2,12 +2,24 @@ package application.graphNavigation;
 
 public class Node {
 
+    int id;
+    boolean link;
     double longitude;
     double latitude;
 
-    public Node (double lon, double lat) {
+    public Node(int id, boolean isLink, double lon, double lat) {
+        this.id = id;
+        this.link = isLink;
         this.longitude = lon;
         this.latitude = lat;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public boolean isLink() {
+        return link;
     }
 
     public double getLongitude() {
@@ -18,3 +30,4 @@ public class Node {
         return latitude;
     }
 }
+

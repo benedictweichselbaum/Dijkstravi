@@ -1,13 +1,13 @@
 package application.xmlParser;
 
-import application.graphNavigation.Node;
+import application.graphNavigation.LatLonNode;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DistanceCalculator {
 
-    public static double calculateDistanceFromListOfNodes (List<Node> listOfNodes) {
+    public static double calculateDistanceFromListOfNodes (List<LatLonNode> listOfNodes) {
         double finalDistance = 0;
 
         for (int i = 0; i <= listOfNodes.size() -2; i++) { //Bis zum vorletzten Element
@@ -33,12 +33,12 @@ public class DistanceCalculator {
     }
 
     public static void main (String... args) {
-        Node n1 = new Node(11.2425042, 49.1980249);
-        Node n2 = new Node(11.2413157, 49.1993888);
-        Node n3 = new Node(11.2376436, 49.2037429);
-        Node n4 = new Node(11.2354029, 49.2063958);
+        LatLonNode n1 = new LatLonNode(11.2425042, 49.1980249);
+        LatLonNode n2 = new LatLonNode(11.2413157, 49.1993888);
+        LatLonNode n3 = new LatLonNode(11.2376436, 49.2037429);
+        LatLonNode n4 = new LatLonNode(11.2354029, 49.2063958);
 
-        List<Node> nodeList = new ArrayList<>();
+        List<LatLonNode> nodeList = new ArrayList<>();
         nodeList.add(n1);
         nodeList.add(n2);
         nodeList.add(n3);
