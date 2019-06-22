@@ -77,7 +77,7 @@ public class NavigatorAlgorithmsTests {
 
         graph.printOutMatrix();
 
-        Navigator navigator = new BellmanFord();
+        Navigator navigator = new MinPlusMatrixMultiplication();
         navigator.calculateShortestWay(graph, 1, 11);
     }
 }

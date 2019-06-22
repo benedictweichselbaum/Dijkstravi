@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Graph {
 
+    //prettier to set it to private, start using the getter method
     int[][] autobahn;
     Node[] nodes;
     private List<Edge> edges;
@@ -92,5 +93,9 @@ public class Graph {
                     System.out.print("    ");
             System.out.println();
         }
+    }
+
+    int[][] getAutobahn(){
+        return autobahn;
     }
 }

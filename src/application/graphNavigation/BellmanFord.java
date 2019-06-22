@@ -8,7 +8,6 @@ import java.util.List;
 
 public class BellmanFord implements Navigator {
 
-    private final int INFINITE = Integer.MAX_VALUE;
     private int[] precursors;
     private List<Long> res=new ArrayList<>();
 
