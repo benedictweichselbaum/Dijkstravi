@@ -12,13 +12,7 @@ import java.util.List;
 
 public class MapManipulator {
 
-    private Image mapToManipulate;
-
-    public MapManipulator(Image image) {
-        this.mapToManipulate = image;
-    }
-
-    public Image drawWayWithTwoNodes (Node node1, Node node2) {
+    public static Image drawWayWithTwoNodes (Image mapToManipulate, Node node1, Node node2) {
         List<Pixel> pixelWay = createListOfPixelsToMarkFromTwoCoordinates(node1.getLatitude(),
                                                                             node1.getLongitude(),
                                                                             node2.getLatitude(),
@@ -47,7 +41,7 @@ public class MapManipulator {
         return writableImage;
     }
 
-    private List<Pixel> createListOfPixelsToMarkFromTwoCoordinates (double lat1, double lon1, double lat2, double lon2) {
+    private static List<Pixel> createListOfPixelsToMarkFromTwoCoordinates (double lat1, double lon1, double lat2, double lon2) {
         int latPx1 = latitudeToPixel(lat1);
         int lonPx1 = lonitudeToPixel(lon1);
         int latPx2 = latitudeToPixel(lat2);
@@ -79,11 +73,11 @@ public class MapManipulator {
         return listOfPixels;
     }
 
-    private int latitudeToPixel (double latitude) {
+    private static int latitudeToPixel (double latitude) {
         return (int) Math.round((55.078 - latitude)/0.010955556);
     }
 
-    private int lonitudeToPixel (double longitude) {
+    private static int lonitudeToPixel (double longitude) {
         return (int) Math.round((longitude - 5.493)/0.016434926);
     }
 }
