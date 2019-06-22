@@ -7,11 +7,11 @@ public class Node {
     double longitude;
     double latitude;
 
-    public Node (long id, boolean isLink, double lon, double lat) {
+    public Node (long id, boolean isLink, double lat, double lon) {
         this.id = id;
         this.link = isLink;
-        this.longitude = lon;
         this.latitude = lat;
+        this.longitude = lon;
     }
 
     public long getId() {
