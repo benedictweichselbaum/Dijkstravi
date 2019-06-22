@@ -1,8 +1,8 @@
 package application;
 
+import application.imageManipulation.MapManipulator;
 import application.starterProgressDialog.GraphCreater;
 import javafx.application.Application;
-import javafx.event.EventType;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -18,7 +18,6 @@ import javafx.stage.StageStyle;
 public class Main extends Application{
 
     private Stage dialog;
-    public boolean creatingReady = false;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
