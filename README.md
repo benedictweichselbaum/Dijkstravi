@@ -43,4 +43,4 @@ Wenn er fertig ist auf "Export" clicken und die .osm herunterladen. </br>
 - [X] OSM einlesen und in Graph übertragen </br>
 - [ ] Algorithmen implementieren.</br>
 - [ ] Routenausgabe implementieren</br>
-- [ ] Graphische Implementierung
+- [X] Graphische Implementierung (Algorithmus ist fertig. Die Nutzung muss natürlich noch implementiert werden.)
