@@ -70,7 +70,6 @@ public class DijkstraviController implements Initializable {
 
         File imageFile = new File("src/autobahnnetz_DE.png");
         Image autobahnNetworkImage = new Image(imageFile.toURI().toString());
-        imgViewAutobahn.setImage(autobahnNetworkImage);
 
         Node node1 = new Node(1, false, 11.035000, 49.407000);
         Node node2 = new Node(2, false, 8.6913000, 48.4442300);

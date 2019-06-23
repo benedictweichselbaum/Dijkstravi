@@ -36,6 +36,8 @@ public class MapManipulator {
 
         for (Pixel pixel : pixelWay) {
             pixelWriter.setColor(pixel.getX(), pixel.getY(), markingColor);
+            pixelWriter.setColor(pixel.getX(), pixel.getY()+1, markingColor);
+            pixelWriter.setColor(pixel.getX(), pixel.getY()-1, markingColor);
         }
 
         return writableImage;
