@@ -1,30 +1,27 @@
 package application.graphNavigation;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Graph {
+class Graph {
 
-    //prettier to set it to private, start using the getter method
-    int[][] autobahn;
-    Node[] nodes;
+    private int[][] autobahn;
+    private Node[] nodes;
     private List<Edge> edges;
     private int numberOfAddedNodes;
-    private int numberOfAddedEdges;
+    private final int INFINITE=Integer.MAX_VALUE;
 
-    public Graph(int numberOfNodes) {
+    Graph(int numberOfNodes) {
         this.autobahn = new int[numberOfNodes][numberOfNodes];
         this.nodes = new Node[numberOfNodes];
         edges=new LinkedList<>();
-        this.numberOfAddedNodes = 0;
+        this.numberOfAddedNodes=0;
     }
 
-    Edge[] getEdges() {
-        return edges.toArray(Edge[]::new);
-    }
 
     int getMatrixNodeNumberById(long id){
-        int pruefer = -1;
+        int pruefer = INFINITE;
         for(int i = 0; i < numberOfAddedNodes; i++){
             if(nodes[i] == null){
 
@@ -38,7 +35,7 @@ public class Graph {
     /*
     * read out the Id of the NodeNumber in the matrix, not working, but is needed later
     long getIdByMatrixNodeNumber(int nodeNumber){
-        long pruefer = -1;
+        long pruefer = INFINITE;
         for(int i = 0; i < numberOfAddedNodes; i++){
             if(nodes[i] == null){
 
@@ -51,12 +48,12 @@ public class Graph {
 
     void addNode(Node node){
         if(nodes.length > numberOfAddedNodes){
-            if(getMatrixNodeNumberById(node.getId()) == -1){
+            if(getMatrixNodeNumberById(node.getId()) == INFINITE){
                 nodes[numberOfAddedNodes] = node;
                 autobahn[numberOfAddedNodes][numberOfAddedNodes] = 0;
                 for(int i = 0; i < numberOfAddedNodes; i++){
-                    autobahn[i][numberOfAddedNodes] = -1;
-                    autobahn[numberOfAddedNodes][i] = -1;
+                    autobahn[i][numberOfAddedNodes] = INFINITE;
+                    autobahn[numberOfAddedNodes][i] = INFINITE;
                 }
                 numberOfAddedNodes++;
             }
@@ -68,7 +65,7 @@ public class Graph {
         fromNodeMatrixNumber = getMatrixNodeNumberById(from);
         toNodeMatrixNumber = getMatrixNodeNumberById(to);
 
-        if(fromNodeMatrixNumber != -1 && toNodeMatrixNumber != -1 && fromNodeMatrixNumber != toNodeMatrixNumber){
+        if(fromNodeMatrixNumber != INFINITE && toNodeMatrixNumber != INFINITE && fromNodeMatrixNumber != toNodeMatrixNumber){
             autobahn[fromNodeMatrixNumber][toNodeMatrixNumber] = weight;
             Edge edge=new Edge(fromNodeMatrixNumber,toNodeMatrixNumber,weight);
             edges.add(edge);
@@ -87,7 +84,7 @@ public class Graph {
         for(int i = 0; i < numberOfAddedNodes; i++){
             System.out.print(nodes[i].getId() + "   ");
             for(int j = 0; j < numberOfAddedNodes; j++)
-                if(autobahn[i][j] != -1)
+                if(autobahn[i][j] != INFINITE)
                     System.out.print((autobahn[i][j]+"   ").substring(0, width));
                 else
                     System.out.print("    ");
@@ -96,6 +93,14 @@ public class Graph {
     }
 
     int[][] getAutobahn(){
-        return autobahn;
+        return Arrays.stream(autobahn).map(int[]::clone).toArray(int[][]::new);
+    }
+
+    Node[] getNodes(){
+        return Arrays.copyOf(nodes, nodes.length);
+    }
+
+    Edge[] getEdges() {
+        return edges.toArray(Edge[]::new);
     }
 }

@@ -6,17 +6,17 @@ import java.util.List;
 
 //matrix is not needed here, just an array of nodes and an array of edges!!!!!!!!!!
 
-public class BellmanFord implements Navigator {
+class BellmanFord implements Navigator {
 
     private int[] precursors;
-    private List<Long> res=new ArrayList<>();
+    private List<Long> res = new ArrayList<>();
 
     public void calculateShortestWay(Graph g, long startNodeId, long targetNodeId) {
 
         int startNode = g.getMatrixNodeNumberById(startNodeId);
         int targetNode = g.getMatrixNodeNumberById(targetNodeId);
 
-        Node[] nodes = g.nodes;
+        Node[] nodes = g.getNodes();
         Edge[] edges = g.getEdges();
 
         int numberOfNodes = nodes.length;
@@ -55,18 +55,19 @@ public class BellmanFord implements Navigator {
     private void printRes(int[] dist, int V) {
         System.out.println("Vertex   Distance from Source");
         for (int i = 0; i < V; ++i)
-            System.out.println(i+1 + "\t\t\t" + dist[i]);
+            System.out.println(i + 1 + "\t\t\t" + dist[i]);
     }
 
     private void printWay(int startNode, int targetNode) {
         if ((precursors[targetNode] != INFINITE) && (precursors[targetNode] != startNode)) {
             //+1 because for graphical demonstration in console
-            System.out.println("VertexNr " + (precursors[targetNode]+1));
+            System.out.println("VertexNr precursor " + (precursors[targetNode]));
             //res.add(...);
             printWay(startNode, precursors[targetNode]);
         }
     }
-    long[] getResult(){
+
+    long[] getResult() {
         return res.stream().mapToLong(l -> l).toArray();
     }
 }

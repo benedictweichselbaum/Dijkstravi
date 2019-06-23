@@ -1,6 +1,6 @@
 package application.graphNavigation;
 
-public class GraphTest {
+class GraphTest {
 
     public static void main(String... args) {
         Node node1 = new Node(1, false, 12, 13);

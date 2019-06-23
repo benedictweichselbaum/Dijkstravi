@@ -1,6 +1,6 @@
 package application.graphNavigation;
 
-public class NavigatorAlgorithmsTests {
+class NavigatorAlgorithmsTests {
 
     public static void main(String... args) {
 
@@ -122,6 +122,13 @@ public class NavigatorAlgorithmsTests {
         System.out.println("  ");
 
         System.out.println("BellmanFordigator:");
+
+        Navigator navigatorBellmanFord = new BellmanFord();
+        navigatorBellmanFord.calculateShortestWay(gRoad, 1, 4);
+
+        System.out.println("  ");
+
+        System.out.println("Min-Plus-MatrixMultiplicationator:");
 
         Navigator navigatorMinPlus = new MinPlusMatrixMultiplication();
         navigatorMinPlus.calculateShortestWay(gRoad, 1, 4);

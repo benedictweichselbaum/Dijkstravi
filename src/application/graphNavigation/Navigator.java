@@ -1,6 +1,6 @@
 package application.graphNavigation;
 
-public interface Navigator {
+interface Navigator {
 
     int INFINITE = Integer.MAX_VALUE;
 

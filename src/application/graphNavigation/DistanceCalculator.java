@@ -2,9 +2,9 @@ package application.graphNavigation;
 
 //https://www.geodatasource.com/developers/java
 
-public class DistanceCalculator {
+class DistanceCalculator {
 
-    public static int distance(double lat1, double lng1, double lat2, double lng2) {
+    static int distance(double lat1, double lng1, double lat2, double lng2) {
         if ((lat1 == lat2) && (lng1 == lng2)) {
             return 0;
         }

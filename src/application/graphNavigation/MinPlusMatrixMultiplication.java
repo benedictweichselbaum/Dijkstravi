@@ -13,19 +13,10 @@ import java.util.List;
  * the algorithm has a runtime of O(n^3 * log n)
  * */
 
-public class MinPlusMatrixMultiplication implements Navigator {
+class MinPlusMatrixMultiplication implements Navigator {
 
     public void calculateShortestWay(Graph g, long startNodeId, long targetNodeId) {
-        int[][] manipulatedInputMatrix = g.getAutobahn();
-        int n = manipulatedInputMatrix.length;
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (manipulatedInputMatrix[i][j] == -1) {
-                    manipulatedInputMatrix[i][j] = INFINITE;
-                }
-            }
-        }
-        int[][] resultMatrix = allPairsShortestPaths(manipulatedInputMatrix);
+        int[][] resultMatrix = allPairsShortestPaths(g.getAutobahn());
         printOutMatrix(resultMatrix);
     }
 
