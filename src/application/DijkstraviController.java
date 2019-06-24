@@ -2,6 +2,8 @@ package application;
 
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import application.graphNavigation.Node;
@@ -74,7 +76,11 @@ public class DijkstraviController implements Initializable {
         Node node1 = new Node(1, false, 11.035000, 49.407000);
         Node node2 = new Node(2, false, 8.6913000, 48.4442300);
 
-        imgViewAutobahn.setImage(MapManipulator.drawWayWithTwoNodes(autobahnNetworkImage, node1, node2));
+        List<Node> listOfNodes = new ArrayList<>();
+        listOfNodes.add(node1);
+        listOfNodes.add(node2);
+
+        imgViewAutobahn.setImage(MapManipulator.drawWayWithListOfNodes(autobahnNetworkImage, listOfNodes));
     }
 
     public void pressedExit(ActionEvent actionEvent) {

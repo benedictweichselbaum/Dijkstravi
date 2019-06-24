@@ -12,7 +12,18 @@ import java.util.List;
 
 public class MapManipulator {
 
-    public static Image drawWayWithTwoNodes (Image mapToManipulate, Node node1, Node node2) {
+    public static Image drawWayWithListOfNodes (Image image, List<Node> listOfNodes) {
+        Image multipleManipulatedImage = image;
+        for (int i = 0; i <= listOfNodes.size()-2; i++) {
+            multipleManipulatedImage = drawWayWithTwoNodes(multipleManipulatedImage,
+                                                            listOfNodes.get(i),
+                                                            listOfNodes.get(i + 1));
+        }
+
+        return multipleManipulatedImage;
+    }
+
+    private static Image drawWayWithTwoNodes (Image mapToManipulate, Node node1, Node node2) {
         List<Pixel> pixelWay = createListOfPixelsToMarkFromTwoCoordinates(node1.getLatitude(),
                                                                             node1.getLongitude(),
                                                                             node2.getLatitude(),
