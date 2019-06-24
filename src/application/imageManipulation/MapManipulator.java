@@ -38,6 +38,8 @@ public class MapManipulator {
             pixelWriter.setColor(pixel.getX(), pixel.getY(), markingColor);
             pixelWriter.setColor(pixel.getX(), pixel.getY()+1, markingColor);
             pixelWriter.setColor(pixel.getX(), pixel.getY()-1, markingColor);
+            pixelWriter.setColor(pixel.getX()+1, pixel.getY(), markingColor);
+            pixelWriter.setColor(pixel.getX()-1, pixel.getY(), markingColor);
         }
 
         return writableImage;
@@ -55,8 +57,10 @@ public class MapManipulator {
 
         if (lonPx2 > lonPx1)
             m = (double) (latPx2 - latPx1)/(lonPx2 - lonPx1);
-        else
+        else if (lonPx2 < lonPx1)
             m = (double) (latPx1 - latPx2)/(lonPx1 - lonPx2);
+        else
+            return claculateListOfPixelsIfAFunctionIsNotPossible(lonPx1, latPx1, latPx2, listOfPixels);
 
         t = (double) latPx1-(m * lonPx1);
 
@@ -73,6 +77,25 @@ public class MapManipulator {
         }
 
         return listOfPixels;
+    }
+
+    private static List<Pixel> claculateListOfPixelsIfAFunctionIsNotPossible (int lon, int lat1, int lat2,
+                                                                              List<Pixel> listObject) {
+        int difference;
+
+        if (lat1 > lat2) {
+            difference = lat1 - lat2;
+            for (int i = 0; i <= difference; i++) {
+                listObject.add(new Pixel(lon, lat2 + i));
+            }
+        } else {
+            difference = lat2 - lat1;
+            for (int i = 0; i <= difference; i++) {
+                listObject.add(new Pixel(lon, lat1 + i));
+            }
+        }
+
+        return listObject;
     }
 
     private static int latitudeToPixel (double latitude) {
