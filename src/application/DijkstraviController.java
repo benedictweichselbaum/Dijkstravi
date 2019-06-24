@@ -54,6 +54,12 @@ public class DijkstraviController implements Initializable {
     @FXML
     private MenuItem btnExit;
 
+    @FXML
+    private ProgressBar pbAlgorithms;
+
+    @FXML
+    private Label lblProgress;
+
     private ToggleGroup algRadioButtonGroup;
     private MapManipulator mapManipulator;
 

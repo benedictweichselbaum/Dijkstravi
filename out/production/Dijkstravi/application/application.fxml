@@ -20,7 +20,7 @@
         <Menu mnemonicParsing="false" text="Einstellungen">
           <items>
             <MenuItem mnemonicParsing="false" text="Optionen" />
-            <MenuItem mnemonicParsing="false" text="Beenden" fx:id="btnExit" onAction="#pressedExit"/>
+            <MenuItem mnemonicParsing="false" onAction="#pressedExit" text="Beenden" fx:id="btnExit" />
           </items>
         </Menu>
       </menus>
@@ -43,5 +43,7 @@
     <RadioButton fx:id="rbAStrern" layoutX="28.0" layoutY="384.0" mnemonicParsing="false" text="A* Algorithmus" />
     <RadioButton fx:id="rbMinPlusMma" layoutX="28.0" layoutY="415.0" mnemonicParsing="false" text="Min-Plus MMA" />
     <Label layoutX="28.0" layoutY="284.0" text="Algorithmus" />
+    <ProgressBar fx:id="pbAlgorithms" layoutX="28.0" layoutY="562.0" prefHeight="22.0" prefWidth="941.0" progress="0.0" />
+    <Label fx:id="lblProgress" layoutX="28.0" layoutY="565.0" prefWidth="941.0" text="" textAlignment="CENTER" />
   </children>
 </AnchorPane>
