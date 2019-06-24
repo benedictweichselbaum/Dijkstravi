@@ -5,15 +5,21 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
 
+import application.autocompleteComboBox.AutoCompleteComboBoxListener;
 import application.graphNavigation.Node;
 import application.imageManipulation.MapManipulator;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.InputMethodEvent;
+import javafx.scene.input.KeyEvent;
 
 
 public class DijkstraviController implements Initializable {
@@ -60,6 +66,11 @@ public class DijkstraviController implements Initializable {
     @FXML
     private Label lblProgress;
 
+    @FXML
+    private ComboBox cbFrom;
+
+    @FXML ComboBox cbTo;
+
     private ToggleGroup algRadioButtonGroup;
     private MapManipulator mapManipulator;
 
@@ -87,10 +98,31 @@ public class DijkstraviController implements Initializable {
         listOfNodes.add(node2);
 
         imgViewAutobahn.setImage(MapManipulator.drawWayWithListOfNodes(autobahnNetworkImage, listOfNodes));
+
+        ObservableList<String> list = FXCollections.observableArrayList();
+        list.add("Horb");
+        list.add("Nürnberg");
+        list.add("Hamburg");
+        list.add("Berlin");
+        cbFrom.setItems(list);
+
+        new AutoCompleteComboBoxListener<>(cbFrom);
+        new AutoCompleteComboBoxListener<>(cbTo);
     }
 
+    @FXML
     public void pressedExit(ActionEvent actionEvent) {
         System.exit(0);
+    }
+
+    @FXML
+    public void textChangedInComboBoxFrom (ActionEvent actionEvent) {
+        txtAreaRoute.setText("Woah. It works!");
+    }
+
+    @FXML
+    public void textChangedInComboBoxTo (ActionEvent actionEvent) {
+
     }
 }
 
