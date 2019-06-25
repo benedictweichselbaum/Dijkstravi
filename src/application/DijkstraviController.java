@@ -49,12 +49,6 @@ public class DijkstraviController implements Initializable {
     private TextArea txtAreaRoute;
 
     @FXML
-    private TextField txtFrom;
-
-    @FXML
-    private TextField txtTo;
-
-    @FXML
     private ImageView imgViewAutobahn;
 
     @FXML
@@ -117,7 +111,6 @@ public class DijkstraviController implements Initializable {
 
     @FXML
     public void textChangedInComboBoxFrom (ActionEvent actionEvent) {
-        txtAreaRoute.setText("Woah. It works!");
     }
 
     @FXML

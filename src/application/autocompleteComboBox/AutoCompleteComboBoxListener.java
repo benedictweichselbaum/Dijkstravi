@@ -8,14 +8,14 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 /**
- *Dieser Code ist Fremdcode!
+ *Dieser Code enthält Fremdcode.
  */
 public class AutoCompleteComboBoxListener<T> implements EventHandler<KeyEvent> {
 
     private ComboBox comboBox;
     private StringBuilder sb;
     private ObservableList<T> data;
-    private boolean moveCaretToPos = false;
+    private boolean moveCaretToPos =  false;
     private int caretPos;
 
     public AutoCompleteComboBoxListener(final ComboBox comboBox) {
