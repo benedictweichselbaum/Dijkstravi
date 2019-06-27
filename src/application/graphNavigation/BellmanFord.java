@@ -1,3 +1,4 @@
+/*
 package application.graphNavigation;
 
 
@@ -71,3 +72,4 @@ class BellmanFord implements Navigator {
         return res.stream().mapToLong(l -> l).toArray();
     }
 }
+*/

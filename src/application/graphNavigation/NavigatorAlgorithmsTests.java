@@ -1,3 +1,4 @@
+/*
 package application.graphNavigation;
 
 class NavigatorAlgorithmsTests {
@@ -136,3 +137,4 @@ class NavigatorAlgorithmsTests {
         System.out.println("  ");
     }
 }
+*/

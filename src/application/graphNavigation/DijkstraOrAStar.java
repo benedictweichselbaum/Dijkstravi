@@ -1,3 +1,4 @@
+/*
 package application.graphNavigation;
 
 import java.util.*;
@@ -132,3 +133,4 @@ class DijkstraOrAStar implements Navigator{
         return min.getKey();
     }
 }
+*/
