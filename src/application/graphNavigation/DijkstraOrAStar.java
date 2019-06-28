@@ -1,12 +1,15 @@
-/*
+
 package application.graphNavigation;
 
 import java.util.*;
 
 class DijkstraOrAStar implements Navigator{
 
-    private Node[] nodes;
-    private int[][] autobahn;
+    ArrayList<Node> autobahn = new ArrayList<>();
+    HashMap<Integer, ArrayList<Connection>> links = new HashMap<>();
+
+    /*private Node[] nodes;
+    private int[][] autobahn;*/
 
     private int startNode;
     private int targetNode;
@@ -25,14 +28,16 @@ class DijkstraOrAStar implements Navigator{
     }
 
 
-    private void init(Graph g, long startNodeId, long targetNodeId) {
-        nodes = g.getNodes();
-        autobahn = g.getAutobahn();
+    private void init(Graph g, int startNodeId, int targetNodeId) {
+        /*nodes = g.getNodes();
+        autobahn = g.getAutobahn();*/
+        autobahn = g.autobahn;
+        links = g.links;
 
-        startNode = g.getMatrixNodeNumberById(startNodeId);
-        targetNode = g.getMatrixNodeNumberById(targetNodeId);
+        startNode = startNodeId;
+        targetNode = targetNodeId;
 
-        numberOfNodes = nodes.length;
+        numberOfNodes = g.getAmountOfNodes();
         visited = new boolean[numberOfNodes];
         distance = new int[numberOfNodes];
         predecessor = new int[numberOfNodes];
@@ -42,18 +47,18 @@ class DijkstraOrAStar implements Navigator{
         nodeAndDistance.put(startNode, 0);
     }
 
-    public void calculateShortestWay(Graph g, long startNodeId, long targetNodeId){
+    public void calculateShortestWay(Graph g, int startNodeId, int targetNodeId){
 
         int nodeNumber;
 
         init(g, startNodeId, targetNodeId);
 
-        double latTargetNode = nodes[targetNode].getLatitude();
-        double lngTargetNode = nodes[targetNode].getLongitude();
+        double latTargetNode = autobahn.get(targetNode).getLatitude();
+        double lngTargetNode = autobahn.get(targetNode).getLongitude();
 
         for (int i = 0; i < numberOfNodes; i++) {
             visited[i] = false;
-            distance[i] = Integer.MAX_VALUE;
+            distance[i] = INFINITE;
         }
         distance[startNode] = 0;
         predecessor[startNode] = startNode;
@@ -63,9 +68,9 @@ class DijkstraOrAStar implements Navigator{
         {
             nodeNumber = getPositionOfUnvisitedNodeWithShortestDistance(nodeAndDistance);
 
-            System.out.println("Knoten mit min. Distanz: " + nodes[nodeNumber].getId());
+            System.out.println("Knoten mit min. Distanz: " + nodeNumber);
             //um nicht zu allen Knoten den kürzesten Weg vom Startknoten aus zu berechnen
-            if(nodes[nodeNumber].getId() == nodes[targetNode].getId()){
+            if(nodeNumber == targetNode){
                 break;
             }
             visited[nodeNumber] = true;
@@ -74,19 +79,22 @@ class DijkstraOrAStar implements Navigator{
 
             int newDistance;
             int predictedDistance;
-            for (int neighboringNode = 0; neighboringNode < numberOfNodes; neighboringNode++)
-            {
-                if ((autobahn[nodeNumber][neighboringNode] != INFINITE) && (!visited[neighboringNode]))
+            //falls Nachbarknoten noch nicht besucht
+            ArrayList<Connection> allConnectionsOfNode = g.getAllConnectionsOfNode(nodeNumber);
+            for (Connection connectionToNeighbor : allConnectionsOfNode){
+                int neighboringNode = connectionToNeighbor.aim;
+                if ((!visited[neighboringNode]))
                 {
+                    int distanceToNeighbor = connectionToNeighbor.length;
                     if(typeOfAlgorithm.equals("Dijkstra")) {
                         predictedDistance = 0;
                     }
                     else{
                         //predictedDistance: prognostizierte Distanz vom Nachbarknoten zum Zielknoten
-                        predictedDistance = DistanceCalculator.distance(latTargetNode, lngTargetNode, nodes[neighboringNode].getLatitude(), nodes[neighboringNode].getLongitude());
-                        System.out.println("Luftlinie von Knoten " + nodes[neighboringNode].getId() + " bis Zielknoten: " +predictedDistance);
+                        predictedDistance = DistanceCalculator.distance(latTargetNode, lngTargetNode, autobahn.get(neighboringNode).getLatitude(), autobahn.get(neighboringNode).getLongitude());
+                        System.out.println("Luftlinie von Knoten " + neighboringNode + " bis Zielknoten: " + predictedDistance);
                     }
-                    newDistance = distance[nodeNumber] + autobahn[nodeNumber][neighboringNode];
+                    newDistance = distance[nodeNumber] + distanceToNeighbor;
 
                     if (newDistance < distance[neighboringNode])
                     {
@@ -95,7 +103,7 @@ class DijkstraOrAStar implements Navigator{
 
                         nodeAndDistance.put(neighboringNode, (newDistance + predictedDistance));
 
-                        System.out.println("von " + nodes[nodeNumber].getId() + " zu " + nodes[neighboringNode].getId() + " neue kuerzeste Distanz: " + newDistance);
+                        System.out.println("von " + nodeNumber + " zu " + neighboringNode + " neue kuerzeste Distanz: " + newDistance);
                     }
                 }
             }
@@ -111,12 +119,12 @@ class DijkstraOrAStar implements Navigator{
         System.out.println("Entfernung: " + totalDistance + "km");
 
         String pfad;
-        pfad = String.valueOf(nodes[targetNode].getId());
+        pfad = String.valueOf(targetNode);
         nodeNumber = targetNode;
         while (nodeNumber != startNode)
         {
             nodeNumber = predecessor[nodeNumber];
-            pfad = nodes[nodeNumber].getId() + "/" + pfad;
+            pfad = nodeNumber + "/" + pfad;
         }
         System.out.println("Weg: " + pfad);
     }
@@ -133,4 +141,4 @@ class DijkstraOrAStar implements Navigator{
         return min.getKey();
     }
 }
-*/
+
