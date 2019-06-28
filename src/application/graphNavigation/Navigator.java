@@ -1,8 +1,14 @@
 package application.graphNavigation;
 
-interface Navigator {
+import java.util.Stack;
+
+abstract class Navigator {
 
     int INFINITE = Integer.MAX_VALUE;
 
-    void calculateShortestWay(Graph g, int startNode, int targetNode);
+    public abstract Stack<Integer> calculateShortestWay(Graph g, int startNode, int targetNode);
+
+    public String directions(Stack<Integer> way){
+        return "";
+    }
 }

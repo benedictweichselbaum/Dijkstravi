@@ -34,10 +34,10 @@ public class transitionalAlgoTest {
     }
 
     static void addSomeNodes(Graph gr){
-        Node muenchen = new Node(0, true, 48.140235, 11.560985);
-        Node ingolstadt = new Node(1, true, 48.765942, 11.425247);
-        Node landshut = new Node(2, true, 48.547067, 12.142666);
-        Node nuernberg = new Node(3, true, 49.446800, 11.078967);
+        Node muenchen = new Node(0, true, 11.560985, 48.140235);
+        Node ingolstadt = new Node(1, true, 11.425247, 48.765942);
+        Node landshut = new Node(2, true, 12.142666, 48.547067);
+        Node nuernberg = new Node(3, true, 11.078967, 49.446800);
 
         gr.addNodesSorted(muenchen);
         gr.addNodesSorted(ingolstadt);
