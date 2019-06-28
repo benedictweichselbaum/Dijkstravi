@@ -1,6 +1,5 @@
 package application;
 
-import application.imageManipulation.MapManipulator;
 import application.starterProgressDialog.GraphCreater;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

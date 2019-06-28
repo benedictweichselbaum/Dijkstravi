@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import application.autocompleteComboBox.AutoCompleteComboBoxListener;
+import application.globalLogic.GlobalLogic;
 import application.graphNavigation.Node;
 import application.imageManipulation.MapManipulator;
 import javafx.collections.FXCollections;
@@ -63,7 +64,7 @@ public class DijkstraviController implements Initializable {
     @FXML ComboBox cbTo;
 
     private ToggleGroup algRadioButtonGroup;
-    private MapManipulator mapManipulator;
+    private GlobalLogic globalLogic;
 
     @FXML
     void clickedCalcRoute(ActionEvent event) {
@@ -81,8 +82,8 @@ public class DijkstraviController implements Initializable {
         File imageFile = new File("src/autobahnnetz_DE.png");
         Image autobahnNetworkImage = new Image(imageFile.toURI().toString());
 
-        Node node1 = new Node(1, false, 11.035000, 49.407000);
-        Node node2 = new Node(2, false, 8.6913000, 48.4442300);
+        Node node1 = new Node(1, false, 49.407000,11.035000,  "");
+        Node node2 = new Node(2, false,  48.4442300, 8.6913000, "");
 
         List<Node> listOfNodes = new ArrayList<>();
         listOfNodes.add(node1);
@@ -90,12 +91,7 @@ public class DijkstraviController implements Initializable {
 
         imgViewAutobahn.setImage(MapManipulator.drawWayWithListOfNodes(autobahnNetworkImage, listOfNodes));
 
-        ObservableList<String> list = FXCollections.observableArrayList();
-        list.add("Horb");
-        list.add("Nürnberg");
-        list.add("Hamburg");
-        list.add("Berlin");
-        cbFrom.setItems(list);
+        globalLogic = new GlobalLogic(cbFrom, cbTo);
 
         new AutoCompleteComboBoxListener<>(cbFrom);
         new AutoCompleteComboBoxListener<>(cbTo);

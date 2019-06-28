@@ -6,12 +6,15 @@ public class Node {
     boolean link;
     double longitude;
     double latitude;
+    String name;
 
-    public Node(int id, boolean isLink, double lon, double lat) {
+    public Node(int id, boolean isLink, double lat, double lon, String name) {
         this.id = id;
         this.link = isLink;
         this.longitude = lon;
         this.latitude = lat;
+        this.name = name;
+
     }
 
     public int getId() {
