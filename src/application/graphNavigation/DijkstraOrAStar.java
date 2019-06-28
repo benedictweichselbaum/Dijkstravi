@@ -61,15 +61,18 @@ class DijkstraOrAStar extends Navigator{
         // wiederhole bis alle Knoten besucht sind / Zielknoten besucht ist
         for (int i = 0; i < numberOfNodes; i++)
         {
+            if(nodeAndDistance == null){
+                break;
+            }
             nodeNumber = getPositionOfUnvisitedNodeWithShortestDistance(nodeAndDistance);
+            visited.add(nodeNumber);
+            nodeAndDistance.remove(nodeNumber);
 
             System.out.println("Knoten mit min. Distanz: " + nodeNumber);
             //um nicht zu allen Knoten den kürzesten Weg vom Startknoten aus zu berechnen
             if(nodeNumber == targetNode){
                 break;
             }
-            visited.add(nodeNumber);
-            nodeAndDistance.remove(nodeNumber);
 
 
             int newDistance;
@@ -81,6 +84,7 @@ class DijkstraOrAStar extends Navigator{
                 if (!visited.contains(neighboringNode))
                 {
                     int distanceToNeighbor = connectionToNeighbor.length;
+                    System.out.println(connectionToNeighbor.getAllInformationsAsString());
                     if(typeOfAlgorithm.equals("Dijkstra")) {
                         predictedDistance = 0;
                     }
@@ -103,8 +107,14 @@ class DijkstraOrAStar extends Navigator{
                 }
             }
         }
-
-        return output();
+        if(visited.contains(targetNode)) {
+            System.out.println("Es gibt einen Weg!");
+            return output();
+        }
+        else{
+            System.out.println("ERROR! Es gibt KEINEN Weg!");
+            return null;
+        }
     }
 
     private Stack<Integer> output() {
@@ -125,9 +135,9 @@ class DijkstraOrAStar extends Navigator{
             //pfad = nodeNumber + "/" + pfad;
         }
         //System.out.println("Weg: " + pfad);
-        while (!way.empty()){
-            System.out.print(way.pop() + "/");
-        }
+        /*while (!way.empty()){
+            System.out.print(way.peek() + "/");
+        }*/
 
         return way;
     }

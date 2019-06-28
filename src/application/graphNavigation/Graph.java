@@ -27,6 +27,33 @@ public class Graph {
         return links.get(id);
     }
 
+    public Connection getConnectionBetween2Points(int id1, int id2){
+        ArrayList<Connection> connections = links.get(id1);
+        Connection result = connections.stream()
+                .filter(connection -> connection.getAim() == id2)
+                .findAny()
+                .orElse(null);
+        //System.out.println(result.getAllInformationsAsString());
+        return result;
+    }
+
+    public void startAStarigator(int startNode, int targetNode){
+        System.out.println("AStarigator:");
+        Navigator aStarigator = new DijkstraOrAStar("AStar");
+        aStarigator.directions(this, aStarigator.calculateShortestWay(this, startNode, targetNode));
+    }
+
+    public void test(){
+        for (int i = 0; i < links.size(); i++) {
+            ArrayList<Connection> arrayList = links.get(i);
+            System.out.println(" ");
+            System.out.println("Nachfolger von Knoten " + i);
+            for (Connection c : arrayList) {
+                System.out.println(c.getAllInformationsAsString());
+            }
+        }
+    }
+
     public int getAmountOfNodes(){
         return autobahn.size();
     }

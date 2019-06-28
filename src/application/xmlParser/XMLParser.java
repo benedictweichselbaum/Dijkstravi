@@ -2,6 +2,7 @@ package application.xmlParser;
 import java.io.*;
 import java.util.*;
 
+import application.graphNavigation.Connection;
 import application.graphNavigation.Graph;
 import application.graphNavigation.LatLonNode;
 import application.graphNavigation.Node;
@@ -167,6 +168,15 @@ public class XMLParser {
 */
         }
         System.out.println("Der Graph ist FERTIG!");
+
+        test();
+    }
+
+    public void test(){
+        gr.startAStarigator(89261, 70158);
+        //System.out.println(gr.getConnectionBetween2Points(0,4));
+        /*Connection con = gr.getConnectionBetween2Points(0, 1);
+        con.getAllInformationsAsString();*/
     }
 
     public ArrayList<Long> createListOfAllNeededNodes(List<Way> wayList){

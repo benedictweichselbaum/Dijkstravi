@@ -23,4 +23,56 @@ public class Connection {
         else
             return myMaxspeed;
     }
+
+    public String getAllInformationsAsString(){
+        return "Ziel: " + getAim() + " Länge: " + getLength() + " maxSpeed: " + getMaxspeed() + " Name: " + getName() + " Ziel: " + getDestination();
+    }
+
+    public int getAim() {
+        return aim;
+    }
+
+    public void setAim(int aim) {
+        this.aim = aim;
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public void setLength(int length) {
+        this.length = length;
+    }
+
+    public boolean isLink() {
+        return link;
+    }
+
+    public void setLink(boolean link) {
+        this.link = link;
+    }
+
+    public int getMaxspeed() {
+        return maxspeed;
+    }
+
+    public void setMaxspeed(int maxspeed) {
+        this.maxspeed = maxspeed;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
 }
