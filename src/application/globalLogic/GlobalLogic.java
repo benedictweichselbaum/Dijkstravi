@@ -57,12 +57,12 @@ public class GlobalLogic {
         Container pane = jFrame.getContentPane();
         JProgressBar jProgressBar = new JProgressBar(0, 100);
         jProgressBar.setValue(0);
-        JLabel jLabel = new JLabel("Der Graph wird berechnet...");
-        jFrame.setLayout(new FlowLayout());
+        JLabel jLabel = new JLabel("        Der Graph wird berechnet...");
+        jFrame.setLayout(new GridLayout(1, 1));
         jFrame.setLocation(800, 400);
 
         pane.add(jLabel);
-        pane.add(jProgressBar);
+        //pane.add(jProgressBar);
 
         jFrame.setSize(350, 100);
         jFrame.setResizable(false);
