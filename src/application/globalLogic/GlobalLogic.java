@@ -1,11 +1,13 @@
 package application.globalLogic;
 
 import application.graphNavigation.Graph;
-import application.xmlParser.XMLParser;
+import application.starterProgressDialog.GraphCreater;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -17,13 +19,12 @@ public class GlobalLogic {
     ComboBox from;
     ComboBox to;
 
+
     public GlobalLogic (ComboBox from, ComboBox to) {
         this.from = from;
         this.to = to;
         listOfExitsById = new HashMap<>();
-        XMLParser xmlParser = new XMLParser(listOfExitsById);
-        graph = xmlParser.init();
-
+        this.showCreatingDialog();
         fillListOfExits();
         initComboBoxes();
     }
@@ -32,8 +33,8 @@ public class GlobalLogic {
         ObservableList<String> observableList =  FXCollections.observableArrayList();
 
         listOfExits.forEach((n, a) -> observableList.add(n));
-        this.from.setItems(observableList);
-        this.to.setItems(observableList);
+        this.from.setItems(observableList.sorted());
+        this.to.setItems(observableList.sorted());
     }
 
     private void fillListOfExits(){
@@ -49,5 +50,37 @@ public class GlobalLogic {
             list = new ArrayList<>();
         list.add(id);
         listOfExits.put(name, list);
+    }
+
+    private void showCreatingDialog() {
+        JFrame jFrame = new JFrame("Graph berechnen");
+        Container pane = jFrame.getContentPane();
+        JProgressBar jProgressBar = new JProgressBar(0, 100);
+        jProgressBar.setValue(0);
+        JLabel jLabel = new JLabel("Der Graph wird berechnet...");
+        jFrame.setLayout(new FlowLayout());
+        jFrame.setLocation(800, 400);
+
+        pane.add(jLabel);
+        pane.add(jProgressBar);
+
+        jFrame.setSize(350, 100);
+        jFrame.setResizable(false);
+        jFrame.setVisible(true);
+
+        GraphCreater graphCreater = new GraphCreater(jProgressBar, jLabel, listOfExitsById);
+
+        graphCreater.start();
+
+        synchronized (graphCreater) {
+            try {
+                graphCreater.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        this.graph = graphCreater.getGraph();
+        jFrame.dispose();
     }
 }

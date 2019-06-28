@@ -10,17 +10,19 @@ import application.autocompleteComboBox.AutoCompleteComboBoxListener;
 import application.globalLogic.GlobalLogic;
 import application.graphNavigation.Node;
 import application.imageManipulation.MapManipulator;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 
 
 public class DijkstraviController implements Initializable {
+
+    @FXML
+    AnchorPane pane;
 
     @FXML
     private ResourceBundle resources;

@@ -13,12 +13,12 @@ import org.jdom2.input.SAXBuilder;
 
 public class XMLParser {
 
-    Graph gr;
-    HashMap<Long, Double> hmaplon = new HashMap<>();
-    HashMap<Long, Double> hmaplat = new HashMap<>();
-    HashMap<Long, String> hmapname = new HashMap<>();
-    List<Way> wayList = new ArrayList<>();
-    HashMap<Integer, String> listOfExits;
+    private Graph gr;
+    private HashMap<Long, Double> hmaplon = new HashMap<>();
+    private HashMap<Long, Double> hmaplat = new HashMap<>();
+    private HashMap<Long, String> hmapname = new HashMap<>();
+    private List<Way> wayList = new ArrayList<>();
+    private HashMap<Integer, String> listOfExits;
 
     public XMLParser (HashMap<Integer, String> hashMap) {
         this.listOfExits = hashMap;
@@ -206,4 +206,7 @@ public class XMLParser {
         return progress;
     }
 
+    public Graph getGr() {
+        return this.gr;
+    }
 }
