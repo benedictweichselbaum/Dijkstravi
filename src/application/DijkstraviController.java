@@ -10,6 +10,8 @@ import application.autocompleteComboBox.AutoCompleteComboBoxListener;
 import application.globalLogic.GlobalLogic;
 import application.graphNavigation.Node;
 import application.imageManipulation.MapManipulator;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -70,7 +72,16 @@ public class DijkstraviController implements Initializable {
 
     @FXML
     void clickedCalcRoute(ActionEvent event) {
-        txtAreaRoute.setText("Hello, you just have pressed a Button.\nYou are Great!");
+
+       if(algRadioButtonGroup.getSelectedToggle() == rbDijkstra)
+           txtAreaRoute.setText(globalLogic.calculateWay(0));
+       else if(algRadioButtonGroup.getSelectedToggle() == rbAStrern)
+           txtAreaRoute.setText(globalLogic.calculateWay(1));
+       else if(algRadioButtonGroup.getSelectedToggle() == rbBellmanFord)
+           txtAreaRoute.setText(globalLogic.calculateWay(2));
+       else if(algRadioButtonGroup.getSelectedToggle() == rbMinPlusMma)
+           txtAreaRoute.setText(globalLogic.calculateWay(3));
+
     }
 
     @Override
@@ -80,6 +91,7 @@ public class DijkstraviController implements Initializable {
         rbBellmanFord.setToggleGroup(algRadioButtonGroup);
         rbDijkstra.setToggleGroup(algRadioButtonGroup);
         rbMinPlusMma.setToggleGroup(algRadioButtonGroup);
+        algRadioButtonGroup.selectToggle(rbDijkstra);
 
         File imageFile = new File("src/autobahnnetz_DE.png");
         Image autobahnNetworkImage = new Image(imageFile.toURI().toString());
@@ -110,7 +122,6 @@ public class DijkstraviController implements Initializable {
 
     @FXML
     public void textChangedInComboBoxTo (ActionEvent actionEvent) {
-
     }
 }
 

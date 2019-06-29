@@ -44,7 +44,6 @@ public class GlobalLogic {
     }
 
     private void addExitToListOfExits(int id, String name){
-        System.out.println(id + name);
         ArrayList<Integer> list = listOfExits.get(name);
         if(list == null)
             list = new ArrayList<>();
@@ -82,5 +81,42 @@ public class GlobalLogic {
 
         this.graph = graphCreater.getGraph();
         jFrame.dispose();
+    }
+
+    public String calculateWay(int alg){
+        try {
+            String fromStr = from.getEditor().getCharacters().toString();
+            String toStr = to.getEditor().getCharacters().toString();
+
+            ArrayList<Integer> fromId = listOfExits.get(fromStr);
+            ArrayList<Integer> toId = listOfExits.get(toStr);
+
+            String fromIdString = "";
+            String toIdString = "";
+            for (Integer fi : fromId)
+                fromIdString += fi.toString() + ",";
+            for (Integer ti : toId)
+                toIdString += ti.toString() + ",";
+            fromIdString = fromIdString.substring(0, fromIdString.length() - 1);
+            toIdString = toIdString.substring(0, toIdString.length() - 1);
+
+            String algorithmus = "";
+            switch (alg){
+                case 0: algorithmus = "Dijkstra";
+                    break;
+                case 1: algorithmus = "A*";
+                    break;
+                case 2: algorithmus = "Bellman-Ford";
+                    break;
+                case 3: algorithmus = "Min-Plus-Matrixmultiplikations";
+                    break;
+            }
+
+            //TODO: Algorithmus starten
+
+            return "Wegberechnung von " + fromStr + " (" + fromIdString + ") nach " + toStr + " (" + toIdString + ") mit dem " + algorithmus + "-Algorithmus.";
+        }catch (Exception e){
+            return "Zum Starten der Wegberechnung bitte erst Start und Ziel auswählen.";
+        }
     }
 }
