@@ -34,15 +34,6 @@ public class InformationWindow extends JFrame{
         stringBuilder.append("</br></p></html>");
         this.informationText = new JLabel(stringBuilder.toString());
         this.btnClose = new JButton("Schließen");
-        this.btnClose.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                closeWindow();
-            }
-        });
-    }
-
-    private void closeWindow () {
-        this.dispose();
+        this.btnClose.addActionListener(actionEvent -> this.dispose());
     }
 }
