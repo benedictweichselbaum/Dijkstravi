@@ -112,7 +112,7 @@ public class GlobalLogic {
                     break;
             }
 
-            //TODO: Algorithmus starten
+            //TODO: Algorithmus auch starten
 
             return "Wegberechnung von " + fromStr + " (" + fromIdString + ") nach " + toStr + " (" + toIdString + ") mit dem " + algorithmus + "-Algorithmus.";
         }catch (Exception e){
