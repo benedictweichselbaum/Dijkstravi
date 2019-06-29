@@ -32,7 +32,7 @@ public class DistanceCalculator {
         return finalDistance * 1000; //Gibt das Ergebnis in Metern zurück
     }
 
-    public static void main (String... args) {
+    /*public static void main (String... args) {
         LatLonNode n1 = new LatLonNode(11.2425042, 49.1980249);
         LatLonNode n2 = new LatLonNode(11.2413157, 49.1993888);
         LatLonNode n3 = new LatLonNode(11.2376436, 49.2037429);
@@ -45,5 +45,5 @@ public class DistanceCalculator {
         nodeList.add(n4);
 
         System.out.println(calculateDistanceFromListOfNodes(nodeList));
-    }
+    }*/
 }

@@ -13,14 +13,20 @@ import org.jdom2.input.SAXBuilder;
 
 public class XMLParser {
 
-    Graph gr;
-    HashMap<Long, Double> hmaplon = new HashMap<>();
-    HashMap<Long, Double> hmaplat = new HashMap<>();
-    List<Way> wayList = new ArrayList<>();
+    private Graph gr;
+    private HashMap<Long, Double> hmaplon = new HashMap<>();
+    private HashMap<Long, Double> hmaplat = new HashMap<>();
+    private HashMap<Long, String> hmapname = new HashMap<>();
+    private List<Way> wayList = new ArrayList<>();
+    private HashMap<Integer, String> listOfExits;
+
+    public XMLParser (HashMap<Integer, String> hashMap) {
+        this.listOfExits = hashMap;
+    }
 
     private double progress = 0;
 
-    public void init(){
+    public Graph init(){
         try {
             System.out.println("Lade die XML.");
             File inputFile = new File("german_autobahn.osm");
@@ -40,6 +46,7 @@ public class XMLParser {
         } catch(IOException ioe) {
             ioe.printStackTrace();
         }
+        return gr;
     }
     private LatLonNode createNode(long node)
     {
@@ -48,7 +55,10 @@ public class XMLParser {
     }
 
     private Node createNode2(int newNodeID, long node){
-        Node nd2 = new Node(newNodeID, false, hmaplon.get(node), hmaplat.get(node));
+        String name = hmapname.get(node);
+        if(name != null)
+            listOfExits.put(newNodeID, name);
+        Node nd2 = new Node(newNodeID, false, hmaplat.get(node), hmaplon.get(node), name);
         return nd2;
     }
 
@@ -114,10 +124,20 @@ public class XMLParser {
 
                     hmaplat.put(nodeid, el.getAttribute("lat").getDoubleValue());
                     hmaplon.put(nodeid, el.getAttribute("lon").getDoubleValue());
+
+                    List<Element> tagList = el.getChildren();
+
+                    for (Element tag : tagList) {
+                        if (tag.getAttribute("k").getValue().equals("name")) {
+                            hmapname.put(nodeid, tag.getAttribute("v").getValue());
+                        }
+                    }
                 }catch (Exception e) {
                     //TODO (Occurs when conversion to int/double failed)
                     System.out.println("Error!" + el.getAttribute("id").getValue());
                 }
+
+
             }
         }
     }
@@ -169,33 +189,6 @@ public class XMLParser {
         System.out.println("Der Graph ist FERTIG!");
     }
 
-    public ArrayList<Long> createListOfAllNeededNodes(List<Way> wayList){
-
-        ArrayList<Long> nodeIDs = new ArrayList<>();
-        double singleProgressUnit = 0.25 / wayList.size();
-        for(Way ow : wayList) {
-            progress = progress + singleProgressUnit;
-            Long first = ow.getFirst();
-            Long last = ow.getLast();
-            boolean firstnew = true;
-            boolean lastnew = true;
-            for(int i = 0; i < nodeIDs.size() && (firstnew || lastnew); i++){
-                if(nodeIDs.get(i).equals(first)){
-                    firstnew = false;
-                }
-                if(nodeIDs.get(i).equals(last)){
-                    lastnew = false;
-                }
-            }
-            if(firstnew)
-                nodeIDs.add(first);
-            if(lastnew)
-                nodeIDs.add(last);
-        }
-
-        return nodeIDs;
-    }
-
     public ArrayList<Long> createListOfAllNeededNodesSpeed(List<Way> wayList){
         HashMap<Long,Boolean> nodeIDsMap = new HashMap<>();
         double singleProgressUnit = 0.25 / wayList.size();
@@ -213,4 +206,7 @@ public class XMLParser {
         return progress;
     }
 
+    public Graph getGr() {
+        return this.gr;
+    }
 }

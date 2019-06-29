@@ -1,30 +1,42 @@
 package application.starterProgressDialog;
 
+import application.graphNavigation.Graph;
 import application.xmlParser.XMLParser;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import javax.swing.*;
+import java.util.HashMap;
+
 public class GraphCreater extends Thread{
 
-    private ProgressBar progressBar;
-    private Text progressText;
-    private Stage stage;
+    private JProgressBar progressBar;
+    private JLabel progressText;
+    private HashMap<Integer, String> listOfExitsById;
 
-    public GraphCreater (ProgressBar pb, Text pt, Stage s) {
+    private Graph graph;
+
+    public GraphCreater (JProgressBar pb, JLabel pt, HashMap listOfExitsById) {
         this.progressBar = pb;
         this.progressText = pt;
-        this.stage = s;
+        this.graph = null;
+        this.listOfExitsById = listOfExitsById;
     }
 
     @Override
     public void run () {
-        XMLParser xmlParser = new XMLParser();
-        ProgressBarUpdater progressBarUpdater = new ProgressBarUpdater(progressBar, progressText, xmlParser);
-        progressBarUpdater.start();
-        xmlParser.init();
-        synchronized (stage) {
-            stage.notify();
+        synchronized (this) {
+            XMLParser xmlParser = new XMLParser(listOfExitsById);
+            ProgressBarUpdater progressBarUpdater = new ProgressBarUpdater(progressBar, progressText, xmlParser);
+            progressBarUpdater.start();
+            graph = xmlParser.init();
+            notify();
         }
     }
+
+    public Graph getGraph() {
+        return graph;
+    }
+
 }
