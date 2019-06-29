@@ -15,7 +15,7 @@
       <menus>
         <Menu mnemonicParsing="false" text="Über">
           <items>
-            <MenuItem mnemonicParsing="false" text="Informationen" />
+            <MenuItem mnemonicParsing="false" text="Informationen" onAction="#pressedInformation"/>
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Einstellungen">
@@ -43,7 +43,7 @@
     <RadioButton fx:id="rbMinPlusMma" layoutX="28.0" layoutY="415.0" mnemonicParsing="false" text="Min-Plus MMA" />
     <Label layoutX="28.0" layoutY="284.0" text="Algorithmus" />
     <ProgressBar fx:id="pbAlgorithms" layoutX="28.0" layoutY="562.0" prefHeight="22.0" prefWidth="941.0" progress="0.0" />
-    <Label fx:id="lblProgress" layoutX="28.0" layoutY="565.0" prefWidth="941.0" text="" textAlignment="CENTER" />
+    <Label fx:id="lblProgress" layoutX="28.0" layoutY="568.0" prefWidth="941.0" text="" textAlignment="CENTER" />
     <ComboBox fx:id="cbFrom" editable="true" layoutX="28.0" layoutY="137.0" onAction="#textChangedInComboBoxFrom" prefWidth="200.0">
       <items>
         <FXCollections fx:factory="observableArrayList" />
@@ -54,5 +54,10 @@
         <FXCollections fx:factory="observableArrayList" />
       </items>
     </ComboBox>
+    <Label layoutX="387.0" layoutY="548.0" text="Von NordNordWest - Eigenes Werk, CC BY-SA 3.0 de, https://commons.wikimedia.org/w/index.php?curid=15370415">
+      <font>
+        <Font size="10.0" />
+      </font>
+    </Label>
   </children>
 </AnchorPane>

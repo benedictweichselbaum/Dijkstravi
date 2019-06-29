@@ -12,6 +12,7 @@ import application.graphNavigation.Node;
 import application.imageManipulation.MapManipulator;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import application.informationWindow.InformationWindow;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -122,6 +123,13 @@ public class DijkstraviController implements Initializable {
 
     @FXML
     public void textChangedInComboBoxTo (ActionEvent actionEvent) {
+
+    }
+
+    @FXML
+    public void pressedInformation (ActionEvent actionEvent) {
+        InformationWindow informationWindow = new InformationWindow();
+        informationWindow.setVisible(true);
     }
 }
 
