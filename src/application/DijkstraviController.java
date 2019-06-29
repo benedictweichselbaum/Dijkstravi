@@ -10,8 +10,6 @@ import application.autocompleteComboBox.AutoCompleteComboBoxListener;
 import application.globalLogic.GlobalLogic;
 import application.graphNavigation.Node;
 import application.imageManipulation.MapManipulator;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import application.informationWindow.InformationWindow;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
