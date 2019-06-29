@@ -13,18 +13,18 @@ import java.util.HashMap;
 
 public class GlobalLogic {
 
-    Graph graph;
-    HashMap<String, ArrayList<Integer>> listOfExits;
-    HashMap<Integer, String> listOfExitsById;
-    ComboBox from;
-    ComboBox to;
+    private Graph graph;
+    private HashMap<String, ArrayList<Integer>> listOfExits;
+    private HashMap<Integer, String> listOfExitsById;
+    private ComboBox from;
+    private ComboBox to;
 
 
     public GlobalLogic (ComboBox from, ComboBox to) {
         this.from = from;
         this.to = to;
         listOfExitsById = new HashMap<>();
-        this.showCreatingDialog();
+        this.showCreatingDialogAndCreateGraph();
         fillListOfExits();
         initComboBoxes();
     }
@@ -52,7 +52,7 @@ public class GlobalLogic {
         listOfExits.put(name, list);
     }
 
-    private void showCreatingDialog() {
+    private void showCreatingDialogAndCreateGraph() {
         JFrame jFrame = new JFrame("Graph berechnen");
         Container pane = jFrame.getContentPane();
         JProgressBar jProgressBar = new JProgressBar(0, 100);
