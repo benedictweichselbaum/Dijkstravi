@@ -115,12 +115,8 @@ public class DijkstraviController implements Initializable {
         new AutoCompleteComboBoxListener<>(cbFrom);
         new AutoCompleteComboBoxListener<>(cbTo);
 
-        zoomer = new Zoomer(imgViewAutobahn, scrollPane = new ScrollPane());
-        try{
-            zoomer.start(new Stage());
-        }catch (Exception e){
-            System.out.println("Error:" + e.getMessage());
-        }
+        zoomer = new Zoomer(imgViewAutobahn, scrollPane);
+
     }
 
     @FXML

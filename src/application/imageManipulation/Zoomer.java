@@ -13,7 +13,7 @@ import javafx.scene.input.ScrollEvent;
 import javafx.stage.Stage;
 
 
-public class Zoomer extends Application {
+public class Zoomer{
 
     private ImageView imageView;
     private ScrollPane scrollPane;
@@ -22,10 +22,6 @@ public class Zoomer extends Application {
     public Zoomer(ImageView imgView, ScrollPane scrollPane){
         this.imageView = imgView;
         this.scrollPane = scrollPane;
-    }
-
-    @Override
-    public void start(Stage stage) throws Exception {
 
         zoomProperty.addListener(new InvalidationListener() {
             @Override
@@ -48,16 +44,5 @@ public class Zoomer extends Application {
 
         imageView.preserveRatioProperty().set(true);
         scrollPane.setContent(imageView);
-
-        stage.setScene(new Scene(scrollPane, 700, 600));
-        stage.show();
-
-    }
-
-    /**
-     * @param args
-     */
-    public static void main(String[] args) {
-        launch(args);
     }
 }

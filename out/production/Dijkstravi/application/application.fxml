@@ -9,7 +9,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0000999999975" prefWidth="1209.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="application.DijkstraviController">
+<AnchorPane id="AnchorPane" fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="application.DijkstraviController">
   <children>
     <MenuBar layoutX="0.0" layoutY="0.0" prefHeight="26.0" prefWidth="1000.0">
       <menus>
@@ -59,10 +59,7 @@
         <Font size="10.0" />
       </font>
     </Label>
-    <ScrollPane layoutX="1009.0" layoutY="320.0" prefHeight="200.0" prefWidth="200.0">
-      <content>
-        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-      </content>
-    </ScrollPane>
+    <ScrollPane fx:id="scrollPane" content="$null" layoutX="619.0" layoutY="164.0" prefHeight="720.0" prefWidth="600.0" />
+    <AnchorPane id="Content" layoutX="591.0" layoutY="84.0" minHeight="0.0" minWidth="0.0" prefHeight="441.0" prefWidth="352.0" />
   </children>
 </AnchorPane>
