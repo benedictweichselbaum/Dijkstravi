@@ -10,7 +10,10 @@ import application.autocompleteComboBox.AutoCompleteComboBoxListener;
 import application.globalLogic.GlobalLogic;
 import application.graphNavigation.Node;
 import application.imageManipulation.MapManipulator;
+import application.imageManipulation.Zoomer;
 import application.informationWindow.InformationWindow;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,6 +21,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 
 public class DijkstraviController implements Initializable {
@@ -62,16 +66,19 @@ public class DijkstraviController implements Initializable {
     private Label lblProgress;
 
     @FXML
+    private ScrollPane scrollPane;
+
+    @FXML
     private ComboBox cbFrom;
 
     @FXML ComboBox cbTo;
 
     private ToggleGroup algRadioButtonGroup;
     private GlobalLogic globalLogic;
+    private Zoomer zoomer;
 
     @FXML
     void clickedCalcRoute(ActionEvent event) {
-
        if(algRadioButtonGroup.getSelectedToggle() == rbDijkstra)
            txtAreaRoute.setText(globalLogic.calculateWay(0));
        else if(algRadioButtonGroup.getSelectedToggle() == rbAStrern)
@@ -80,7 +87,6 @@ public class DijkstraviController implements Initializable {
            txtAreaRoute.setText(globalLogic.calculateWay(2));
        else if(algRadioButtonGroup.getSelectedToggle() == rbMinPlusMma)
            txtAreaRoute.setText(globalLogic.calculateWay(3));
-
     }
 
     @Override
@@ -108,6 +114,13 @@ public class DijkstraviController implements Initializable {
 
         new AutoCompleteComboBoxListener<>(cbFrom);
         new AutoCompleteComboBoxListener<>(cbTo);
+
+        zoomer = new Zoomer(imgViewAutobahn, scrollPane = new ScrollPane());
+        try{
+            zoomer.start(new Stage());
+        }catch (Exception e){
+            System.out.println("Error:" + e.getMessage());
+        }
     }
 
     @FXML
