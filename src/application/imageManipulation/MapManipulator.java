@@ -50,10 +50,10 @@ public class MapManipulator {
 
         for (Pixel pixel : pixelWay) {
             pixelWriter.setColor(pixel.getX(), pixel.getY(), markingColor);
-            pixelWriter.setColor(pixel.getX(), pixel.getY()+1, markingColor);
-            pixelWriter.setColor(pixel.getX(), pixel.getY()-1, markingColor);
-            pixelWriter.setColor(pixel.getX()+1, pixel.getY(), markingColor);
-            pixelWriter.setColor(pixel.getX()-1, pixel.getY(), markingColor);
+            for (int i = 1; i <= 20; i++) {
+                pixelWriter.setColor(pixel.getX(), pixel.getY() + i, markingColor);
+                pixelWriter.setColor(pixel.getX(), pixel.getY() - i, markingColor);
+            }
         }
 
         return writableImage;
@@ -113,10 +113,10 @@ public class MapManipulator {
     }
 
     private static int latitudeToPixel (double latitude) {
-        return (int) Math.round((55.078 - latitude)/0.010955556);
+        return (int) Math.round((55.091 - latitude)/0.000836251);
     }
 
     private static int lonitudeToPixel (double longitude) {
-        return (int) Math.round((longitude - 5.493)/0.016434926);
+        return (int) Math.round((longitude - 5.493)/0.0012525);
     }
 }
