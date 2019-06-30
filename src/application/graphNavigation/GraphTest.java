@@ -11,6 +11,7 @@ public class GraphTest {
         printAllConnectionsOfAllNodes(gr);
     }
 
+
     static void insertSomeEdges(Graph gr){
         gr.addEdge(2,3, 12, 130, "A X", "Bsp");
         gr.addEdge(3,1, 1, 130, "A X", "Bsp");
