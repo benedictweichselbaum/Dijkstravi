@@ -44,3 +44,9 @@ Wenn er fertig ist auf "Export" clicken und die .osm herunterladen. </br>
 - [ ] Algorithmen implementieren.</br>
 - [ ] Routenausgabe implementieren</br>
 - [X] Graphische Implementierung (Algorithmus ist fertig. Die Nutzung muss natürlich noch implementiert werden.)
+
+# Offene Punkte
+- [ ] Algorithmen für je zwei Start- und Zielknoten optimieren
+
+optional
+- [ ] Karte zoombar machen
