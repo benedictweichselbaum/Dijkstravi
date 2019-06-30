@@ -173,7 +173,8 @@ public class XMLParser {
     }
 
     public void test(){
-        gr.startAStarigator(89261, 70158);
+        //gr.startAStarigator(89261, 70158);
+        gr.startDijkstrvigator(89261, 70158);
         //System.out.println(gr.getConnectionBetween2Points(0,4));
         /*Connection con = gr.getConnectionBetween2Points(0, 1);
         con.getAllInformationsAsString();*/

@@ -43,6 +43,13 @@ public class Graph {
         aStarigator.directions(this, aStarigator.calculateShortestWay(this, startNode, targetNode));
     }
 
+    public void startDijkstrvigator(int startNode, int targetNode){
+        System.out.println(" ");
+        System.out.println("Dijkstrvigator:");
+        Navigator dijkstrvigator = new DijkstraOrAStar("Dijkstra");
+        dijkstrvigator.directions(this, dijkstrvigator.calculateShortestWay(this, startNode, targetNode));
+    }
+
     public void test(){
         for (int i = 0; i < links.size(); i++) {
             ArrayList<Connection> arrayList = links.get(i);
