@@ -1,6 +1,7 @@
 package application.globalLogic;
 
 import application.graphNavigation.Graph;
+import application.menuBarDialogs.optionDialog.OptionWindow;
 import application.starterProgressDialog.GraphCreater;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,10 +20,12 @@ public class GlobalLogic {
     private ComboBox from;
     private ComboBox to;
 
+    private OptionWindow optionWindow;
 
     public GlobalLogic (ComboBox from, ComboBox to) {
         this.from = from;
         this.to = to;
+        this.optionWindow = new OptionWindow();
         listOfExitsById = new HashMap<>();
         this.showCreatingDialogAndCreateGraph();
         fillListOfExits();
@@ -118,5 +121,9 @@ public class GlobalLogic {
         }catch (Exception e){
             return "Zum Starten der Wegberechnung bitte erst Start und Ziel auswählen.";
         }
+    }
+
+    public OptionWindow getOptionWindow() {
+        return optionWindow;
     }
 }

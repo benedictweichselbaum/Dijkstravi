@@ -11,9 +11,7 @@ import application.globalLogic.GlobalLogic;
 import application.graphNavigation.Node;
 import application.imageManipulation.MapManipulator;
 import application.imageManipulation.Zoomer;
-import application.informationWindow.InformationWindow;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
+import application.menuBarDialogs.informationWindow.InformationWindow;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -21,7 +19,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
 
 public class DijkstraviController implements Initializable {
@@ -136,6 +133,11 @@ public class DijkstraviController implements Initializable {
     public void pressedInformation (ActionEvent actionEvent) {
         InformationWindow informationWindow = new InformationWindow();
         informationWindow.setVisible(true);
+    }
+
+    @FXML
+    public void pressedOptions (ActionEvent actionEvent) {
+        this.globalLogic.getOptionWindow().setVisible(true);
     }
 }
 

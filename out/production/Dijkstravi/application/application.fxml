@@ -24,7 +24,7 @@
             <MenuItem mnemonicParsing="false" onAction="#pressedInformation" text="Informationen" />
           </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="Einstellungen">
+        <Menu mnemonicParsing="false" text="Einstellungen" onAction="#pressedOptions">
           <items>
             <MenuItem mnemonicParsing="false" text="Optionen" />
             <MenuItem fx:id="btnExit" mnemonicParsing="false" onAction="#pressedExit" text="Beenden" />
@@ -65,6 +65,6 @@
         <Font size="10.0" />
       </font>
     </Label>
-    <!--<ScrollPane fx:id="scrollPane" content="$null" layoutX="574.0" layoutY="78.0" prefHeight="469.0" prefWidth="405.0" />-->
+    <ScrollPane fx:id="scrollPane" content="$null" layoutX="574.0" layoutY="78.0" prefHeight="469.0" prefWidth="405.0" />
   </children>
 </AnchorPane>

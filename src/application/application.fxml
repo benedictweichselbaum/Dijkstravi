@@ -24,7 +24,7 @@
             <MenuItem mnemonicParsing="false" onAction="#pressedInformation" text="Informationen" />
           </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="Einstellungen">
+        <Menu mnemonicParsing="false" text="Einstellungen" onAction="#pressedOptions">
           <items>
             <MenuItem mnemonicParsing="false" text="Optionen" />
             <MenuItem fx:id="btnExit" mnemonicParsing="false" onAction="#pressedExit" text="Beenden" />
