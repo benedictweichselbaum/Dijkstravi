@@ -27,7 +27,8 @@ public class MapManipulator {
         List<Pixel> pixelWay = createListOfPixelsToMarkFromTwoCoordinates(node1.getLatitude(),
                                                                             node1.getLongitude(),
                                                                             node2.getLatitude(),
-                                                                            node2.getLongitude());
+                                                                            node2.getLongitude(),
+                                                                            mapToManipulate);
 
         PixelReader pixelReader = mapToManipulate.getPixelReader();
         WritableImage writableImage = new WritableImage(
@@ -56,11 +57,19 @@ public class MapManipulator {
         return writableImage;
     }
 
-    private static List<Pixel> createListOfPixelsToMarkFromTwoCoordinates (double lat1, double lon1, double lat2, double lon2) {
-        int latPx1 = latitudeToPixel(lat1);
-        int lonPx1 = lonitudeToPixel(lon1);
-        int latPx2 = latitudeToPixel(lat2);
-        int lonPx2 = lonitudeToPixel(lon2);
+    private static List<Pixel> createListOfPixelsToMarkFromTwoCoordinates (double lat1,
+                                                                           double lon1,
+                                                                           double lat2,
+                                                                           double lon2,
+                                                                           Image image) {
+        int width = (int) image.getWidth();
+        int hight = (int) image.getHeight();
+
+
+        int latPx1 = latitudeToPixel(lat1, hight);
+        int lonPx1 = lonitudeToPixel(lon1, width);
+        int latPx2 = latitudeToPixel(lat2, hight);
+        int lonPx2 = lonitudeToPixel(lon2, width);
 
         List<Pixel> listOfPixels = new ArrayList<>();
         double m;
@@ -109,11 +118,11 @@ public class MapManipulator {
         return listObject;
     }
 
-    private static int latitudeToPixel (double latitude) {
-        return (int) Math.round((55.091 - latitude)/0.000836251);
+    private static int latitudeToPixel (double latitude, int pixelY) {
+        return (int) Math.round((55.104 - latitude)/((55.104 - 47.175)/pixelY));
     }
 
-    private static int lonitudeToPixel (double longitude) {
-        return (int) Math.round((longitude - 5.493)/0.0012525);
+    private static int lonitudeToPixel (double longitude, int pixelX) {
+        return (int) Math.round((longitude - 5.449)/((15.447-5.449)/pixelX));
     }
 }
