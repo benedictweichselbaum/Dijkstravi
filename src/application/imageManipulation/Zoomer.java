@@ -31,12 +31,13 @@ public class Zoomer{
             }
         });
 
-        scrollPane.addEventFilter(ScrollEvent.ANY, new EventHandler<ScrollEvent>() {
+        imageView.addEventFilter(ScrollEvent.ANY, new EventHandler<ScrollEvent>() {
             @Override
             public void handle(ScrollEvent event) {
+                System.out.println("Breite: " + imageView.fitWidthProperty().getValue());
                 if (event.getDeltaY() > 0) {
                     zoomProperty.set(zoomProperty.get() * 1.1);
-                } else if (event.getDeltaY() < 0) {
+                } else if (event.getDeltaY() < 0 && imageView.fitWidthProperty().getValue() > 600) {
                     zoomProperty.set(zoomProperty.get() / 1.1);
                 }
             }
