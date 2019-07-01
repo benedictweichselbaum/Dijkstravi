@@ -84,7 +84,7 @@ class NavigatorAlgorithmsTests {
 
 
         System.out.println("Dijkstrvigator:");
-        Navigator dijkstrvigator =new DijkstraOrAStar("Dijkstra");
+        Navigator dijkstrvigator =new Dijkstra("Dijkstra");
         dijkstrvigator.calculateShortestWay(graph, 1, 4);
 
 
@@ -117,7 +117,7 @@ class NavigatorAlgorithmsTests {
         System.out.println("  ");
 
         System.out.println("AStarigator:");
-        Navigator aStarigator = new DijkstraOrAStar("AStar");
+        Navigator aStarigator = new Dijkstra("AStar");
         aStarigator.calculateShortestWay(gRoad, 1, 4);
 
         System.out.println("  ");

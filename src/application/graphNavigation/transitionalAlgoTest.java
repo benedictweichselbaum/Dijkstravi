@@ -12,13 +12,13 @@ public class transitionalAlgoTest {
         System.out.println("  ");
 
         System.out.println("Dijkstrvigator:");
-        Navigator dijkstrvigator =new DijkstraOrAStar("Dijkstra");
+        Navigator dijkstrvigator =new Dijkstra();
         dijkstrvigator.calculateShortestWay(gr, 0, 3);
 
         System.out.println("  ");
 
         System.out.println("AStarigator:");
-        Navigator aStarigator = new DijkstraOrAStar("AStar");
+        Navigator aStarigator = new AStar();
         aStarigator.calculateShortestWay(gr, 0, 3);
     }
 

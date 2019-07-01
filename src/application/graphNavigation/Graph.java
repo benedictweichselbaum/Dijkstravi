@@ -39,14 +39,14 @@ public class Graph {
 
     public void startAStarigator(int startNode, int targetNode){
         System.out.println("AStarigator:");
-        Navigator aStarigator = new DijkstraOrAStar("AStar");
+        Navigator aStarigator = new AStar();
         aStarigator.directions(this, aStarigator.calculateShortestWay(this, startNode, targetNode));
     }
 
     public void startDijkstrvigator(int startNode, int targetNode){
         System.out.println(" ");
         System.out.println("Dijkstrvigator:");
-        Navigator dijkstrvigator = new DijkstraOrAStar("Dijkstra");
+        Navigator dijkstrvigator = new Dijkstra();
         dijkstrvigator.directions(this, dijkstrvigator.calculateShortestWay(this, startNode, targetNode));
     }
 
