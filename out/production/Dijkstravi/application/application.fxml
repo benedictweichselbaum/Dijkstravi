@@ -39,7 +39,7 @@
         <Font size="24.0" />
       </font>
     </Label>
-    <ImageView fx:id="imgViewAutobahn" fitHeight="454.85499974030193" fitWidth="383.4680480957031" layoutX="560.0" layoutY="93.0" pickOnBounds="true" preserveRatio="false" smooth="true" />
+    <ImageView fx:id="imgViewAutobahn" fitWidth="400" layoutX="560.0" layoutY="93.0" pickOnBounds="false"/>
     <Button fx:id="btnCalcRoute" layoutX="28.0" layoutY="224.0" mnemonicParsing="false" onAction="#clickedCalcRoute" prefHeight="28.0" prefWidth="114.0" text="Berechnen" />
     <TextArea fx:id="txtAreaRoute" disable="false" editable="false" layoutX="254.0" layoutY="137.0" prefHeight="410.85498046875" prefWidth="278.0" wrapText="true" />
     <RadioButton fx:id="rbDijkstra" layoutX="28.0" layoutY="320.0" mnemonicParsing="false" text="Dijkstra" />
@@ -65,6 +65,6 @@
         <Font size="10.0" />
       </font>
     </Label>
-    <ScrollPane fx:id="scrollPane" content="$null" layoutX="574.0" layoutY="78.0" prefHeight="469.0" prefWidth="405.0" />
+    <!--<ScrollPane fx:id="scrollPane" content="$null" layoutX="574.0" layoutY="78.0" prefHeight="469.0" prefWidth="405.0" />-->
   </children>
 </AnchorPane>
