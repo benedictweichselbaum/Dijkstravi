@@ -36,9 +36,6 @@ public class MapManipulator {
         );
         PixelWriter pixelWriter = writableImage.getPixelWriter();
 
-        System.out.println(mapToManipulate.getWidth());
-        System.out.println(mapToManipulate.getHeight() + "H");
-
         for (int readY = 0; readY < mapToManipulate.getHeight(); readY++) {
             for (int readX = 0; readX < mapToManipulate.getWidth(); readX++) {
                 Color color = pixelReader.getColor(readX, readY);
