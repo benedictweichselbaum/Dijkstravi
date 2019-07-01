@@ -7,7 +7,7 @@ import java.util.List;
 
 //matrix is not needed here, just an array of nodes and an array of edges!!!!!!!!!!
 
-class BellmanFord implements Navigator {
+class BellmanFord implements NavigationService {
 
     private int[] precursors;
     private List<Long> res = new ArrayList<>();

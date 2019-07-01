@@ -2,7 +2,7 @@ package application.graphNavigation;
 
 import java.util.ArrayList;
 
-public class transitionalAlgoTest {
+public class TransitionalAlgoTest {
     public static void main(String... args) {
         Graph gr = new Graph();
         addSomeNodes(gr);
@@ -12,13 +12,13 @@ public class transitionalAlgoTest {
         System.out.println("  ");
 
         System.out.println("Dijkstrvigator:");
-        Navigator dijkstrvigator =new Dijkstra();
+        NavigationService dijkstrvigator =new Dijkstra();
         dijkstrvigator.calculateShortestWay(gr, 0, 3);
 
         System.out.println("  ");
 
         System.out.println("AStarigator:");
-        Navigator aStarigator = new AStar();
+        NavigationService aStarigator = new AStar();
         aStarigator.calculateShortestWay(gr, 0, 3);
     }
 

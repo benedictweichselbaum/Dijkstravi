@@ -3,7 +3,7 @@ package application.graphNavigation;
 
 import java.util.*;
 
-class Dijkstra extends Navigator{
+class Dijkstra extends NavigationService {
 
     private ArrayList<Node> autobahn = new ArrayList<>();
     private HashMap<Integer, ArrayList<Connection>> links = new HashMap<>();

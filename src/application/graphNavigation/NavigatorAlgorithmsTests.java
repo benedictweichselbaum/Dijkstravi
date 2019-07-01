@@ -79,12 +79,12 @@ class NavigatorAlgorithmsTests {
         graph.printOutMatrix();
 
         System.out.println("  ");
-        Navigator navigator = new BellmanFord();
+        NavigationService navigator = new BellmanFord();
         navigator.calculateShortestWay(graph, 1, 11);
 
 
         System.out.println("Dijkstrvigator:");
-        Navigator dijkstrvigator =new Dijkstra("Dijkstra");
+        NavigationService dijkstrvigator =new Dijkstra("Dijkstra");
         dijkstrvigator.calculateShortestWay(graph, 1, 4);
 
 
@@ -117,21 +117,21 @@ class NavigatorAlgorithmsTests {
         System.out.println("  ");
 
         System.out.println("AStarigator:");
-        Navigator aStarigator = new Dijkstra("AStar");
+        NavigationService aStarigator = new Dijkstra("AStar");
         aStarigator.calculateShortestWay(gRoad, 1, 4);
 
         System.out.println("  ");
 
         System.out.println("BellmanFordigator:");
 
-        Navigator navigatorBellmanFord = new BellmanFord();
+        NavigationService navigatorBellmanFord = new BellmanFord();
         navigatorBellmanFord.calculateShortestWay(gRoad, 1, 4);
 
         System.out.println("  ");
 
         System.out.println("Min-Plus-MatrixMultiplicationator:");
 
-        Navigator navigatorMinPlus = new MinPlusMatrixMultiplication();
+        NavigationService navigatorMinPlus = new MinPlusMatrixMultiplication();
         navigatorMinPlus.calculateShortestWay(gRoad, 1, 4);
 
         System.out.println("  ");
