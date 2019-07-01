@@ -48,7 +48,7 @@ public class MapManipulator {
 
         for (Pixel pixel : pixelWay) {
             pixelWriter.setColor(pixel.getX(), pixel.getY(), markingColor);
-            for (int i = 1; i <= 20; i++) {
+            for (int i = 1; i <= (int) (mapToManipulate.getWidth()*0.0025); i++) {
                 pixelWriter.setColor(pixel.getX(), pixel.getY() + i, markingColor);
                 pixelWriter.setColor(pixel.getX(), pixel.getY() - i, markingColor);
             }
