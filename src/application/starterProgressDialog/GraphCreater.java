@@ -2,9 +2,6 @@ package application.starterProgressDialog;
 
 import application.graphNavigation.Graph;
 import application.xmlParser.XMLParser;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 import javax.swing.*;
 import java.util.HashMap;
@@ -17,7 +14,7 @@ public class GraphCreater extends Thread{
 
     private Graph graph;
 
-    public GraphCreater (JProgressBar pb, JLabel pt, HashMap listOfExitsById) {
+    public GraphCreater (JProgressBar pb, JLabel pt, HashMap<Integer, String> listOfExitsById) {
         this.progressBar = pb;
         this.progressText = pt;
         this.graph = null;

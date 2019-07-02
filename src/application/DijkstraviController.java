@@ -10,7 +10,8 @@ import application.autocompleteComboBox.AutoCompleteComboBoxListener;
 import application.globalLogic.GlobalLogic;
 import application.graphNavigation.Node;
 import application.imageManipulation.MapManipulator;
-import application.informationWindow.InformationWindow;
+import application.imageManipulation.Zoomer;
+import application.menuBarDialogs.informationWindow.InformationWindow;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -62,16 +63,19 @@ public class DijkstraviController implements Initializable {
     private Label lblProgress;
 
     @FXML
+    private ScrollPane scrollPane;
+
+    @FXML
     private ComboBox cbFrom;
 
     @FXML ComboBox cbTo;
 
     private ToggleGroup algRadioButtonGroup;
     private GlobalLogic globalLogic;
+    private Zoomer zoomer;
 
     @FXML
     void clickedCalcRoute(ActionEvent event) {
-
        if(algRadioButtonGroup.getSelectedToggle() == rbDijkstra)
            txtAreaRoute.setText(globalLogic.calculateWay(0));
        else if(algRadioButtonGroup.getSelectedToggle() == rbAStrern)
@@ -80,7 +84,6 @@ public class DijkstraviController implements Initializable {
            txtAreaRoute.setText(globalLogic.calculateWay(2));
        else if(algRadioButtonGroup.getSelectedToggle() == rbMinPlusMma)
            txtAreaRoute.setText(globalLogic.calculateWay(3));
-
     }
 
     @Override
@@ -108,6 +111,8 @@ public class DijkstraviController implements Initializable {
 
         new AutoCompleteComboBoxListener<>(cbFrom);
         new AutoCompleteComboBoxListener<>(cbTo);
+
+        zoomer = new Zoomer(imgViewAutobahn, scrollPane);
     }
 
     @FXML
@@ -128,6 +133,11 @@ public class DijkstraviController implements Initializable {
     public void pressedInformation (ActionEvent actionEvent) {
         InformationWindow informationWindow = new InformationWindow();
         informationWindow.setVisible(true);
+    }
+
+    @FXML
+    public void pressedOptions (ActionEvent actionEvent) {
+        this.globalLogic.getOptionWindow().setVisible(true);
     }
 }
 
