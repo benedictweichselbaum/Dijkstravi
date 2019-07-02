@@ -2,11 +2,11 @@ package application.graphNavigation;
 
 public class Node {
 
-    int id;
-    boolean link;
-    double longitude;
-    double latitude;
-    String name;
+    private int id;
+    private boolean link;
+    private double longitude;
+    private double latitude;
+    private String name;
 
     public Node(int id, boolean isLink, double lat, double lon, String name) {
         this.id = id;
@@ -17,10 +17,11 @@ public class Node {
 
     }
 
-    public int getId() {
+    int getId() {
         return id;
     }
 
+    @SuppressWarnings("unused")
     public boolean isLink() {
         return link;
     }

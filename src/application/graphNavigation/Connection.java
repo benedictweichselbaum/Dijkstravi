@@ -3,8 +3,8 @@ package application.graphNavigation;
 public class Connection {
     int aim;
     int length;
-    boolean link;
-    int maxspeed; //-1: unlimited; -2: no information; -3: variable signals
+    private boolean link;
+    private int maxspeed; //-1: unlimited; -2: no information; -3: variable signals
     String name;
     String destination;
 

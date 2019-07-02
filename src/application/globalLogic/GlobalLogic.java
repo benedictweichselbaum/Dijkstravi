@@ -32,6 +32,7 @@ public class GlobalLogic {
         initComboBoxes();
     }
 
+    @SuppressWarnings("unchecked")
     private void initComboBoxes () {
         ObservableList<String> observableList =  FXCollections.observableArrayList();
 
@@ -40,6 +41,7 @@ public class GlobalLogic {
         this.to.setItems(observableList.sorted());
     }
 
+    @SuppressWarnings("all")
     private void fillListOfExits(){
         listOfExits = new HashMap<>();
 
@@ -54,6 +56,7 @@ public class GlobalLogic {
         listOfExits.put(name, list);
     }
 
+    @SuppressWarnings("all")
     private void showCreatingDialogAndCreateGraph() {
         JFrame jFrame = new JFrame("Graph berechnen");
         Container pane = jFrame.getContentPane();
@@ -94,14 +97,14 @@ public class GlobalLogic {
             ArrayList<Integer> fromId = listOfExits.get(fromStr);
             ArrayList<Integer> toId = listOfExits.get(toStr);
 
-            String fromIdString = "";
-            String toIdString = "";
+            StringBuilder fromIdString = new StringBuilder();
+            StringBuilder toIdString = new StringBuilder();
             for (Integer fi : fromId)
-                fromIdString += fi.toString() + ",";
+                fromIdString.append(fi.toString()).append(",");
             for (Integer ti : toId)
-                toIdString += ti.toString() + ",";
-            fromIdString = fromIdString.substring(0, fromIdString.length() - 1);
-            toIdString = toIdString.substring(0, toIdString.length() - 1);
+                toIdString.append(ti.toString()).append(",");
+            fromIdString = new StringBuilder(fromIdString.substring(0, fromIdString.length() - 1));
+            toIdString = new StringBuilder(toIdString.substring(0, toIdString.length() - 1));
 
             String algorithmus = "";
             switch (alg){

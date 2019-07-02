@@ -2,10 +2,11 @@ package application.menuBarDialogs.optionDialog;
 
 public class InvalidMaxSpeedException extends Exception {
 
-    public InvalidMaxSpeedException () {
+    InvalidMaxSpeedException () {
         super();
     }
 
+    @SuppressWarnings("unused")
     public InvalidMaxSpeedException (String message) {
         super(message);
     }

@@ -82,7 +82,6 @@ public class OptionWindow extends JFrame {
         }
     }
 
-
     public int getMaxSpeed() {
         return maxSpeed;
     }

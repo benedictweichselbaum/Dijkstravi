@@ -5,8 +5,8 @@ import java.util.HashMap;
 
 public class Graph {
 
-    ArrayList<Node> autobahn = new ArrayList<>();
-    HashMap<Integer, ArrayList<Connection>> links = new HashMap<>();
+    private ArrayList<Node> autobahn = new ArrayList<>();
+    private HashMap<Integer, ArrayList<Connection>> links = new HashMap<>();
 
     public void addNodesSorted(Node nd){
         autobahn.add(nd);
@@ -23,14 +23,15 @@ public class Graph {
         }
     }
 
-    public ArrayList<Connection> getAllConnectionsOfNode(int id){
+    ArrayList<Connection> getAllConnectionsOfNode(int id){
         return links.get(id);
     }
 
-    public int getAmountOfNodes(){
+    int getAmountOfNodes(){
         return autobahn.size();
     }
 
+    @SuppressWarnings("unused")
     public ArrayList<ArrayList<Integer>> getListOfAllEdges(){
         ArrayList<ArrayList<Integer>> list = new ArrayList<>();
         for(int i = 0; i < autobahn.size(); i++){

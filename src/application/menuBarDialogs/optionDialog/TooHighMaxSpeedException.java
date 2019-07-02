@@ -2,10 +2,11 @@ package application.menuBarDialogs.optionDialog;
 
 public class TooHighMaxSpeedException extends Exception {
 
-    public TooHighMaxSpeedException (){
+    TooHighMaxSpeedException (){
         super();
     }
 
+    @SuppressWarnings("unused")
     public TooHighMaxSpeedException(String message){
         super(message);
     }
