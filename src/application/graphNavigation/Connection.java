@@ -8,7 +8,7 @@ public class Connection {
     String name;
     String destination;
 
-    Connection(int roadaim, int lengthOfRoad, boolean motorway_link, int maximumspeed, String nameOfRoad, String roadDestination){
+    public Connection(int roadaim, int lengthOfRoad, boolean motorway_link, int maximumspeed, String nameOfRoad, String roadDestination){
         aim = roadaim;
         length = lengthOfRoad;
         link = motorway_link;
@@ -22,5 +22,9 @@ public class Connection {
             return maxspeed;
         else
             return myMaxspeed;
+    }
+
+    public int getAim(){
+        return aim;
     }
 }

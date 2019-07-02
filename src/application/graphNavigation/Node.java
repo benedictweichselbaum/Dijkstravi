@@ -17,7 +17,7 @@ public class Node {
 
     }
 
-    int getId() {
+    public int getId() {
         return id;
     }
 
@@ -32,6 +32,10 @@ public class Node {
 
     public double getLatitude() {
         return latitude;
+    }
+
+    public String getName(){
+        return name;
     }
 }
 

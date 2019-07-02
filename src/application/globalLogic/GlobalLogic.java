@@ -1,7 +1,9 @@
 package application.globalLogic;
 
+import application.graphNavigation.Connection;
 import application.graphNavigation.Graph;
 import application.menuBarDialogs.optionDialog.OptionWindow;
+import application.graphNavigation.Node;
 import application.starterProgressDialog.GraphCreater;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,6 +21,8 @@ public class GlobalLogic {
     private HashMap<Integer, String> listOfExitsById;
     private ComboBox from;
     private ComboBox to;
+    private ArrayList<Integer> nodesWithHelperConnection;
+    private int idFrom, idTo;
 
     private OptionWindow optionWindow;
 
@@ -26,6 +30,7 @@ public class GlobalLogic {
         this.from = from;
         this.to = to;
         this.optionWindow = new OptionWindow();
+        idFrom = idTo = -1;
         listOfExitsById = new HashMap<>();
         this.showCreatingDialogAndCreateGraph();
         fillListOfExits();
@@ -91,20 +96,32 @@ public class GlobalLogic {
 
     public String calculateWay(int alg){
         try {
+            if(idTo > 1)
+            deleteHelpStructure();
+
             String fromStr = from.getEditor().getCharacters().toString();
             String toStr = to.getEditor().getCharacters().toString();
 
             ArrayList<Integer> fromId = listOfExits.get(fromStr);
             ArrayList<Integer> toId = listOfExits.get(toStr);
 
-            StringBuilder fromIdString = new StringBuilder();
-            StringBuilder toIdString = new StringBuilder();
+            createHelpStructure(fromId, toId);
+
+            String fromIdString = "";
+            String toIdString = "";
             for (Integer fi : fromId)
-                fromIdString.append(fi.toString()).append(",");
+                fromIdString += fi.toString() + ",";
             for (Integer ti : toId)
-                toIdString.append(ti.toString()).append(",");
-            fromIdString = new StringBuilder(fromIdString.substring(0, fromIdString.length() - 1));
-            toIdString = new StringBuilder(toIdString.substring(0, toIdString.length() - 1));
+                toIdString += ti.toString() + ",";
+            fromIdString = fromIdString.substring(0, fromIdString.length() - 1);
+            toIdString = toIdString.substring(0, toIdString.length() - 1);
+
+            if(graph.getNodeById(idFrom).getName().equals("HelperNode")){
+                fromIdString += " Hilfsknoten " + idFrom;
+            }
+            if(graph.getNodeById(idTo).getName().equals("HelperNode")){
+                toIdString += " Hilfsknoten " + idTo;
+            }
 
             String algorithmus = "";
             switch (alg){
@@ -128,5 +145,59 @@ public class GlobalLogic {
 
     public OptionWindow getOptionWindow() {
         return optionWindow;
+    }
+
+    private void createHelpStructure(ArrayList<Integer> fromId, ArrayList<Integer> toId){
+        idFrom = createHelperNode(fromId);
+        idTo = createHelperNode(toId);
+        nodesWithHelperConnection = toId;
+        for(int id : fromId){
+            addHelperConnection(idTo, id);
+        }
+        for(int id : toId){
+            addHelperConnection(id, idFrom);
+        }
+    }
+
+    private int createHelperNode(ArrayList<Integer> Ids){
+        if(Ids.size() == 1){
+            return Ids.get(0);
+        }else{
+            Node helperNode = addHelperNode(Ids);
+            graph.addNodesSorted(helperNode);
+            return helperNode.getId();
+        }
+    }
+    private Node addHelperNode(ArrayList<Integer> listOfNodes){
+        int lat = 0;
+        int lon = 0;
+        for(int nodeId : listOfNodes){
+            Node nd = graph.getNodeById(nodeId);
+            lat += nd.getLatitude();
+            lon+= nd.getLongitude();
+        }
+        lat = lat / listOfNodes.size();
+        lon = lon / listOfNodes.size();
+
+        return new Node(graph.getAmountOfNodes(),true, lat, lon, "HelperNode");
+    }
+
+    private void addHelperConnection(int fromId, int toId){
+        graph.addEdge(fromId,toId,0, -1, "HelperWay", "Imaginary");
+    }
+
+    private void deleteHelpStructure(){
+        if(graph.getNodeById(idTo).getName().equals("HelperNode")){
+            for(int nd : nodesWithHelperConnection){
+                for(Connection cn : graph.getAllConnectionsOfNode(nd)){
+                   if(cn.getAim() == idTo)
+                        graph.deleteConnection(nd, cn);
+                }
+            }
+            graph.deleteLastNodeWithOutgoingConnections();
+        }
+        if(graph.getNodeById(idFrom).getName().equals("HelperNode")){
+            graph.deleteLastNodeWithOutgoingConnections();
+        }
     }
 }
