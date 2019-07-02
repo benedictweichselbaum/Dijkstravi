@@ -30,7 +30,7 @@ public class OptionWindow extends JFrame {
         this.lblSpeed = new JLabel("Persönliche Höchstgeschwindigkeit:");
         this.txtPersonalMaxSpeed = new JTextField(20);
         this.txtPersonalMaxSpeed.setText("130");
-        this.btnClose = new JButton("Schließen");
+        this.btnClose = new JButton("Speichern");
         this.btnClose.addActionListener(actionEvent -> this.setVisible(false));
         addDocumentListenerToTextField();
         pane.add(lblSpeed);
