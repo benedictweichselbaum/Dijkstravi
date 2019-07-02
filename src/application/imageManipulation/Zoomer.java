@@ -18,7 +18,7 @@ public class Zoomer{
 
     private ImageView imageView;
     private ScrollPane scrollPane;
-    final DoubleProperty zoomProperty = new SimpleDoubleProperty(200);
+    private final DoubleProperty zoomProperty = new SimpleDoubleProperty(200);
 
     public Zoomer(ImageView imgView, ScrollPane scrollPane){
         this.imageView = imgView;
@@ -32,7 +32,7 @@ public class Zoomer{
             }
         });
 
-        imageView.addEventFilter(ScrollEvent.ANY, new EventHandler<ScrollEvent>() {
+        imageView.addEventFilter(ScrollEvent.ANY, new EventHandler<>() {
             @Override
             public void handle(ScrollEvent event) {
                 //System.out.println("Breite: " + imageView.fitWidthProperty().getValue());
@@ -44,7 +44,7 @@ public class Zoomer{
             }
         });
 
-        scrollPane.addEventFilter(ScrollEvent.ANY, new EventHandler<ScrollEvent>() {
+        scrollPane.addEventFilter(ScrollEvent.ANY, new EventHandler<>() {
             @Override
             public void handle(ScrollEvent scrollEvent) {
                 //System.out.println(scrollPane.getTranslateX() + "<T  >" + scrollPane.getViewportBounds().toString());
