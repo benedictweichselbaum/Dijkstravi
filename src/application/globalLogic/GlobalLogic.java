@@ -142,9 +142,10 @@ public class GlobalLogic {
             //TODO: Algorithmus auch starten
 
             return "Wegberechnung von " + fromStr + " (" + fromIdString + ") nach " + toStr + " (" + toIdString + ") mit dem " + algorithmus + "-Algorithmus.";
-        }catch (Exception e){
+       }catch (Exception e){
             return "Zum Starten der Wegberechnung bitte erst Start und Ziel auswählen.";
         }
+
     }
 
     public OptionWindow getOptionWindow() {
@@ -191,6 +192,7 @@ public class GlobalLogic {
     }
 
     private void deleteHelpStructure(){
+        // NIX OPTIMIEREN, VERURSACHT NUR FEHLER (ab Java 13 kanns gerne ausprobiert werden)
         ArrayList<Integer> ndl = new ArrayList<>();
         ArrayList<Connection> cnl = new ArrayList<>();
         if(graph.getNodeById(idTo).getName().equals("HelperNode")){
