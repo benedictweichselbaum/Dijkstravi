@@ -1,22 +1,35 @@
 package application.Mathematics;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-
 public class MathematicOperations {
 
     public static void main(String... args) {
        double time = MathematicOperations.calculateTimeForDistance(5010, 130);
        System.out.println(time);
        System.out.println(Math.round(time));
+       //meter kmmm.xxx -> /10
+        //Math.round(kmm.xxx) -> kmm /
+        //k.mm /100
+
+       /* double value = 1234.56789;
+       System.out.println(value);
+       double firstStep = Math.round(value/10);
+        System.out.println(firstStep);
+        double result = firstStep/100.0;
+        System.out.println(result);*/
+
+        System.out.println(meterToKilometer(1234.56789, 0));
+        System.out.println(meterToKilometer(1234.56789, 1));
+        System.out.println(meterToKilometer(1234.56789, 2));
+        System.out.println(meterToKilometer(1234.56789, 3));
+        System.out.println(meterToKilometer(1234.56789, 4));
     }
 
-    public static double round(double value, int places) {
+    public static double meterToKilometer(double value, int places) {
         if (places < 0) throw new IllegalArgumentException();
 
-        BigDecimal bd = new BigDecimal(value);
-        bd = bd.setScale(places, RoundingMode.HALF_UP);
-        return bd.doubleValue();
+        double factor = Math.pow(10, places);
+        value = (value / 1000) * factor;
+        return Math.round(value) / factor;
     }
 
     public static double calculateTimeForDistance(int distance, int speed){

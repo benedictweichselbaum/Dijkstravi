@@ -1,10 +1,5 @@
 package application.graphNavigation;
 
-import application.Mathematics.MathematicOperations;
-import application.xmlParser.XMLParser;
-
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Stack;
 
 abstract class NavigationService {
