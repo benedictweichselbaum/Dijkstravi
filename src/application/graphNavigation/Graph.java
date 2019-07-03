@@ -71,8 +71,15 @@ public class Graph {
     }
 
     public void deleteLastNodeWithOutgoingConnections(){
+        // JA, DA SIND VERBESSERUNGSVORSCHLÄGE, ABER NICHT VOR JAVA 13 VERSUCHEN ZU ÄNDERN! GEHT NICHT(IMMER)!
+        ArrayList<Connection> cnl = new ArrayList<>();
         for(Connection cn : getAllConnectionsOfNode(autobahn.size()-1)){
-            deleteConnection(autobahn.size() -1, cn);
+            //deleteConnection(autobahn.size() -1, cn);
+            cnl.add(cn);
+        }
+
+        for(int i = 0; i < cnl.size(); i++){
+            deleteConnection(autobahn.size() -1, cnl.get(i));
         }
         autobahn.remove(autobahn.size()-1);
     }
