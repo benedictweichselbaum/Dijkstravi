@@ -94,7 +94,7 @@ public class GlobalLogic {
     }
 
     public String calculateWay(int alg){
-        try {
+          try {
             if(idTo > 1)
             deleteHelpStructure();
 
@@ -166,10 +166,12 @@ public class GlobalLogic {
         idTo = createHelperNode(toId);
         nodesWithHelperConnection = toId;
         for(int id : fromId){
-            addHelperConnection(idTo, id);
+            if(id != idFrom)
+                addHelperConnection(idFrom, id);
         }
         for(int id : toId){
-            addHelperConnection(id, idFrom);
+            if(id != idTo)
+                addHelperConnection(id, idTo);
         }
     }
 
@@ -197,7 +199,7 @@ public class GlobalLogic {
     }
 
     private void addHelperConnection(int fromId, int toId){
-        graph.addEdge(fromId,toId,0, -1, "HelperWay", "Imaginary");
+        graph.addEdge(fromId,toId,1, -1, "HelperWay", "Imaginary");
     }
 
     private void deleteHelpStructure(){
