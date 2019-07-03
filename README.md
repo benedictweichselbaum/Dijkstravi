@@ -47,5 +47,5 @@ Wenn er fertig ist auf "Export" klicken und die .osm herunterladen. </br>
 
 # Aufgaben
 - [X] Hilfsstruktur für mehrere Start- und Zielknoten 
-- [ ] Karte zoombar machen -> "Mitscrollen" vermindern, Drag & Drop einbauen
+- [ ] Karte zoombar machen -> "Mitscrollen" vermeiden, Drag & Drop einbauen
 - [ ] Zeitmessung
