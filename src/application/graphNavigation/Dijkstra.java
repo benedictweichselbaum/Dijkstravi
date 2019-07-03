@@ -39,6 +39,7 @@ public class Dijkstra extends NavigationService {
         predecessor = new HashMap<>();
 
         // die rot markierten Knoten -> PP
+        System.out.println("startNode " + startNode);
         reachableUnvisitedNotes = new HashMap<>();
         reachableUnvisitedNotes.put(startNode, 0);
         System.out.println("Init startNode " + reachableUnvisitedNotes.get(startNode));
