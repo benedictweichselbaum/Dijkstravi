@@ -60,7 +60,7 @@ public class GraphTest {
         ArrayList<Connection> connectionList = gr.getAllConnectionsOfNode(id);
         System.out.println("Vom Knoten mit der ID " + id + " gehen folgende Verbindungen aus:");
         for (Connection con: connectionList) {
-            System.out.println("ZielID: " + con.destination + " Länge: " + con.length + " Straßenname: " + con.name);
+            System.out.println("ZielID: " + con.getDestination() + " Länge: " + con.getLength() + " Straßenname: " + con.getName());
         }
     }
 }

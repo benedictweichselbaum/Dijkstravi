@@ -2,9 +2,10 @@ package application.xmlParser;
 
 import application.graphNavigation.LatLonNode;
 
+import java.util.ArrayList;
 import java.util.List;
 
- class DistanceCalculator {
+ public class DistanceCalculator {
 
      static double calculateDistanceFromListOfNodes (List<LatLonNode> listOfNodes) {
         double finalDistance = 0;

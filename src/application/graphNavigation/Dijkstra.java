@@ -3,7 +3,7 @@ package application.graphNavigation;
 
 import java.util.*;
 
-class Dijkstra extends NavigationService {
+public class Dijkstra extends NavigationService {
 
     private ArrayList<Node> autobahn = new ArrayList<>();
     private HashMap<Integer, ArrayList<Connection>> links = new HashMap<>();
@@ -14,20 +14,19 @@ class Dijkstra extends NavigationService {
     private double latTargetNode;
     private double lngTargetNode;
 
-    private String typeOfAlgorithm;
     private int numberOfNodes;
     private Set<Integer> visited;
     private Map<Integer, Integer> distance;
     private Map<Integer, Integer> predecessor;
     private Map<Integer, Integer> reachableUnvisitedNotes;
 
-    Dijkstra(){
+    public Dijkstra(){
 
     }
 
     private void init(Graph g, int startNodeId, int targetNodeId) {
-        autobahn = g.autobahn;
-        links = g.links;
+        autobahn = g.getAutobahn();
+        links = g.getLinks();
 
         startNode = startNodeId;
         targetNode = targetNodeId;
@@ -42,6 +41,7 @@ class Dijkstra extends NavigationService {
         // die rot markierten Knoten -> PP
         reachableUnvisitedNotes = new HashMap<>();
         reachableUnvisitedNotes.put(startNode, 0);
+        System.out.println("Init startNode " + reachableUnvisitedNotes.get(startNode));
 
         for (int i = 0; i < numberOfNodes; i++) {
             distance.put(i, INFINITE);
@@ -57,6 +57,8 @@ class Dijkstra extends NavigationService {
 
         int nodeNumber;
         init(g, startNodeId, targetNodeId);
+        System.out.println("Startknoten: " + startNodeId);
+        System.out.println("Zielknoten: " + targetNodeId);
 
         // wiederhole bis alle Knoten besucht sind / Zielknoten besucht ist
         for (int i = 0; i < numberOfNodes; i++)
@@ -74,6 +76,7 @@ class Dijkstra extends NavigationService {
                 break;
             }
 
+            //System.out.println("NodeNumber: " + nodeNumber);
             calculateDistanceToUnvisitedNeighboringNodes(g, nodeNumber);
         }
         if(visited.contains(targetNode)) {
@@ -99,6 +102,7 @@ class Dijkstra extends NavigationService {
                 //System.out.println(connectionToNeighbor.getAllInformationsAsString());
                 predictedDistance = getPredictedDistance(neighboringNode);
                 newDistance = distance.get(nodeNumber) + distanceToNeighbor;
+                //System.out.println("Distanz von " + nodeNumber + ": " + distance.get(nodeNumber));
 
                 if (newDistance < distance.get(neighboringNode))
                 {
@@ -140,6 +144,7 @@ class Dijkstra extends NavigationService {
         for (Map.Entry<Integer, Integer> entry : nodeAndDistance.entrySet()) {
             if (min == null || min.getValue() > entry.getValue()) {
                 min = entry;
+                //System.out.println(min.getKey());
             }
         }
         if (min != null) {

@@ -2,7 +2,7 @@ package application.graphNavigation;
 
 import java.util.Stack;
 
-abstract class NavigationService {
+public abstract class NavigationService {
 
     int INFINITE = Integer.MAX_VALUE;
 

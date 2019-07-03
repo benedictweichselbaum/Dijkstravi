@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class TransitionalAlgoTest {
     public static void main(String... args) {
         Graph gr = new Graph();
-        addSomeNodes(gr);
+        //addSomeNodes(gr);
         insertSomeEdges(gr);
         printAllConnectionsOfAllNodes(gr);
 
@@ -33,7 +33,7 @@ public class TransitionalAlgoTest {
         gr.addEdge(3,2, 159000, 130, "A3, B15n", "Landshut");
     }
 
-    static void addSomeNodes(Graph gr){
+    /*static void addSomeNodes(Graph gr){
         Node muenchen = new Node(0, true, 11.560985, 48.140235);
         Node ingolstadt = new Node(1, true, 11.425247, 48.765942);
         Node landshut = new Node(2, true, 12.142666, 48.547067);
@@ -43,7 +43,7 @@ public class TransitionalAlgoTest {
         gr.addNodesSorted(ingolstadt);
         gr.addNodesSorted(landshut);
         gr.addNodesSorted(nuernberg);
-    }
+    }*/
 
     static void printAllConnectionsOfAllNodes(Graph gr){
 
@@ -55,7 +55,7 @@ public class TransitionalAlgoTest {
         ArrayList<Connection> connectionList = gr.getAllConnectionsOfNode(id);
         System.out.println("Vom Knoten mit der ID " + id + " gehen folgende Verbindungen aus:");
         for (Connection con: connectionList) {
-            System.out.println("ZielID: " + con.destination + " Länge: " + con.length + " Straßenname: " + con.name);
+            System.out.println("ZielID: " + con.getDestination() + " Länge: " + con.getLength() + " Straßenname: " + con.getName());
         }
     }
 }

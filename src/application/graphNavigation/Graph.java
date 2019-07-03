@@ -2,6 +2,7 @@ package application.graphNavigation;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Stack;
 
 public class Graph {
 
@@ -37,19 +38,6 @@ public class Graph {
         return result;
     }
 
-    public void startAStarigator(int startNode, int targetNode){
-        System.out.println("AStarigator:");
-        NavigationService aStarigator = new AStar();
-        aStarigator.directions(this, aStarigator.calculateShortestWay(this, startNode, targetNode));
-    }
-
-    public void startDijkstrvigator(int startNode, int targetNode){
-        System.out.println(" ");
-        System.out.println("Dijkstrvigator:");
-        NavigationService dijkstrvigator = new Dijkstra();
-        dijkstrvigator.directions(this, dijkstrvigator.calculateShortestWay(this, startNode, targetNode));
-    }
-
     public void test(){
         for (int i = 0; i < links.size(); i++) {
             ArrayList<Connection> arrayList = links.get(i);
@@ -71,7 +59,7 @@ public class Graph {
         for(int i = 0; i < autobahn.size(); i++){
             ArrayList<Integer> listOfAims = new ArrayList<>();
             for(Connection c: links.get(i)){
-                listOfAims.add(c.aim);
+                listOfAims.add(c.getAim());
             }
             list.add(listOfAims);
         }
@@ -93,6 +81,14 @@ public class Graph {
         ArrayList<Connection> conList = links.get(from);
         conList.remove(to);
         links.put(from, conList);
+    }
+
+    public ArrayList<Node> getAutobahn() {
+        return autobahn;
+    }
+
+    public HashMap<Integer, ArrayList<Connection>> getLinks() {
+        return links;
     }
 
 }

@@ -1,9 +1,7 @@
 package application.globalLogic;
 
-import application.graphNavigation.Connection;
-import application.graphNavigation.Graph;
+import application.graphNavigation.*;
 import application.menuBarDialogs.optionDialog.OptionWindow;
-import application.graphNavigation.Node;
 import application.starterProgressDialog.GraphCreater;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,6 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Stack;
 
 public class GlobalLogic {
 
@@ -124,10 +123,20 @@ public class GlobalLogic {
             }
 
             String algorithmus = "";
+            String orders = "";
+            Stack<Integer> way;
             switch (alg){
                 case 0: algorithmus = "Dijkstra";
+                    System.out.println("Dijkstrvigator:");
+                    NavigationService dijkstrvigator = new Dijkstra();
+                    way = dijkstrvigator.calculateShortestWay(graph, idFrom, idTo);
+                    orders = dijkstrvigator.directions(graph, way);
                     break;
                 case 1: algorithmus = "A*";
+                    System.out.println("AStarigator:");
+                    NavigationService aStarigator = new AStar();
+                    way = aStarigator.calculateShortestWay(graph, idFrom, idTo);
+                    orders = aStarigator.directions(graph,way);
                     break;
                 case 2: algorithmus = "Bellman-Ford";
                     break;
@@ -136,8 +145,8 @@ public class GlobalLogic {
             }
 
             //TODO: Algorithmus auch starten
-
-            return "Wegberechnung von " + fromStr + " (" + fromIdString + ") nach " + toStr + " (" + toIdString + ") mit dem " + algorithmus + "-Algorithmus.";
+            //"Routenbeschreibung von " + fromStr + " nach " + toStr + " mit dem " + algorithmus + "-Algorithmus." + orders;
+            return "Wegberechnung von " + fromStr + " (" + fromIdString + ") nach " + toStr + " (" + toIdString + ") mit dem " + algorithmus + "-Algorithmus." + orders;
         }catch (Exception e){
             return "Zum Starten der Wegberechnung bitte erst Start und Ziel auswählen.";
         }
