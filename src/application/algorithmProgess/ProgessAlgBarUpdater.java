@@ -5,8 +5,8 @@ import javafx.scene.control.ProgressBar;
 
 public class ProgessAlgBarUpdater extends Thread {
 
-    ProgressBar progressBar;
-    Label lblToUpdate;
+    private ProgressBar progressBar;
+    private Label lblToUpdate;
     //still to implement
 
     public ProgessAlgBarUpdater (ProgressBar pb, Label lbl) {

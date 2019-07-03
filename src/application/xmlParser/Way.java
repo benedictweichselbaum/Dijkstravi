@@ -4,14 +4,14 @@ import java.util.*;
 import org.jdom2.Attribute;
 
 public class Way {
-    ArrayList<Attribute> nodeList;
-    boolean motorway_link;
-    long id;
-    String name;
-    String destinaton;
-    int maxspeed;
+    private ArrayList<Attribute> nodeList;
+    private boolean motorway_link;
+    private long id;
+    private String name;
+    private String destinaton;
+    private int maxspeed;
 
-    public Way(long wayID, ArrayList<Attribute> list, boolean ismw_link, int speed, String nameOfRoad, String roadDestination){
+    Way(long wayID, ArrayList<Attribute> list, boolean ismw_link, int speed, String nameOfRoad, String roadDestination){
         nodeList = list;
         motorway_link = ismw_link;
         id = wayID;
@@ -20,11 +20,11 @@ public class Way {
         maxspeed = speed;
     }
 
-    public int getLength(){
-         return 3;
-    }
+    //public int getLength(){
+    //     return 3;
+    //}
 
-    public long getFirst(){
+    long getFirst(){
         try{
             return nodeList.get(0).getLongValue();
         }catch (Exception e){
@@ -32,7 +32,7 @@ public class Way {
         }
     }
 
-    public long getLast(){
+    long getLast(){
         try{
             return nodeList.get(nodeList.size() -1).getLongValue();
         }catch (Exception e){
@@ -40,7 +40,7 @@ public class Way {
         }
     }
 
-    public ArrayList<Attribute> getListOfIDsOfNodes(){
+    ArrayList<Attribute> getListOfIDsOfNodes(){
         return  nodeList;
     }
 

@@ -13,14 +13,20 @@ import org.jdom2.input.SAXBuilder;
 
 public class XMLParser {
 
-    Graph gr;
-    HashMap<Long, Double> hmaplon = new HashMap<>();
-    HashMap<Long, Double> hmaplat = new HashMap<>();
-    List<Way> wayList = new ArrayList<>();
+    private Graph gr;
+    private HashMap<Long, Double> hmaplon = new HashMap<>();
+    private HashMap<Long, Double> hmaplat = new HashMap<>();
+    private HashMap<Long, String> hmapname = new HashMap<>();
+    private List<Way> wayList = new ArrayList<>();
+    private HashMap<Integer, String> listOfExits;
+
+    public XMLParser (HashMap<Integer, String> hashMap) {
+        this.listOfExits = hashMap;
+    }
 
     private double progress = 0;
 
-    public void init(){
+    public Graph init(){
         try {
             System.out.println("Lade die XML.");
             File inputFile = new File("german_autobahn.osm");
@@ -36,20 +42,24 @@ public class XMLParser {
             wayInsertion(this.wayList);
 
         } catch(JDOMException e) {
+            System.out.println("A JDOMException occured!");
             e.printStackTrace();
         } catch(IOException ioe) {
+            System.out.println("An IOException occured!");
             ioe.printStackTrace();
         }
+        return gr;
     }
     private LatLonNode createNode(long node)
     {
-        LatLonNode nd = new LatLonNode(hmaplon.get(node), hmaplat.get(node));
-        return nd;
+        return new LatLonNode(hmaplon.get(node), hmaplat.get(node));
     }
 
     private Node createNode2(int newNodeID, long node){
-        Node nd2 = new Node(newNodeID, false, hmaplon.get(node), hmaplat.get(node));
-        return nd2;
+        String name = hmapname.get(node);
+        if(name != null)
+            listOfExits.put(newNodeID, name);
+        return new Node(newNodeID, false, hmaplat.get(node), hmaplon.get(node), name);
     }
 
     private void saveXML(List<Element> list){
@@ -60,7 +70,7 @@ public class XMLParser {
                 try {
                     long wayid = el.getAttribute("id").getLongValue();
                     List<Element> ndtagList = el.getChildren();
-                    ArrayList<Attribute> nodes = new ArrayList<Attribute>();
+                    ArrayList<Attribute> nodes = new ArrayList<>();
                     boolean motorway_link = false; //true: node is motorway_link; false: node is motorway
                     boolean ishighway = false;
                     String name = "";
@@ -74,28 +84,32 @@ public class XMLParser {
                         } else if (ndtag.getName().equals("tag")) {
                             Attribute k = ndtag.getAttribute("k");
                             Attribute v = ndtag.getAttribute("v");
-                            if (k.getValue().equals("highway")) {
-                                ishighway = true;
-                                if (v.getValue().equals("motorway_link"))
-                                    motorway_link = true;
-                            }else if(k.getValue().equals("ref"))
-                                name = v.getValue();
-                            else if(k.getValue().equals("destination"))
-                                destination = v.getValue();
-                            else if(k.getValue().equals("maxspeed")){
-                                if(v.getValue().equals("none"))
-                                    maxspeed = -1;
-                                else if(v.getValue().equals("signals") || v.getValue().equals("variable"))
-                                    maxspeed = -3;
-                                else{
-                                    try{
-                                        maxspeed = v.getIntValue();
-                                    }catch (Exception e){
-                                        maxspeed = -4;
-                                        //System.out.println("Error! Maxspeed: " + v.getValue());
+                            switch (k.getValue()) {
+                                case "highway":
+                                    ishighway = true;
+                                    if (v.getValue().equals("motorway_link"))
+                                        motorway_link = true;
+                                    break;
+                                case "ref":
+                                    name = v.getValue();
+                                    break;
+                                case "destination":
+                                    destination = v.getValue();
+                                    break;
+                                case "maxspeed":
+                                    if (v.getValue().equals("none"))
+                                        maxspeed = -1;
+                                    else if (v.getValue().equals("signals") || v.getValue().equals("variable"))
+                                        maxspeed = -3;
+                                    else {
+                                        try {
+                                            maxspeed = v.getIntValue();
+                                        } catch (Exception e) {
+                                            maxspeed = -4;
+                                            //System.out.println("Error! Maxspeed: " + v.getValue());
+                                        }
                                     }
-                                }
-
+                                    break;
                             }
 
                         }
@@ -114,16 +128,26 @@ public class XMLParser {
 
                     hmaplat.put(nodeid, el.getAttribute("lat").getDoubleValue());
                     hmaplon.put(nodeid, el.getAttribute("lon").getDoubleValue());
+
+                    List<Element> tagList = el.getChildren();
+
+                    for (Element tag : tagList) {
+                        if (tag.getAttribute("k").getValue().equals("name")) {
+                            hmapname.put(nodeid, tag.getAttribute("v").getValue());
+                        }
+                    }
                 }catch (Exception e) {
                     //TODO (Occurs when conversion to int/double failed)
                     System.out.println("Error!" + el.getAttribute("id").getValue());
                 }
+
+
             }
         }
     }
 
     private void wayInsertion(List<Way> wayList){
-        int z = 0;
+        //int z = 0;
         System.out.println("Anzahl der Wege: " + wayList.size() + " Ermittle jetzt die Anzahl der relevanten Knoten.");
 
         //ArrayList<Long> allNeededNodes = createListOfAllNeededNodes(wayList);
@@ -156,10 +180,14 @@ public class XMLParser {
                 System.out.println("Conversion error!");
             }
 
+            @SuppressWarnings("all")
             Double exactLength = DistanceCalculator.calculateDistanceFromListOfNodes(nodeList);
             int length = exactLength.intValue();
 
-            gr.addEdge(newID.get(ow.getFirst()), newID.get(ow.getLast()), length, ow.maxspeed, ow.name, ow.destinaton);
+            gr.addEdge(newID.get(ow.getFirst()), newID.get(ow.getLast()),
+                                                            length, ow.getmaxspeed(),
+                                                            ow.getName(),
+                                                            ow.getDestinaton());
 /*
             z++;
             if(z % 1000 == 0 || z < 20)
@@ -169,34 +197,7 @@ public class XMLParser {
         System.out.println("Der Graph ist FERTIG!");
     }
 
-    public ArrayList<Long> createListOfAllNeededNodes(List<Way> wayList){
-
-        ArrayList<Long> nodeIDs = new ArrayList<>();
-        double singleProgressUnit = 0.25 / wayList.size();
-        for(Way ow : wayList) {
-            progress = progress + singleProgressUnit;
-            Long first = ow.getFirst();
-            Long last = ow.getLast();
-            boolean firstnew = true;
-            boolean lastnew = true;
-            for(int i = 0; i < nodeIDs.size() && (firstnew || lastnew); i++){
-                if(nodeIDs.get(i).equals(first)){
-                    firstnew = false;
-                }
-                if(nodeIDs.get(i).equals(last)){
-                    lastnew = false;
-                }
-            }
-            if(firstnew)
-                nodeIDs.add(first);
-            if(lastnew)
-                nodeIDs.add(last);
-        }
-
-        return nodeIDs;
-    }
-
-    public ArrayList<Long> createListOfAllNeededNodesSpeed(List<Way> wayList){
+    private ArrayList<Long> createListOfAllNeededNodesSpeed(List<Way> wayList){
         HashMap<Long,Boolean> nodeIDsMap = new HashMap<>();
         double singleProgressUnit = 0.25 / wayList.size();
         for(Way ow : wayList) {
@@ -212,5 +213,4 @@ public class XMLParser {
     public double getProgress() {
         return progress;
     }
-
 }

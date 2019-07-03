@@ -11,6 +11,7 @@ public class GraphTest {
         printAllConnectionsOfAllNodes(gr);
     }
 
+
     static void insertSomeEdges(Graph gr){
         gr.addEdge(2,3, 12, 130, "A X", "Bsp");
         gr.addEdge(3,1, 1, 130, "A X", "Bsp");
@@ -29,6 +30,7 @@ public class GraphTest {
     }
 
     static void addSomeNodes(Graph gr){
+        /*
         Node node0 = new Node(0, false, 12, 12);
         Node node1 = new Node(1, false, 16, 13);
         Node node2 = new Node(2, false, 14, 14);
@@ -44,6 +46,8 @@ public class GraphTest {
         gr.addNodesSorted(node4);
         gr.addNodesSorted(node5);
         gr.addNodesSorted(node6);
+
+         */
     }
 
     static void printAllConnectionsOfAllNodes(Graph gr){

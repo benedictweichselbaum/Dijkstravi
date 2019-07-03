@@ -2,8 +2,8 @@ package application.graphNavigation;
 
 public class LatLonNode {
 
-    double longitude;
-    double latitude;
+    private double longitude;
+    private double latitude;
 
     public LatLonNode(double lon, double lat) {
         this.longitude = lon;

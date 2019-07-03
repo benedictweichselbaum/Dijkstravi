@@ -1,16 +1,15 @@
 package application.starterProgressDialog;
 
 import application.xmlParser.XMLParser;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.text.Text;
+import javax.swing.*;
 
 public class ProgressBarUpdater extends Thread{
 
-    ProgressBar progressBar;
-    Text progressText;
-    XMLParser xmlParser;
+    private JProgressBar progressBar;
+    private JLabel progressText;
+    private XMLParser xmlParser;
 
-    ProgressBarUpdater (ProgressBar pb, Text pt, XMLParser xmlAL){
+    ProgressBarUpdater (JProgressBar pb, JLabel pt, XMLParser xmlAL){
         this.progressBar = pb;
         this.progressText = pt;
         this.xmlParser = xmlAL;
@@ -18,14 +17,15 @@ public class ProgressBarUpdater extends Thread{
 
     @Override
     public void run() {
-        while (progressBar.getProgress() < 1.00) {
-            progressBar.setProgress(xmlParser.getProgress());
-            double progress = progressBar.getProgress();
-            if (progress < 0.45 && progress > 0.25) {
+        progressBar.setValue(50);
+        while (progressBar.getValue() < 100) {
+            progressBar.setValue((int) Math.round(xmlParser.getProgress() * 100));
+            int progress = progressBar.getValue();
+            if (progress < 45 && progress > 25) {
                 progressText.setText("Erzeuge Liste von benötigten Knotenpunkten");
-            } else if (progress < 0.75 && progress > 0.45) {
+            } else if (progress < 75 && progress > 45) {
                 progressText.setText("Füge Knoten in den Graphen ein");
-            } else if (progress > 0.75){
+            } else if (progress > 75){
                 progressText.setText("Füge Kanten in den Graphen ein");
             }
         }
