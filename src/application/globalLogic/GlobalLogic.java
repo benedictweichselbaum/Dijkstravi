@@ -152,10 +152,10 @@ public class GlobalLogic {
         idTo = createHelperNode(toId);
         nodesWithHelperConnection = toId;
         for(int id : fromId){
-            addHelperConnection(idTo, id);
+            addHelperConnection(idFrom, id);
         }
         for(int id : toId){
-            addHelperConnection(id, idFrom);
+            addHelperConnection(id, idTo);
         }
     }
 
