@@ -107,6 +107,10 @@ public class GlobalLogic {
 
             createHelpStructure(fromId, toId);
 
+            System.out.println(graph.getAllConnectionsOfNode(idFrom) + "<- da");
+            System.out.println(graph.getAllConnectionsOfNode(idTo) + "<- daTO");
+            System.out.println(nodesWithHelperConnection.toString() + "<- HelperConn");
+
             String fromIdString = "";
             String toIdString = "";
             for (Integer fi : fromId)
@@ -138,9 +142,10 @@ public class GlobalLogic {
             //TODO: Algorithmus auch starten
 
             return "Wegberechnung von " + fromStr + " (" + fromIdString + ") nach " + toStr + " (" + toIdString + ") mit dem " + algorithmus + "-Algorithmus.";
-        }catch (Exception e){
+       }catch (Exception e){
             return "Zum Starten der Wegberechnung bitte erst Start und Ziel auswählen.";
         }
+
     }
 
     public OptionWindow getOptionWindow() {
@@ -152,10 +157,10 @@ public class GlobalLogic {
         idTo = createHelperNode(toId);
         nodesWithHelperConnection = toId;
         for(int id : fromId){
-            addHelperConnection(idTo, id);
+            addHelperConnection(idFrom, id);
         }
         for(int id : toId){
-            addHelperConnection(id, idFrom);
+            addHelperConnection(id, idTo);
         }
     }
 
@@ -187,12 +192,21 @@ public class GlobalLogic {
     }
 
     private void deleteHelpStructure(){
+        // NIX OPTIMIEREN, VERURSACHT NUR FEHLER (ab Java 13 kanns gerne ausprobiert werden)
+        ArrayList<Integer> ndl = new ArrayList<>();
+        ArrayList<Connection> cnl = new ArrayList<>();
         if(graph.getNodeById(idTo).getName().equals("HelperNode")){
             for(int nd : nodesWithHelperConnection){
                 for(Connection cn : graph.getAllConnectionsOfNode(nd)){
-                   if(cn.getAim() == idTo)
-                        graph.deleteConnection(nd, cn);
+                   if(cn.getAim() == idTo) {
+                       //graph.deleteConnection(nd, cn);
+                       ndl.add(nd);
+                       cnl.add(cn);
+                   }
                 }
+            }
+            for (int i = 0; i < ndl.size(); i++) {
+                graph.deleteConnection(ndl.get(i), cnl.get(i));
             }
             graph.deleteLastNodeWithOutgoingConnections();
         }

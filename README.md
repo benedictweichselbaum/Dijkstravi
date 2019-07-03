@@ -36,7 +36,7 @@ out skel qt;
 </code></pre>
 
 Im Gegensatz zum Namen dauert das aber seine Zeit. Also Geduld.</br>
-Wenn er fertig ist auf "Export" clicken und die .osm herunterladen. </br>
+Wenn er fertig ist auf "Export" klicken und die .osm herunterladen. </br>
 
 # Vorgehensweise
 - [X] Datenstruktur erstellen </br>
@@ -45,8 +45,7 @@ Wenn er fertig ist auf "Export" clicken und die .osm herunterladen. </br>
 - [ ] Routenausgabe implementieren</br>
 - [X] Graphische Implementierung (Algorithmus ist fertig. Die Nutzung muss natürlich noch implementiert werden.)
 
-# Offene Punkte
-- [ ] Algorithmen für je zwei Start- und Zielknoten optimieren
-
-optional
-- [ ] Karte zoombar machen
+# Aufgaben
+- [X] Hilfsstruktur für mehrere Start- und Zielknoten 
+- [ ] Karte zoombar machen -> "Mitscrollen" vermeiden, Drag & Drop einbauen
+- [ ] Zeitmessung
