@@ -2,12 +2,11 @@ package application.xmlParser;
 
 import application.graphNavigation.LatLonNode;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class DistanceCalculator {
+ class DistanceCalculator {
 
-    public static double calculateDistanceFromListOfNodes (List<LatLonNode> listOfNodes) {
+     static double calculateDistanceFromListOfNodes (List<LatLonNode> listOfNodes) {
         double finalDistance = 0;
 
         for (int i = 0; i <= listOfNodes.size() -2; i++) { //Bis zum vorletzten Element
@@ -70,8 +69,6 @@ public class DistanceCalculator {
         nodeList.add(n3);
         nodeList.add(n4);
 
-        System.out.println(calculateDistanceBetweenTwoPoints(49.446800, 11.078967, 48.765942, 11.425247));
-
-        //System.out.println(calculateDistanceFromListOfNodes(nodeList));
+        System.out.println(calculateDistanceFromListOfNodes(nodeList));
     }
 }

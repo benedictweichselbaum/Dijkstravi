@@ -6,22 +6,12 @@ public class MathematicOperations {
        double time = MathematicOperations.calculateTimeForDistance(5010, 130);
        System.out.println(time);
        System.out.println(Math.round(time));
-       //meter kmmm.xxx -> /10
-        //Math.round(kmm.xxx) -> kmm /
-        //k.mm /100
 
-       /* double value = 1234.56789;
-       System.out.println(value);
-       double firstStep = Math.round(value/10);
-        System.out.println(firstStep);
-        double result = firstStep/100.0;
-        System.out.println(result);*/
-
-        System.out.println(meterToKilometer(1234.56789, 0));
-        System.out.println(meterToKilometer(1234.56789, 1));
-        System.out.println(meterToKilometer(1234.56789, 2));
-        System.out.println(meterToKilometer(1234.56789, 3));
-        System.out.println(meterToKilometer(1234.56789, 4));
+       System.out.println(meterToKilometer(1234.56789, 0));
+       System.out.println(meterToKilometer(1234.56789, 1));
+       System.out.println(meterToKilometer(1234.56789, 2));
+       System.out.println(meterToKilometer(1234.56789, 3));
+       System.out.println(meterToKilometer(1234.56789, 4));
     }
 
     public static double meterToKilometer(double value, int places) {

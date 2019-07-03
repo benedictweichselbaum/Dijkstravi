@@ -68,11 +68,11 @@ public class Directions {
     }
 
     private String orderFollowRoad(String orders, String roadName, double meterTillNextOrder) {
-        return orders + "Folgen Sie der " + roadName + " für " + MathematicOperations.meterToKilometer(meterTillNextOrder, 2) + "km" + lineSeparator;
+        return orders + "Folgen Sie der " + roadName + " für " + MathematicOperations.meterToKilometer(meterTillNextOrder, 3) + "km" + lineSeparator;
     }
 
     private String orderNavigationFinished(String orders, double meterTillDestination) {
-        orders = orders + lineSeparator + "Entfernung: " + MathematicOperations.meterToKilometer(meterTillDestination, 2) + "km" + lineSeparator;
+        orders = orders + lineSeparator + "Entfernung: " + MathematicOperations.meterToKilometer(meterTillDestination, 3) + "km" + lineSeparator;
         orders = orders + lineSeparator + "Danke für die Navigation mit Dijkstravi!";
         return orders;
     }
