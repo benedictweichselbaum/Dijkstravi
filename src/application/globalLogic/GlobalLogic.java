@@ -107,6 +107,10 @@ public class GlobalLogic {
 
             createHelpStructure(fromId, toId);
 
+            System.out.println(graph.getAllConnectionsOfNode(idFrom) + "<- da");
+            System.out.println(graph.getAllConnectionsOfNode(idTo) + "<- daTO");
+            System.out.println(nodesWithHelperConnection.toString() + "<- HelperConn");
+
             String fromIdString = "";
             String toIdString = "";
             for (Integer fi : fromId)
@@ -187,12 +191,20 @@ public class GlobalLogic {
     }
 
     private void deleteHelpStructure(){
+        ArrayList<Integer> ndl = new ArrayList<>();
+        ArrayList<Connection> cnl = new ArrayList<>();
         if(graph.getNodeById(idTo).getName().equals("HelperNode")){
             for(int nd : nodesWithHelperConnection){
                 for(Connection cn : graph.getAllConnectionsOfNode(nd)){
-                   if(cn.getAim() == idTo)
-                        graph.deleteConnection(nd, cn);
+                   if(cn.getAim() == idTo) {
+                       //graph.deleteConnection(nd, cn);
+                       ndl.add(nd);
+                       cnl.add(cn);
+                   }
                 }
+            }
+            for (int i = 0; i < ndl.size(); i++) {
+                graph.deleteConnection(ndl.get(i), cnl.get(i));
             }
             graph.deleteLastNodeWithOutgoingConnections();
         }
