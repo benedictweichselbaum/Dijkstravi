@@ -123,6 +123,6 @@ public class MapManipulator {
     }
 
     private static int longitudeToPixel(double longitude, int pixelX) {
-        return (int) Math.round((longitude - 5.465)/((15.447-5.465)/pixelX));
+        return (int) Math.round((longitude - 5.485)/((15.447-5.485)/pixelX));
     }
 }
