@@ -128,13 +128,14 @@ public class Dijkstra extends NavigationService {
         System.out.println("Entfernung: " + distance.get(targetNode) + "m");
         System.out.println("Entfernung: " + totalDistance + "km");
 
-        way.push(targetNode);
+        //way.push(targetNode);
         nodeNumber = targetNode;
         while (nodeNumber != startNode)
         {
             nodeNumber = predecessor.get(nodeNumber);
             way.push(nodeNumber);
         }
+        way.pop();
 
         return way;
     }
