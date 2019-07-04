@@ -95,19 +95,23 @@ public class DijkstraviController implements Initializable {
         rbMinPlusMma.setToggleGroup(algRadioButtonGroup);
         algRadioButtonGroup.selectToggle(rbDijkstra);
 
-        File imageFile = new File("src/autobahnnetz_DE.png");
-        Image autobahnNetworkImage = new Image(imageFile.toURI().toString());
+        //File imageFile = new File("src/autobahnnetz_DE.png");
+        //Image autobahnNetworkImage = new Image(imageFile.toURI().toString());
 
-        Node node1 = new Node(1, false, 49.407000,11.035000,  "");
+        /*Node node1 = new Node(1, false, 49.407000,11.035000,  "");
         Node node2 = new Node(2, false,  48.4442300, 8.6913000, "");
 
         List<Node> listOfNodes = new ArrayList<>();
         listOfNodes.add(node1);
         listOfNodes.add(node2);
 
-        imgViewAutobahn.setImage(MapManipulator.drawWayWithListOfNodes(autobahnNetworkImage, listOfNodes));
+        imgViewAutobahn.setImage(MapManipulator.drawWayWithListOfNodes(autobahnNetworkImage, listOfNodes));*/
 
-        globalLogic = new GlobalLogic(cbFrom, cbTo);
+        File imageFile = new File("src/autobahnnetz_DE.png");
+        javafx.scene.image.Image autobahnNetworkImage = new Image(imageFile.toURI().toString());
+        imgViewAutobahn.setImage(autobahnNetworkImage);
+
+        globalLogic = new GlobalLogic(cbFrom, cbTo, imgViewAutobahn);
 
         new AutoCompleteComboBoxListener<>(cbFrom);
         new AutoCompleteComboBoxListener<>(cbTo);

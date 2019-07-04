@@ -1,17 +1,20 @@
 package application.globalLogic;
 
 import application.graphNavigation.*;
+import application.imageManipulation.MapManipulator;
 import application.menuBarDialogs.optionDialog.OptionWindow;
 import application.starterProgressDialog.GraphCreater;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Stack;
+import java.io.File;
+import java.util.*;
+import java.util.List;
 
 public class GlobalLogic {
 
@@ -24,11 +27,13 @@ public class GlobalLogic {
     private int idFrom, idTo;
 
     private OptionWindow optionWindow;
+    private ImageView imageView;
 
-    public GlobalLogic (ComboBox from, ComboBox to) {
+    public GlobalLogic (ComboBox from, ComboBox to, ImageView iv) {
         this.from = from;
         this.to = to;
         this.optionWindow = new OptionWindow();
+        this.imageView = iv;
         idFrom = idTo = -1;
         listOfExitsById = new HashMap<>();
         this.showCreatingDialogAndCreateGraph();
@@ -129,17 +134,20 @@ public class GlobalLogic {
             String algorithmus = "";
             String orders = "";
             Stack<Integer> way;
+            Stack<Integer> wayForPicture = new Stack<>();
             switch (alg){
                 case 0: algorithmus = "Dijkstra";
                     System.out.println("Dijkstrvigator:");
                     NavigationService dijkstrvigator = new Dijkstra();
                     way = dijkstrvigator.calculateShortestWay(graph, idFrom, idTo);
+                    wayForPicture = (Stack<Integer>) way.clone();
                     orders = dijkstrvigator.directions(graph, way);
                     break;
                 case 1: algorithmus = "A*";
                     System.out.println("AStarigator:");
                     NavigationService aStarigator = new AStar();
                     way = aStarigator.calculateShortestWay(graph, idFrom, idTo);
+                    wayForPicture = (Stack<Integer>) way.clone();
                     orders = aStarigator.directions(graph,way);
                     break;
                 case 2: algorithmus = "Bellman-Ford";
@@ -147,6 +155,23 @@ public class GlobalLogic {
                 case 3: algorithmus = "Min-Plus-Matrixmultiplikations";
                     break;
             }
+
+              File imageFile = new File("src/autobahnnetz_DE.png");
+              javafx.scene.image.Image autobahnNetworkImage = new Image(imageFile.toURI().toString());
+              List<Node> listOfNodesForPicture = new ArrayList<>();
+
+              int counterToSkipFirstAndLastNode = 0;
+              for (Integer w : wayForPicture) {
+                  if (counterToSkipFirstAndLastNode == 0) {
+                      counterToSkipFirstAndLastNode++;
+                  } else if (counterToSkipFirstAndLastNode == wayForPicture.size()-1) {
+                      break;
+                  } else {
+                      counterToSkipFirstAndLastNode++;
+                      listOfNodesForPicture.add(graph.getNodeById(w));
+                  }
+              }
+              imageView.setImage(MapManipulator.drawWayWithListOfNodes(autobahnNetworkImage, listOfNodesForPicture));
 
             //TODO: Algorithmus auch starten
             //"Routenbeschreibung von " + fromStr + " nach " + toStr + " mit dem " + algorithmus + "-Algorithmus." + orders;
