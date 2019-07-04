@@ -82,7 +82,7 @@ public class Dijkstra extends NavigationService {
         }
         if(visited.contains(targetNode)) {
             System.out.println("Es gibt einen Weg!");
-            return output();
+            return output(g);
         }
         else{
             System.out.println("ERROR! Es gibt KEINEN Weg!");
@@ -121,21 +121,25 @@ public class Dijkstra extends NavigationService {
         return 0;
     }
 
-    private Stack<Integer> output() {
+    private Stack<Integer> output(Graph g) {
         Stack<Integer> way = new Stack<>();
         int nodeNumber;
         double totalDistance = ((double)distance.get(targetNode)/1000);
         System.out.println("Entfernung: " + distance.get(targetNode) + "m");
         System.out.println("Entfernung: " + totalDistance + "km");
 
-        //way.push(targetNode);
+        if(!g.getNodeById(targetNode).getName().equals("HelperNode")){
+            way.push(targetNode);
+        }
         nodeNumber = targetNode;
         while (nodeNumber != startNode)
         {
             nodeNumber = predecessor.get(nodeNumber);
             way.push(nodeNumber);
         }
-        way.pop();
+        if(g.getNodeById(startNode).getName().equals("HelperNode")){
+            way.pop();
+        }
 
         return way;
     }
