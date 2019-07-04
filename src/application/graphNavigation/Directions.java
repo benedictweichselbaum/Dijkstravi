@@ -17,7 +17,7 @@ public class Directions {
         this.g = g;
         if(way != null) {
             System.out.println(lineSeparator);
-            orders = lineSeparator;
+            orders = lineSeparator + lineSeparator;
 
             initWithFirstConnection(g, way);
             Connection connection;
@@ -79,7 +79,7 @@ public class Directions {
 
     private String orderNavigationFinished(String orders, double meterTillDestination) {
         orders = orders + "Sie haben Ihr Ziel erreicht!" + lineSeparator;
-        orders = orders + lineSeparator + "Entfernung: " + MathematicOperations.meterToKilometer(meterTillDestination, 3) + "km" + lineSeparator;
+        orders = orders + lineSeparator + "Entfernung: " + MathematicOperations.meterToKilometer(meterTillDestination, 3) + "km";
         orders = orders + lineSeparator + "Danke für die Navigation mit Dijkstravi!";
         return orders;
     }
