@@ -16,7 +16,7 @@ import java.util.List;
  * *//*
 
 
-class MinPlusMatrixMultiplication implements Navigator {
+class MinPlusMatrixMultiplication implements NavigationService {
 
     public void calculateShortestWay(Graph g, long startNodeId, long targetNodeId) {
         int[][] resultMatrix = allPairsShortestPaths(g.getAutobahn());
