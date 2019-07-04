@@ -19,12 +19,16 @@ public class MapManipulator {
 
     public static Image drawWayWithListOfNodes (Image image, List<Node> listOfNodes) {
         Image multipleManipulatedImage = image;
+        List<Pixel> allPixelWay = new ArrayList<>();
         for (int i = 0; i <= listOfNodes.size()-2; i++) {
-            multipleManipulatedImage = drawWayWithTwoNodes(multipleManipulatedImage,
-                                                            listOfNodes.get(i),
-                                                            listOfNodes.get(i + 1));
+            List<Pixel> pixelWay = createListOfPixelsToMarkFromTwoCoordinates(listOfNodes.get(i).getLatitude(),
+                    listOfNodes.get(i).getLongitude(),
+                    listOfNodes.get(i + 1).getLatitude(),
+                    listOfNodes.get(i + 1).getLongitude(),
+                    multipleManipulatedImage);
+            allPixelWay.addAll(pixelWay);
         }
-        return multipleManipulatedImage;
+        return drawWayWithAllNodes(multipleManipulatedImage, allPixelWay);
     }
 
     private static Image drawWayWithTwoNodes (Image imageToManipulate, Node node1, Node node2) {
@@ -33,6 +37,30 @@ public class MapManipulator {
                                                                             node2.getLatitude(),
                                                                             node2.getLongitude(),
                                                                             imageToManipulate);
+        PixelReader pixelReader = imageToManipulate.getPixelReader();
+        WritableImage writableImage = new WritableImage(
+                pixelReader,
+                (int) imageToManipulate.getWidth(),
+                (int) imageToManipulate.getHeight()
+        );
+        PixelWriter pixelWriter = writableImage.getPixelWriter();
+
+        Color markingColor = Color.RED;
+
+        for (Pixel pixel : pixelWay) {
+            pixelWriter.setColor(pixel.getX(), pixel.getY(), markingColor);
+            for (int i = 1; i <= (int) (imageToManipulate.getWidth()*0.0025); i++) {
+                pixelWriter.setColor(pixel.getX(), pixel.getY() + i, markingColor);
+                pixelWriter.setColor(pixel.getX(), pixel.getY() - i, markingColor);
+                pixelWriter.setColor(pixel.getX() + i, pixel.getY(), markingColor);
+                pixelWriter.setColor(pixel.getX() - i, pixel.getY(), markingColor);
+            }
+        }
+        return writableImage;
+    }
+
+    private static Image drawWayWithAllNodes (Image imageToManipulate, List<Pixel> pixelWay) {
+
         PixelReader pixelReader = imageToManipulate.getPixelReader();
         WritableImage writableImage = new WritableImage(
                 pixelReader,
