@@ -46,7 +46,7 @@ class BellmanFord extends NavigationService {
 
         printPrecursorsForDebugging();
         printRes(distance, numberOfNodes);
-        return output(startNodeId, targetNodeId);
+        return output(g, startNodeId, targetNodeId);
     }
 
     // A utility function used to print the solution fr
@@ -57,15 +57,19 @@ class BellmanFord extends NavigationService {
     }
 
 
-    private Stack<Integer> output(int startNode, int targetNode) {
+    private Stack<Integer> output(Graph g, int startNode, int targetNode) {
         Stack<Integer> way = new Stack<>();
+        if(!g.getNodeById(targetNode).getName().equals("HelperNode")){
+            way.push(targetNode);
+        }
         int predecessor = targetNode;
         while ((precursors.get(predecessor) != INFINITE) && (predecessor != startNode)) {
             predecessor = precursors.get(predecessor);
-            System.out.println("VertexNr precursor " + (predecessor));
             way.push(predecessor);
         }
-        way.pop();
+        if (g.getNodeById(startNode).getName().equals("HelperNode")) {
+            way.pop();
+        }
         return way;
     }
 
