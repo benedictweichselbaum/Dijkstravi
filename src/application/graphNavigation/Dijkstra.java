@@ -132,6 +132,7 @@ public class Dijkstra extends NavigationService {
             way.push(targetNode);
         }
         nodeNumber = targetNode;
+        //what if the target node is not reachable from the start node, is there a infinite check?
         while (nodeNumber != startNode)
         {
             nodeNumber = predecessor.get(nodeNumber);
