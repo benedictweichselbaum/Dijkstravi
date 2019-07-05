@@ -49,3 +49,11 @@ Wenn er fertig ist auf "Export" klicken und die .osm herunterladen. </br>
 - [X] Hilfsstruktur für mehrere Start- und Zielknoten 
 - [ ] Karte zoombar machen -> "Mitscrollen" vermeiden, Drag & Drop einbauen
 - [ ] Zeitmessung
+
+# „Probleme“
+- [ ] Was mit mehreren Namen bei einer Ausfahrt machen? (z.B. Kreuz München-West;München-Lochhausen)
+- [ ] Dijkstra und A* werfen Exception bei gleichem Start und Ziel (evtl. gezielt abfangen) -> Bedenken, ob bei Zwischenzielen Kreise möglich sein sollen
+
+# Ideen
+- [ ] Zwischenziele
+- [ ] mehrere Ziele in bester Reihenfolge (evtl. mit Endziel)
