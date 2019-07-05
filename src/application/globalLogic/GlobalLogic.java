@@ -111,10 +111,6 @@ public class GlobalLogic {
 
             createHelpStructure(fromId, toId);
 
-            System.out.println(graph.getAllConnectionsOfNode(idFrom) + "<- da");
-            System.out.println(graph.getAllConnectionsOfNode(idTo) + "<- daTO");
-            System.out.println(nodesWithHelperConnection.toString() + "<- HelperConn");
-
             String fromIdString = "";
             String toIdString = "";
             for (Integer fi : fromId)
