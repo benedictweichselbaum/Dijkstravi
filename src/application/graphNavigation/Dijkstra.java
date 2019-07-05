@@ -28,10 +28,8 @@ public class Dijkstra extends NavigationService {
         autobahn = g.getAutobahn();
         links = g.getLinks();
 
-        //redundant
         startNode = startNodeId;
         targetNode = targetNodeId;
-
         latTargetNode = autobahn.get(targetNode).getLatitude();
         lngTargetNode = autobahn.get(targetNode).getLongitude();
 
@@ -134,8 +132,6 @@ public class Dijkstra extends NavigationService {
             way.push(targetNode);
         }
         nodeNumber = targetNode;
-
-        //does it fail, if vertex startNode is not reachable from targetNode?
         while (nodeNumber != startNode)
         {
             nodeNumber = predecessor.get(nodeNumber);

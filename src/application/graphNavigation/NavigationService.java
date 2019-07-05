@@ -11,5 +11,4 @@ public abstract class NavigationService {
     public String directions(Graph g, Stack<Integer> way) {
         return new Directions().directions(g, way);
     }
-
 }

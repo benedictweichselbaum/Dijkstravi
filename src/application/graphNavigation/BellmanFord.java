@@ -1,67 +1,75 @@
+/*
 package application.graphNavigation;
 
+
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Stack;
+import java.util.List;
 
-class BellmanFord extends NavigationService {
+//matrix is not needed here, just an array of nodes and an array of edges!!!!!!!!!!
 
-    private Map<Integer, Integer> precursors;
+class BellmanFord implements NavigationService {
 
-    public Stack<Integer> calculateShortestWay(Graph g, int startNodeId, int targetNodeId) {
-        HashMap<Integer, ArrayList<Connection>> links = g.getLinks();
-        int numberOfNodes = g.getAmountOfNodes();
-        //getNumberOfLinks() in class Graph
-        //int numberOfEdges = links.size();
-        Map<Integer, Integer> distance = new HashMap<>();
-        precursors = new HashMap<>();
+    private int[] precursors;
+    private List<Long> res = new ArrayList<>();
+
+    public void calculateShortestWay(Graph g, long startNodeId, long targetNodeId) {
+
+        int startNode = g.getMatrixNodeNumberById(startNodeId);
+        int targetNode = g.getMatrixNodeNumberById(targetNodeId);
+
+        Node[] nodes = g.getNodes();
+        Edge[] edges = g.getEdges();
+
+        int numberOfNodes = nodes.length;
+        int numberOfEdges = edges.length;
+
+        int[] distance = new int[numberOfNodes];
+        //Node[] precursors=new Node[numberOfNodes];
+        precursors = new int[numberOfNodes];
+        //implementation in graph needed
 
         for (int i = 0; i < numberOfNodes; i++) {
-            distance.put(i, INFINITE);
-            precursors.put(i, INFINITE);
+            distance[i] = INFINITE;
+            precursors[i] = INFINITE;
         }
-        distance.put(startNodeId, 0);
-        //relax
-        for (int src = 0; src < numberOfNodes; src++) {
-            for (int k = 0; k < links.get(src).size(); k++) {
-                int dest = links.get(src).get(k).getAim();
-                int weight = links.get(src).get(k).getLength();
+        distance[startNode] = 0;
 
-                int distanceOfSrc = distance.get(src);
-                if (distanceOfSrc != INFINITE) {
-                    int newDistance=distanceOfSrc + weight;
-                    if (newDistance < distance.get(dest)) {
-                        distance.put(dest, newDistance);
-                        precursors.put(dest, src);
-                        //precursors.put(dest, src);
-                    }
+        //relax
+        for (int j = 0; j < numberOfNodes; j++) {
+            for (int k = 0; k < numberOfEdges; k++) {
+                int src = edges[k].getSrc();
+                int dest = edges[k].getDest();
+                int weight = edges[k].getWeight();
+
+                if ((distance[src] != INFINITE) && ((distance[src] + weight) < distance[dest])) {
+                    distance[dest] = distance[src] + weight;
+                    precursors[dest] = src;
                 }
             }
         }
-        for (int i = 0; i < precursors.size(); i++) {
-            System.out.println("precursors: " + precursors.get(i) + "; position: " + i);
-        }
+
         printRes(distance, numberOfNodes);
-        return output(startNodeId, targetNodeId);
+        printWay(startNode, targetNode);
     }
 
-    // A utility function used to print the solution fr, just for debugging
-    private void printRes(Map<Integer, Integer> distance, int V) {
+    // A utility function used to print the solution fr
+    private void printRes(int[] dist, int V) {
         System.out.println("Vertex   Distance from Source");
         for (int i = 0; i < V; ++i)
-            System.out.println(i + "\t\t\t" + distance.get(i));
+            System.out.println(i + 1 + "\t\t\t" + dist[i]);
     }
 
-    private Stack<Integer> output(int startNode, int targetNode) {
-        Stack<Integer> way = new Stack<>();
-        int predecessor = targetNode;
-        while ((precursors.get(predecessor) != INFINITE) && (predecessor != startNode)) {
-            predecessor = precursors.get(predecessor);
-            System.out.println("VertexNr precursor " + (predecessor));
-            way.push(predecessor);
+    private void printWay(int startNode, int targetNode) {
+        if ((precursors[targetNode] != INFINITE) && (precursors[targetNode] != startNode)) {
+            //+1 because for graphical demonstration in console
+            System.out.println("VertexNr precursor " + (precursors[targetNode]));
+            //res.add(...);
+            printWay(startNode, precursors[targetNode]);
         }
-        way.pop();
-        return way;
+    }
+
+    long[] getResult() {
+        return res.stream().mapToLong(l -> l).toArray();
     }
 }
+*/
