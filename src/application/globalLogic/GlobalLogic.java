@@ -128,33 +128,28 @@ public class GlobalLogic {
             }
 
             String algorithmus = "";
-            String orders = "";
-            Stack<Integer> way;
-            Stack<Integer> wayForPicture = new Stack<>();
+            NavigationService navigationService = null;
             switch (alg){
                 case 0: algorithmus = "Dijkstra";
-                    System.out.println("Dijkstrvigator:");
-                    NavigationService dijkstrvigator = new Dijkstra();
-                    way = dijkstrvigator.calculateShortestWay(graph, idFrom, idTo);
-                    if(way == null)
-                        return "Es wurde kein Weg gefunden.";
-                    wayForPicture = (Stack<Integer>) way.clone();
-                    orders = dijkstrvigator.directions(graph, way);
+                     navigationService = new Dijkstra();
                     break;
                 case 1: algorithmus = "A*";
-                    System.out.println("AStarigator:");
-                    NavigationService aStarigator = new AStar();
-                    way = aStarigator.calculateShortestWay(graph, idFrom, idTo);
-                    if(way == null)
-                        return "Es wurde kein Weg gefunden.";
-                    wayForPicture = (Stack<Integer>) way.clone();
-                    orders = aStarigator.directions(graph,way);
+                    navigationService = new AStar();
                     break;
                 case 2: algorithmus = "Bellman-Ford";
+                    //navigationService = new BellmanFord();
                     break;
                 case 3: algorithmus = "Min-Plus-Matrixmultiplikations";
+                    //navigationService = new ;
                     break;
             }
+
+
+              Stack<Integer> way = navigationService.calculateShortestWay(graph, idFrom, idTo);
+              if(way == null)
+                  return "Es wurde kein Weg gefunden.";
+              Stack<Integer> wayForPicture = (Stack<Integer>) way.clone();
+              String orders = navigationService.directions(graph, way);
 
               File imageFile = new File("src/autobahnnetz_DE.png");
               javafx.scene.image.Image autobahnNetworkImage = new Image(imageFile.toURI().toString());
