@@ -136,6 +136,8 @@ public class GlobalLogic {
                     System.out.println("Dijkstrvigator:");
                     NavigationService dijkstrvigator = new Dijkstra();
                     way = dijkstrvigator.calculateShortestWay(graph, idFrom, idTo);
+                    if(way == null)
+                        return "Es wurde kein Weg gefunden.";
                     wayForPicture = (Stack<Integer>) way.clone();
                     orders = dijkstrvigator.directions(graph, way);
                     break;
@@ -143,6 +145,8 @@ public class GlobalLogic {
                     System.out.println("AStarigator:");
                     NavigationService aStarigator = new AStar();
                     way = aStarigator.calculateShortestWay(graph, idFrom, idTo);
+                    if(way == null)
+                        return "Es wurde kein Weg gefunden.";
                     wayForPicture = (Stack<Integer>) way.clone();
                     orders = aStarigator.directions(graph,way);
                     break;
@@ -173,7 +177,7 @@ public class GlobalLogic {
             return "Routenbeschreibung von " + fromStr + " nach " + toStr + " mit dem " + algorithmus + "-Algorithmus:" + orders;
             //return "Wegberechnung von " + fromStr + " (" + fromIdString + ") nach " + toStr + " (" + toIdString + ") mit dem " + algorithmus + "-Algorithmus." + orders;
         }catch (Exception e){
-            return "Zum Starten der Wegberechnung bitte erst Start und Ziel auswählen.";
+            return "Zum Starten der Wegberechnung bitte erst Start und Ziel auswählen." + e.toString();
         }
 
     }
