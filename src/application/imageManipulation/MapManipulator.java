@@ -18,20 +18,19 @@ import java.util.List;
 public class MapManipulator {
 
     public static Image drawWayWithListOfNodes (Image image, List<Node> listOfNodes) {
-        Image multipleManipulatedImage = image;
         List<Pixel> allPixelWay = new ArrayList<>();
         for (int i = 0; i <= listOfNodes.size()-2; i++) {
             List<Pixel> pixelWay = createListOfPixelsToMarkFromTwoCoordinates(listOfNodes.get(i).getLatitude(),
                     listOfNodes.get(i).getLongitude(),
                     listOfNodes.get(i + 1).getLatitude(),
                     listOfNodes.get(i + 1).getLongitude(),
-                    multipleManipulatedImage);
+                    image);
             allPixelWay.addAll(pixelWay);
         }
-        return drawWayWithAllNodes(multipleManipulatedImage, allPixelWay);
+        return drawWayWithAllNodes(image, allPixelWay);
     }
 
-    private static Image drawWayWithTwoNodes (Image imageToManipulate, Node node1, Node node2) {
+    /*private static Image drawWayWithTwoNodes (Image imageToManipulate, Node node1, Node node2) {
         List<Pixel> pixelWay = createListOfPixelsToMarkFromTwoCoordinates(node1.getLatitude(),
                                                                             node1.getLongitude(),
                                                                             node2.getLatitude(),
@@ -57,7 +56,7 @@ public class MapManipulator {
             }
         }
         return writableImage;
-    }
+    }*/
 
     private static Image drawWayWithAllNodes (Image imageToManipulate, List<Pixel> pixelWay) {
 

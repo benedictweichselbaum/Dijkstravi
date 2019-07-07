@@ -182,7 +182,7 @@ public class XMLParser {
             }
 
             @SuppressWarnings("all")
-            Double exactLength = DistanceCalculator.calculateDistanceFromListOfNodes(nodeList);
+            Double exactLength = DistanceCalculator.calculateDistanceBetweenAListOfNodes(nodeList);
             int length = exactLength.intValue();
 
             gr.addEdge(newID.get(ow.getFirst()), newID.get(ow.getLast()),

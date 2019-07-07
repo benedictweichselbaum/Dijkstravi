@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
-class BellmanFord extends NavigationService {
+public class BellmanFord extends NavigationService {
 
     private Map<Integer, Integer> precursors;
 

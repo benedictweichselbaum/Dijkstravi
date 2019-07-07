@@ -1,5 +1,6 @@
-package application.graphNavigation;
+package graphNavigationTest;
 
+import application.graphNavigation.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
