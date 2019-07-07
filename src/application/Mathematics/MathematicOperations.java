@@ -1,6 +1,6 @@
 package application.Mathematics;
 
-public class MathematicOperations {
+public abstract class MathematicOperations {
 
     public static void main(String... args) {
        double time = MathematicOperations.calculateTimeForDistance(5010, 130);
@@ -22,13 +22,12 @@ public class MathematicOperations {
         return Math.round(value) / factor;
     }
 
-    public static double calculateTimeForDistance(int distance, int speed){
+    private static double calculateTimeForDistance(int distance, int speed){
         //Entfernung (distance) in Metern
         //Geschwindigkeit (speed) in km/h
 
         double speedInMeterPerSeconds = (double) speed / 3.6;
-        double timeInSeconds = distance / speedInMeterPerSeconds;
-        return timeInSeconds;
+        return distance / speedInMeterPerSeconds;
     }
 
 }

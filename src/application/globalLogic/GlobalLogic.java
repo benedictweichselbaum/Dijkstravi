@@ -157,9 +157,10 @@ public class GlobalLogic {
 
               int counterToSkipFirstAndLastNode = 0;
               for (Integer w : wayForPicture) {
-                  if (counterToSkipFirstAndLastNode == 0) {
+                  if (counterToSkipFirstAndLastNode == 0 && graph.getNodeById(w).getName().equals("HelperWay")) {
                       counterToSkipFirstAndLastNode++;
-                  } else if (counterToSkipFirstAndLastNode == wayForPicture.size()-1) {
+                  } else if (counterToSkipFirstAndLastNode == wayForPicture.size()-1
+                          && graph.getNodeById(w).getName().equals("HelperWay")) {
                       break;
                   } else {
                       counterToSkipFirstAndLastNode++;
@@ -236,13 +237,13 @@ public class GlobalLogic {
                    }
                 }
             }
-            for (int i = 0; i < ndl.size(); i++) {
+            for (int i = 0; i < ndl.size(); i++)
                 graph.deleteConnection(ndl.get(i), cnl.get(i));
-            }
+
             graph.deleteLastNodeWithOutgoingConnections();
         }
-        if(graph.getNodeById(idFrom).getName().equals("HelperNode")){
+        if(graph.getNodeById(idFrom).getName().equals("HelperNode"))
             graph.deleteLastNodeWithOutgoingConnections();
-        }
+
     }
 }

@@ -162,15 +162,15 @@ public class Dijkstra extends NavigationService {
         }
     }
 
-    public ArrayList<Node> getAutobahn() {
+     ArrayList<Node> getAutobahn() {
         return autobahn;
     }
 
-    public double getLatTargetNode() {
+     double getLatTargetNode() {
         return latTargetNode;
     }
 
-    public double getLngTargetNode() {
+     double getLngTargetNode() {
         return lngTargetNode;
     }
 }

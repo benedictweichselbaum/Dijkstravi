@@ -1,12 +1,12 @@
 package application.xmlParser;
 
-import application.graphNavigation.LatLonNode;
+import application.graphNavigation.MinimalPerformanceNode;
 
 import java.util.List;
 
  public abstract class DistanceCalculator {
 
-    public static double calculateDistanceBetweenTwoNodes (LatLonNode node1, LatLonNode node2) {
+    public static double calculateDistanceBetweenTwoNodes (MinimalPerformanceNode node1, MinimalPerformanceNode node2) {
         double lon1 = Math.toRadians(node1.getLongitude());
         double lon2 = Math.toRadians(node2.getLongitude());
         double lat1 = Math.toRadians(node1.getLatitude());
@@ -28,11 +28,11 @@ import java.util.List;
         return (c * r) * 1000;
     }
 
-    static double calculateDistanceBetweenAListOfNodes (List<LatLonNode> latLonNodeList) {
+    static double calculateDistanceBetweenAListOfNodes (List<MinimalPerformanceNode> minimalPerformanceNodeList) {
         double distanceOfList = 0;
 
-        for (int i = 0; i <= latLonNodeList.size()-2; i++)
-            distanceOfList += calculateDistanceBetweenTwoNodes(latLonNodeList.get(i), latLonNodeList.get(i+1));
+        for (int i = 0; i <= minimalPerformanceNodeList.size()-2; i++)
+            distanceOfList += calculateDistanceBetweenTwoNodes(minimalPerformanceNodeList.get(i), minimalPerformanceNodeList.get(i+1));
 
         return distanceOfList;
     }

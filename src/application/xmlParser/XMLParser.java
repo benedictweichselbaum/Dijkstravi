@@ -2,9 +2,8 @@ package application.xmlParser;
 import java.io.*;
 import java.util.*;
 
-import application.graphNavigation.Connection;
 import application.graphNavigation.Graph;
-import application.graphNavigation.LatLonNode;
+import application.graphNavigation.MinimalPerformanceNode;
 import application.graphNavigation.Node;
 import org.jdom2.Attribute;
 import org.jdom2.Document;
@@ -51,9 +50,9 @@ public class XMLParser {
         }
         return gr;
     }
-    private LatLonNode createNode(long node)
+    private MinimalPerformanceNode createNode(long node)
     {
-        return new LatLonNode(hmaplon.get(node), hmaplat.get(node));
+        return new MinimalPerformanceNode(hmaplon.get(node), hmaplat.get(node));
     }
 
     private Node createNode2(int newNodeID, long node){
@@ -172,7 +171,7 @@ public class XMLParser {
         for(Way ow : wayList){
             progress = progress + singleProgessUnit;
             ArrayList<Attribute> nodeIDList = ow.getListOfIDsOfNodes();
-            List<LatLonNode> nodeList = new ArrayList<>();
+            List<MinimalPerformanceNode> nodeList = new ArrayList<>();
             try {
                 for (Attribute a: nodeIDList) {
                     nodeList.add(createNode(a.getLongValue()));
