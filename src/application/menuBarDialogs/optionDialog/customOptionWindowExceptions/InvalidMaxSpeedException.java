@@ -1,8 +1,8 @@
-package application.menuBarDialogs.optionDialog;
+package application.menuBarDialogs.optionDialog.customOptionWindowExceptions;
 
 public class InvalidMaxSpeedException extends Exception {
 
-    InvalidMaxSpeedException () {
+    public InvalidMaxSpeedException () {
         super();
     }
 

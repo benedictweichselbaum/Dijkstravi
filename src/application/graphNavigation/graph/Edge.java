@@ -1,4 +1,4 @@
-package application.graphNavigation;
+package application.graphNavigation.graph;
 
 //needed for BellmanFord
 class Edge {

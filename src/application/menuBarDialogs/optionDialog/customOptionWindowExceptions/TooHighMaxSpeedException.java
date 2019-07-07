@@ -1,8 +1,8 @@
-package application.menuBarDialogs.optionDialog;
+package application.menuBarDialogs.optionDialog.customOptionWindowExceptions;
 
 public class TooHighMaxSpeedException extends Exception {
 
-    TooHighMaxSpeedException (){
+    public TooHighMaxSpeedException (){
         super();
     }
 

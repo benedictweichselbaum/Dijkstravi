@@ -2,14 +2,10 @@ package application;
 
 import java.io.File;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import application.autocompleteComboBox.AutoCompleteComboBoxListener;
 import application.globalLogic.GlobalLogic;
-import application.graphNavigation.Node;
-import application.imageManipulation.MapManipulator;
 import application.imageManipulation.Zoomer;
 import application.menuBarDialogs.informationWindow.InformationWindow;
 import javafx.event.ActionEvent;

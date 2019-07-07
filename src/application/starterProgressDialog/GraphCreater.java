@@ -1,6 +1,6 @@
 package application.starterProgressDialog;
 
-import application.graphNavigation.Graph;
+import application.graphNavigation.graph.Graph;
 import application.xmlParser.XMLParser;
 
 import javax.swing.*;

@@ -1,10 +1,12 @@
-package application.graphNavigation;
+package application.graphNavigation.directionGiver;
 
 import application.Mathematics.MathematicOperations;
+import application.graphNavigation.graph.Connection;
+import application.graphNavigation.graph.Graph;
 
 import java.util.Stack;
 
-public class Directions {
+public class DirectionGiver {
 
     private final String lineSeparator = System.getProperty("line.separator");
     Graph g;

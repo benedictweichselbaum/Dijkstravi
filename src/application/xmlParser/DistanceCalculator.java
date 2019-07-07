@@ -1,6 +1,6 @@
 package application.xmlParser;
 
-import application.graphNavigation.MinimalPerformanceNode;
+import application.graphNavigation.graph.MinimalPerformanceNode;
 
 import java.util.List;
 

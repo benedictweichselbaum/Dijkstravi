@@ -1,5 +1,8 @@
 package application.graphNavigation;
 
+import application.graphNavigation.graph.Connection;
+import application.graphNavigation.graph.Graph;
+
 import java.util.ArrayList;
 
 public class GraphTest {

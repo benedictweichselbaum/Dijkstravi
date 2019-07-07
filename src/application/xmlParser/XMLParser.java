@@ -2,9 +2,9 @@ package application.xmlParser;
 import java.io.*;
 import java.util.*;
 
-import application.graphNavigation.Graph;
-import application.graphNavigation.MinimalPerformanceNode;
-import application.graphNavigation.Node;
+import application.graphNavigation.graph.Graph;
+import application.graphNavigation.graph.MinimalPerformanceNode;
+import application.graphNavigation.graph.Node;
 import org.jdom2.Attribute;
 import org.jdom2.Document;
 import org.jdom2.Element;

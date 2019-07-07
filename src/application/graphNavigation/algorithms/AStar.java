@@ -1,4 +1,6 @@
-package application.graphNavigation;
+package application.graphNavigation.algorithms;
+
+import application.graphNavigation.graph.MinimalPerformanceNode;
 
 public class AStar extends Dijkstra{
 

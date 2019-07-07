@@ -1,6 +1,6 @@
 package application.imageManipulation;
 
-import application.graphNavigation.Node;
+import application.graphNavigation.graph.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.PixelWriter;

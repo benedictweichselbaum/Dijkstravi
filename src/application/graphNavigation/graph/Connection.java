@@ -1,4 +1,4 @@
-package application.graphNavigation;
+package application.graphNavigation.graph;
 
 public class Connection {
     private int aim;

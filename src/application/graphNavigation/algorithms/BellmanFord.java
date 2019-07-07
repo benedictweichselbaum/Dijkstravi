@@ -1,5 +1,8 @@
-package application.graphNavigation;
+package application.graphNavigation.algorithms;
 
+
+import application.graphNavigation.graph.Connection;
+import application.graphNavigation.graph.Graph;
 
 import java.util.ArrayList;
 import java.util.HashMap;

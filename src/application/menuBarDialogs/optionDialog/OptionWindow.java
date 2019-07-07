@@ -1,5 +1,8 @@
 package application.menuBarDialogs.optionDialog;
 
+import application.menuBarDialogs.optionDialog.customOptionWindowExceptions.InvalidMaxSpeedException;
+import application.menuBarDialogs.optionDialog.customOptionWindowExceptions.TooHighMaxSpeedException;
+
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;

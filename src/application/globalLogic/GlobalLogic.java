@@ -1,6 +1,11 @@
 package application.globalLogic;
 
-import application.graphNavigation.*;
+import application.graphNavigation.algorithms.AStar;
+import application.graphNavigation.algorithms.Dijkstra;
+import application.graphNavigation.algorithms.NavigationService;
+import application.graphNavigation.graph.Connection;
+import application.graphNavigation.graph.Graph;
+import application.graphNavigation.graph.Node;
 import application.imageManipulation.MapManipulator;
 import application.menuBarDialogs.optionDialog.OptionWindow;
 import application.starterProgressDialog.GraphCreater;
