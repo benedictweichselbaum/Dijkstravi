@@ -8,15 +8,13 @@ import application.graphNavigation.graph.Graph;
 import application.graphNavigation.graph.Node;
 import application.imageManipulation.MapManipulator;
 import application.menuBarDialogs.optionDialog.OptionWindow;
-import application.starterProgressDialog.GraphCreater;
+import application.graphCreatorWithDialog.GraphCreater;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import javax.swing.*;
-import java.awt.*;
 import java.io.File;
 import java.util.*;
 import java.util.List;
@@ -41,7 +39,7 @@ public class GlobalLogic {
         this.imageView = iv;
         idFrom = idTo = -1;
         listOfExitsById = new HashMap<>();
-        this.showCreatingDialogAndCreateGraph();
+        this.createGraph();
         fillListOfExits();
         initComboBoxes();
     }
@@ -71,23 +69,8 @@ public class GlobalLogic {
     }
 
     @SuppressWarnings("all")
-    private void showCreatingDialogAndCreateGraph() {
-        JFrame jFrame = new JFrame("Graph berechnen");
-        Container pane = jFrame.getContentPane();
-        JProgressBar jProgressBar = new JProgressBar(0, 100);
-        jProgressBar.setValue(0);
-        JLabel jLabel = new JLabel("        Der Graph wird berechnet...");
-        jFrame.setLayout(new GridLayout(1, 1));
-        jFrame.setLocation(800, 400);
-
-        pane.add(jLabel);
-        //pane.add(jProgressBar);
-
-        jFrame.setSize(350, 100);
-        jFrame.setResizable(false);
-        jFrame.setVisible(true);
-
-        GraphCreater graphCreater = new GraphCreater(jProgressBar, jLabel, listOfExitsById);
+    private void createGraph() {
+        GraphCreater graphCreater = new GraphCreater(listOfExitsById);
 
         graphCreater.start();
 
@@ -98,9 +81,7 @@ public class GlobalLogic {
                 e.printStackTrace();
             }
         }
-
         this.graph = graphCreater.getGraph();
-        jFrame.dispose();
     }
 
     public String calculateWay(int alg){
