@@ -151,6 +151,11 @@ public class GlobalLogic {
                     orders = aStarigator.directions(graph,way);
                     break;
                 case 2: algorithmus = "Bellman-Ford";
+                    System.out.println("BellmanFordigator:");
+                    NavigationService bellmanFordigator = new BellmanFord();
+                    way = bellmanFordigator.calculateShortestWay(graph, idFrom, idTo);
+                    wayForPicture = (Stack<Integer>) way.clone();
+                    orders = bellmanFordigator.directions(graph,way);
                     break;
                 case 3: algorithmus = "Min-Plus-Matrixmultiplikations";
                     break;
