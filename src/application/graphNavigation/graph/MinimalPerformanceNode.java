@@ -1,11 +1,11 @@
-package application.graphNavigation;
+package application.graphNavigation.graph;
 
-public class LatLonNode {
+public class MinimalPerformanceNode {
 
     private double longitude;
     private double latitude;
 
-    public LatLonNode(double lon, double lat) {
+    public MinimalPerformanceNode(double lon, double lat) {
         this.longitude = lon;
         this.latitude = lat;
     }

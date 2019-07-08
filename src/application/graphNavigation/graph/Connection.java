@@ -1,4 +1,4 @@
-package application.graphNavigation;
+package application.graphNavigation.graph;
 
 public class Connection {
     private int aim;
@@ -24,7 +24,7 @@ public class Connection {
             return myMaxspeed;
     }
 
-    public String getAllInformationsAsString(){
+    public String getAllInformationAsString(){
         return "Ziel: " + getAim() + " Länge: " + getLength() + " maxSpeed: " + getMaxspeed() + " Name: " + getName() + " Ziel: " + getDestination();
     }
 

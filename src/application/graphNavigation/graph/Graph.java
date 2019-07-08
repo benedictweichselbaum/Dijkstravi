@@ -1,8 +1,7 @@
-package application.graphNavigation;
+package application.graphNavigation.graph;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Stack;
 
 public class Graph {
 
@@ -44,7 +43,7 @@ public class Graph {
             System.out.println(" ");
             System.out.println("Nachfolger von Knoten " + i);
             for (Connection c : arrayList) {
-                System.out.println(c.getAllInformationsAsString());
+                //System.out.println(c.getAllInformationsAsString());
             }
         }
     }

@@ -1,17 +1,20 @@
 package application.globalLogic;
 
-import application.graphNavigation.*;
+import application.graphNavigation.algorithms.AStar;
+import application.graphNavigation.algorithms.Dijkstra;
+import application.graphNavigation.algorithms.NavigationService;
+import application.graphNavigation.graph.Connection;
+import application.graphNavigation.graph.Graph;
+import application.graphNavigation.graph.Node;
 import application.imageManipulation.MapManipulator;
 import application.menuBarDialogs.optionDialog.OptionWindow;
-import application.starterProgressDialog.GraphCreater;
+import application.graphCreatorWithDialog.GraphCreater;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import javax.swing.*;
-import java.awt.*;
 import java.io.File;
 import java.util.*;
 import java.util.List;
@@ -36,7 +39,7 @@ public class GlobalLogic {
         this.imageView = iv;
         idFrom = idTo = -1;
         listOfExitsById = new HashMap<>();
-        this.showCreatingDialogAndCreateGraph();
+        this.createGraph();
         fillListOfExits();
         initComboBoxes();
     }
@@ -66,23 +69,8 @@ public class GlobalLogic {
     }
 
     @SuppressWarnings("all")
-    private void showCreatingDialogAndCreateGraph() {
-        JFrame jFrame = new JFrame("Graph berechnen");
-        Container pane = jFrame.getContentPane();
-        JProgressBar jProgressBar = new JProgressBar(0, 100);
-        jProgressBar.setValue(0);
-        JLabel jLabel = new JLabel("        Der Graph wird berechnet...");
-        jFrame.setLayout(new GridLayout(1, 1));
-        jFrame.setLocation(800, 400);
-
-        pane.add(jLabel);
-        //pane.add(jProgressBar);
-
-        jFrame.setSize(350, 100);
-        jFrame.setResizable(false);
-        jFrame.setVisible(true);
-
-        GraphCreater graphCreater = new GraphCreater(jProgressBar, jLabel, listOfExitsById);
+    private void createGraph() {
+        GraphCreater graphCreater = new GraphCreater(listOfExitsById);
 
         graphCreater.start();
 
@@ -93,27 +81,20 @@ public class GlobalLogic {
                 e.printStackTrace();
             }
         }
-
         this.graph = graphCreater.getGraph();
-        jFrame.dispose();
     }
 
     public String calculateWay(int alg){
           try {
             if(idTo > 1)
             deleteHelpStructure();
-
-            String fromStr = from.getEditor().getCharacters().toString();
-            String toStr = to.getEditor().getCharacters().toString();
+            String fromStr = from.getEditor().getText();
+            String toStr = to.getEditor().getText();
 
             ArrayList<Integer> fromId = listOfExits.get(fromStr);
             ArrayList<Integer> toId = listOfExits.get(toStr);
 
             createHelpStructure(fromId, toId);
-
-            System.out.println(graph.getAllConnectionsOfNode(idFrom) + "<- da");
-            System.out.println(graph.getAllConnectionsOfNode(idTo) + "<- daTO");
-            System.out.println(nodesWithHelperConnection.toString() + "<- HelperConn");
 
             String fromIdString = "";
             String toIdString = "";
@@ -132,34 +113,26 @@ public class GlobalLogic {
             }
 
             String algorithmus = "";
-            String orders = "";
-            Stack<Integer> way;
-            Stack<Integer> wayForPicture = new Stack<>();
+            NavigationService navigationService = null;
             switch (alg){
                 case 0: algorithmus = "Dijkstra";
-                    System.out.println("Dijkstrvigator:");
-                    NavigationService dijkstrvigator = new Dijkstra();
-                    way = dijkstrvigator.calculateShortestWay(graph, idFrom, idTo);
-                    wayForPicture = (Stack<Integer>) way.clone();
-                    orders = dijkstrvigator.directions(graph, way);
+                     navigationService = new Dijkstra();
                     break;
                 case 1: algorithmus = "A*";
-                    System.out.println("AStarigator:");
-                    NavigationService aStarigator = new AStar();
-                    way = aStarigator.calculateShortestWay(graph, idFrom, idTo);
-                    wayForPicture = (Stack<Integer>) way.clone();
-                    orders = aStarigator.directions(graph,way);
+                    navigationService = new AStar();
                     break;
                 case 2: algorithmus = "Bellman-Ford";
-                    System.out.println("BellmanFordigator:");
-                    NavigationService bellmanFordigator = new BellmanFord();
-                    way = bellmanFordigator.calculateShortestWay(graph, idFrom, idTo);
-                    wayForPicture = (Stack<Integer>) way.clone();
-                    orders = bellmanFordigator.directions(graph,way);
+                    //navigationService = new BellmanFord();
                     break;
                 case 3: algorithmus = "Min-Plus-Matrixmultiplikations";
+                    //navigationService = new ;
                     break;
             }
+              Stack<Integer> way = navigationService.calculateShortestWay(graph, idFrom, idTo);
+              if(way == null)
+                  return "Es wurde kein Weg gefunden.";
+              Stack<Integer> wayForPicture = (Stack<Integer>) way.clone();
+              String orders = navigationService.directions(graph, way);
 
               File imageFile = new File("src/autobahnnetz_DE.png");
               javafx.scene.image.Image autobahnNetworkImage = new Image(imageFile.toURI().toString());
@@ -167,9 +140,10 @@ public class GlobalLogic {
 
               int counterToSkipFirstAndLastNode = 0;
               for (Integer w : wayForPicture) {
-                  if (counterToSkipFirstAndLastNode == 0) {
+                  if (counterToSkipFirstAndLastNode == 0 && graph.getNodeById(w).getName().equals("HelperWay")) {
                       counterToSkipFirstAndLastNode++;
-                  } else if (counterToSkipFirstAndLastNode == wayForPicture.size()-1) {
+                  } else if (counterToSkipFirstAndLastNode == wayForPicture.size()-1
+                          && graph.getNodeById(w).getName().equals("HelperWay")) {
                       break;
                   } else {
                       counterToSkipFirstAndLastNode++;
@@ -178,11 +152,10 @@ public class GlobalLogic {
               }
               imageView.setImage(MapManipulator.drawWayWithListOfNodes(autobahnNetworkImage, listOfNodesForPicture));
 
-            //TODO: Algorithmus auch starten
             return "Routenbeschreibung von " + fromStr + " nach " + toStr + " mit dem " + algorithmus + "-Algorithmus:" + orders;
             //return "Wegberechnung von " + fromStr + " (" + fromIdString + ") nach " + toStr + " (" + toIdString + ") mit dem " + algorithmus + "-Algorithmus." + orders;
         }catch (Exception e){
-            return "Zum Starten der Wegberechnung bitte erst Start und Ziel auswählen.";
+            return "Zum Starten der Wegberechnung bitte erst Start und Ziel auswählen." + e.toString();
         }
 
     }
@@ -246,13 +219,13 @@ public class GlobalLogic {
                    }
                 }
             }
-            for (int i = 0; i < ndl.size(); i++) {
+            for (int i = 0; i < ndl.size(); i++)
                 graph.deleteConnection(ndl.get(i), cnl.get(i));
-            }
+
             graph.deleteLastNodeWithOutgoingConnections();
         }
-        if(graph.getNodeById(idFrom).getName().equals("HelperNode")){
+        if(graph.getNodeById(idFrom).getName().equals("HelperNode"))
             graph.deleteLastNodeWithOutgoingConnections();
-        }
+        idTo = 0;
     }
 }

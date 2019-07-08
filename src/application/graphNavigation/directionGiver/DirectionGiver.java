@@ -1,10 +1,12 @@
-package application.graphNavigation;
+package application.graphNavigation.directionGiver;
 
 import application.Mathematics.MathematicOperations;
+import application.graphNavigation.graph.Connection;
+import application.graphNavigation.graph.Graph;
 
 import java.util.Stack;
 
-public class Directions {
+public class DirectionGiver {
 
     private final String lineSeparator = System.getProperty("line.separator");
     Graph g;
@@ -16,7 +18,7 @@ public class Directions {
     public String directions(Graph g, Stack<Integer> way){
         this.g = g;
         if(way != null) {
-            System.out.println(lineSeparator);
+            //System.out.println(lineSeparator);
             orders = lineSeparator + lineSeparator;
 
             initWithFirstConnection(g, way);
@@ -27,13 +29,13 @@ public class Directions {
                 connection = treatmentNextConnection(g, way, from);
 
                 meterTillDestination = meterTillDestination + connection.getLength();
-                System.out.println(connection.getAllInformationsAsString());
+                //System.out.println(connection.getAllInformationsAsString());
                 from = way.pop();
             }
             orders = orderFollowRoad(orders, roadName, meterTillNextOrder);
 
             orders = orderNavigationFinished(orders, meterTillDestination);
-            System.out.println(lineSeparator + orders);
+            //Sytem.out.println(lineSeparator + orders);
         }
         else{
             orders = outputWayNotFound();

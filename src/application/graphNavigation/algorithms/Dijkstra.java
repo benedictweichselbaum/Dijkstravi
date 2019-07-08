@@ -1,5 +1,9 @@
 
-package application.graphNavigation;
+package application.graphNavigation.algorithms;
+
+import application.graphNavigation.graph.Connection;
+import application.graphNavigation.graph.Graph;
+import application.graphNavigation.graph.Node;
 
 import java.util.*;
 
@@ -39,10 +43,10 @@ public class Dijkstra extends NavigationService {
         predecessor = new HashMap<>();
 
         // die rot markierten Knoten -> PP
-        System.out.println("startNode " + startNode);
+       // System.out.println("startNode " + startNode);
         reachableUnvisitedNotes = new HashMap<>();
         reachableUnvisitedNotes.put(startNode, 0);
-        System.out.println("Init startNode " + reachableUnvisitedNotes.get(startNode));
+       // System.out.println("Init startNode " + reachableUnvisitedNotes.get(startNode));
 
         for (int i = 0; i < numberOfNodes; i++) {
             distance.put(i, INFINITE);
@@ -58,8 +62,8 @@ public class Dijkstra extends NavigationService {
 
         int nodeNumber;
         init(g, startNodeId, targetNodeId);
-        System.out.println("Startknoten: " + startNodeId);
-        System.out.println("Zielknoten: " + targetNodeId);
+        //System.out.println("Startknoten: " + startNodeId);
+        //System.out.println("Zielknoten: " + targetNodeId);
 
         // wiederhole bis alle Knoten besucht sind / Zielknoten besucht ist
         for (int i = 0; i < numberOfNodes; i++)
@@ -81,11 +85,11 @@ public class Dijkstra extends NavigationService {
             calculateDistanceToUnvisitedNeighboringNodes(g, nodeNumber);
         }
         if(visited.contains(targetNode)) {
-            System.out.println("Es gibt einen Weg!");
+            //tem.out.println("Es gibt einen Weg!");
             return output(g);
         }
         else{
-            System.out.println("ERROR! Es gibt KEINEN Weg!");
+            //System.out.println("ERROR! Es gibt KEINEN Weg!");
             return null;
         }
     }
@@ -125,13 +129,14 @@ public class Dijkstra extends NavigationService {
         Stack<Integer> way = new Stack<>();
         int nodeNumber;
         double totalDistance = ((double)distance.get(targetNode)/1000);
-        System.out.println("Entfernung: " + distance.get(targetNode) + "m");
-        System.out.println("Entfernung: " + totalDistance + "km");
+        //System.out.println("Entfernung: " + distance.get(targetNode) + "m");
+        //System.out.println("Entfernung: " + totalDistance + "km");
 
         if(!g.getNodeById(targetNode).getName().equals("HelperNode")){
             way.push(targetNode);
         }
         nodeNumber = targetNode;
+        //what if the target node is not reachable from the start node, is there a infinite check?
         while (nodeNumber != startNode)
         {
             nodeNumber = predecessor.get(nodeNumber);
@@ -161,15 +166,15 @@ public class Dijkstra extends NavigationService {
         }
     }
 
-    public ArrayList<Node> getAutobahn() {
+     ArrayList<Node> getAutobahn() {
         return autobahn;
     }
 
-    public double getLatTargetNode() {
+     double getLatTargetNode() {
         return latTargetNode;
     }
 
-    public double getLngTargetNode() {
+     double getLngTargetNode() {
         return lngTargetNode;
     }
 }
