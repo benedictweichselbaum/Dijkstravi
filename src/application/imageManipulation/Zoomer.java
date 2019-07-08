@@ -14,6 +14,7 @@ public class Zoomer{
     private final DoubleProperty zoomProperty = new SimpleDoubleProperty(200);
 
     public Zoomer(ImageView imgView, ScrollPane scrollPane){
+
         this.imageView = imgView;
         this.scrollPane = scrollPane;
 

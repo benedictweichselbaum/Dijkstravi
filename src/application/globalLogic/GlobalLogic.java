@@ -88,9 +88,8 @@ public class GlobalLogic {
           try {
             if(idTo > 1)
             deleteHelpStructure();
-
-            String fromStr = from.getEditor().getCharacters().toString();
-            String toStr = to.getEditor().getCharacters().toString();
+            String fromStr = from.getEditor().getText();
+            String toStr = to.getEditor().getText();
 
             ArrayList<Integer> fromId = listOfExits.get(fromStr);
             ArrayList<Integer> toId = listOfExits.get(toStr);
@@ -129,8 +128,6 @@ public class GlobalLogic {
                     //navigationService = new ;
                     break;
             }
-
-
               Stack<Integer> way = navigationService.calculateShortestWay(graph, idFrom, idTo);
               if(way == null)
                   return "Es wurde kein Weg gefunden.";
@@ -155,7 +152,6 @@ public class GlobalLogic {
               }
               imageView.setImage(MapManipulator.drawWayWithListOfNodes(autobahnNetworkImage, listOfNodesForPicture));
 
-            //TODO: Algorithmus auch starten
             return "Routenbeschreibung von " + fromStr + " nach " + toStr + " mit dem " + algorithmus + "-Algorithmus:" + orders;
             //return "Wegberechnung von " + fromStr + " (" + fromIdString + ") nach " + toStr + " (" + toIdString + ") mit dem " + algorithmus + "-Algorithmus." + orders;
         }catch (Exception e){
@@ -230,6 +226,6 @@ public class GlobalLogic {
         }
         if(graph.getNodeById(idFrom).getName().equals("HelperNode"))
             graph.deleteLastNodeWithOutgoingConnections();
-
+        idTo = 0;
     }
 }

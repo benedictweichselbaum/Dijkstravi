@@ -43,7 +43,7 @@ public class Graph {
             System.out.println(" ");
             System.out.println("Nachfolger von Knoten " + i);
             for (Connection c : arrayList) {
-                System.out.println(c.getAllInformationsAsString());
+                //System.out.println(c.getAllInformationsAsString());
             }
         }
     }

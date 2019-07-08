@@ -113,6 +113,7 @@ public class DijkstraviController implements Initializable {
         new AutoCompleteComboBoxListener<>(cbTo);
 
         zoomer = new Zoomer(imgViewAutobahn, scrollPane);
+
     }
 
     @FXML
