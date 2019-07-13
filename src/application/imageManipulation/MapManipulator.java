@@ -30,34 +30,6 @@ public abstract class MapManipulator {
         return drawWayWithAllNodes(image, allPixelWay);
     }
 
-    /*private static Image drawWayWithTwoNodes (Image imageToManipulate, Node node1, Node node2) {
-        List<Pixel> pixelWay = createListOfPixelsToMarkFromTwoCoordinates(node1.getLatitude(),
-                                                                            node1.getLongitude(),
-                                                                            node2.getLatitude(),
-                                                                            node2.getLongitude(),
-                                                                            imageToManipulate);
-        PixelReader pixelReader = imageToManipulate.getPixelReader();
-        WritableImage writableImage = new WritableImage(
-                pixelReader,
-                (int) imageToManipulate.getWidth(),
-                (int) imageToManipulate.getHeight()
-        );
-        PixelWriter pixelWriter = writableImage.getPixelWriter();
-
-        Color markingColor = Color.RED;
-
-        for (Pixel pixel : pixelWay) {
-            pixelWriter.setColor(pixel.getX(), pixel.getY(), markingColor);
-            for (int i = 1; i <= (int) (imageToManipulate.getWidth()*0.0025); i++) {
-                pixelWriter.setColor(pixel.getX(), pixel.getY() + i, markingColor);
-                pixelWriter.setColor(pixel.getX(), pixel.getY() - i, markingColor);
-                pixelWriter.setColor(pixel.getX() + i, pixel.getY(), markingColor);
-                pixelWriter.setColor(pixel.getX() - i, pixel.getY(), markingColor);
-            }
-        }
-        return writableImage;
-    }*/
-
     private static Image drawWayWithAllNodes (Image imageToManipulate, List<Pixel> pixelWay) {
 
         PixelReader pixelReader = imageToManipulate.getPixelReader();
