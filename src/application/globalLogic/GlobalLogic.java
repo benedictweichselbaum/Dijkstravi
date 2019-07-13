@@ -19,6 +19,11 @@ import java.io.File;
 import java.util.*;
 import java.util.List;
 
+/**
+ * This class manages all parts of the internal logic of the programm.
+ * The controller class uses the global logic to trigger the calculations.
+ *
+ */
 public class GlobalLogic {
 
     private Graph graph;

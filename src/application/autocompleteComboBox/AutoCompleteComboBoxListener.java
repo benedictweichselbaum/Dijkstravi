@@ -8,7 +8,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 /**
- *Dieser Code enthält Fremdcode.
+ * This class transforms a combo box into an autocomplete search combo box.
  */
 public class AutoCompleteComboBoxListener<T> implements EventHandler<KeyEvent> {
 

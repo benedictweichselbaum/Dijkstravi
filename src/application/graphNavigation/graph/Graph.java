@@ -3,6 +3,11 @@ package application.graphNavigation.graph;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Data structure graph realized with adjacency lists.
+ * The HashMap with the adjacency lists maps the ID of a node
+ * to its adjacency list and therefor to its neighbouring nodes.
+ */
 public class Graph {
 
     private ArrayList<Node> autobahn = new ArrayList<>();

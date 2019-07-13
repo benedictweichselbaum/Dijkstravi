@@ -3,6 +3,10 @@ package application.menuBarDialogs.informationWindow;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Simple Java Swing JFrame class for information about the programm.
+ * Information text formatted with HTML.
+ */
 public class InformationWindow extends JFrame{
 
     private JLabel informationText;

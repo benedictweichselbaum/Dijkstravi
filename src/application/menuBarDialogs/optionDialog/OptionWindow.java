@@ -8,6 +8,10 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
 
+/**
+ * Java Swing JFrame class for the option dialog.
+ * Shows text field for max speed and a "Save" button.
+ */
 public class OptionWindow extends JFrame {
 
     private JLabel lblSpeed;
@@ -41,7 +45,11 @@ public class OptionWindow extends JFrame {
         pane.add(btnClose);
     }
 
-    private void addDocumentListenerToTextField() {
+    /**
+     * Add document listener that triggers an event everytime
+     * something changes in the text field.
+     */
+    private void addDocumentListenerToTextField () {
         this.txtPersonalMaxSpeed.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent documentEvent) {

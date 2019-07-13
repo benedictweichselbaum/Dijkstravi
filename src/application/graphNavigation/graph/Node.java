@@ -1,5 +1,8 @@
 package application.graphNavigation.graph;
 
+/**
+ * Class that carries information for a node in the graph.
+ */
 public class Node {
 
     private int id;

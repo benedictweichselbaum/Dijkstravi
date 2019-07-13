@@ -6,6 +6,10 @@ import java.util.List;
 
  public abstract class DistanceCalculator {
 
+     /**
+      * Takes to Nodes and calculates the distance between them on the earth's surface.
+      * The curvature of the earth is considered.
+      */
     public static double calculateDistanceBetweenTwoNodes (MinimalPerformanceNode node1, MinimalPerformanceNode node2) {
         double lon1 = Math.toRadians(node1.getLongitude());
         double lon2 = Math.toRadians(node2.getLongitude());
@@ -32,7 +36,8 @@ import java.util.List;
         double distanceOfList = 0;
 
         for (int i = 0; i <= minimalPerformanceNodeList.size()-2; i++)
-            distanceOfList += calculateDistanceBetweenTwoNodes(minimalPerformanceNodeList.get(i), minimalPerformanceNodeList.get(i+1));
+            distanceOfList += calculateDistanceBetweenTwoNodes(minimalPerformanceNodeList.get(i),
+                                                                minimalPerformanceNodeList.get(i+1));
 
         return distanceOfList;
     }
