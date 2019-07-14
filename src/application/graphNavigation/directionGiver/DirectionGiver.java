@@ -9,7 +9,7 @@ import java.util.Stack;
 public class DirectionGiver {
 
     private final String lineSeparator = System.getProperty("line.separator");
-    Graph g;
+    private Graph g;
     private String orders;
     private String roadName;
     private double meterTillNextOrder;
