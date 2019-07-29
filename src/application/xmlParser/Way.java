@@ -3,6 +3,11 @@ import java.util.*;
 
 import org.jdom2.Attribute;
 
+/*
+* The relevant information is cached as "Way"s because of speed issues.
+* After finished creation of the Graph this class is no longer needed.
+ */
+
 public class Way {
     private ArrayList<Attribute> nodeList;
     private boolean motorway_link;

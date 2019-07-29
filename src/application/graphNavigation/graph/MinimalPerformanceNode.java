@@ -2,7 +2,7 @@ package application.graphNavigation.graph;
 
 
 /**
- * Class used for graph calculations.
+ * Class used for faster creating of the graph and graph calculations.
  * The normal Node class creates objects that are to big and carry not useful
  * information for some calculations.
  * Therefor the MinimalPerformanceNode is way simpler and faster.

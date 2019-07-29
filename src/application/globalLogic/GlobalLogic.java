@@ -20,7 +20,7 @@ import java.util.*;
 import java.util.List;
 
 /**
- * This class manages all parts of the internal logic of the programm.
+ * This class manages all parts of the internal logic of the program.
  * The controller class uses the global logic to trigger the calculations.
  *
  */
