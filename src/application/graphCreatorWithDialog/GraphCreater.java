@@ -7,6 +7,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 
+/**
+ * This class creates the graph needed for the navigation.
+ * Therefor it starts the XML parser and shows the user a dialog
+ * that the graph gets calculated before the main window opens.
+ * The graph creater is an extra thread.
+ */
 public class GraphCreater extends Thread{
 
     private HashMap<Integer, String> listOfExitsById;

@@ -15,7 +15,7 @@ import java.util.List;
  * It takes a list of Nodes an draws a line between them.
  **/
 
-public class MapManipulator {
+public abstract class MapManipulator {
 
     public static Image drawWayWithListOfNodes (Image image, List<Node> listOfNodes) {
         List<Pixel> allPixelWay = new ArrayList<>();
@@ -29,34 +29,6 @@ public class MapManipulator {
         }
         return drawWayWithAllNodes(image, allPixelWay);
     }
-
-    /*private static Image drawWayWithTwoNodes (Image imageToManipulate, Node node1, Node node2) {
-        List<Pixel> pixelWay = createListOfPixelsToMarkFromTwoCoordinates(node1.getLatitude(),
-                                                                            node1.getLongitude(),
-                                                                            node2.getLatitude(),
-                                                                            node2.getLongitude(),
-                                                                            imageToManipulate);
-        PixelReader pixelReader = imageToManipulate.getPixelReader();
-        WritableImage writableImage = new WritableImage(
-                pixelReader,
-                (int) imageToManipulate.getWidth(),
-                (int) imageToManipulate.getHeight()
-        );
-        PixelWriter pixelWriter = writableImage.getPixelWriter();
-
-        Color markingColor = Color.RED;
-
-        for (Pixel pixel : pixelWay) {
-            pixelWriter.setColor(pixel.getX(), pixel.getY(), markingColor);
-            for (int i = 1; i <= (int) (imageToManipulate.getWidth()*0.0025); i++) {
-                pixelWriter.setColor(pixel.getX(), pixel.getY() + i, markingColor);
-                pixelWriter.setColor(pixel.getX(), pixel.getY() - i, markingColor);
-                pixelWriter.setColor(pixel.getX() + i, pixel.getY(), markingColor);
-                pixelWriter.setColor(pixel.getX() - i, pixel.getY(), markingColor);
-            }
-        }
-        return writableImage;
-    }*/
 
     private static Image drawWayWithAllNodes (Image imageToManipulate, List<Pixel> pixelWay) {
 
@@ -127,6 +99,11 @@ public class MapManipulator {
         return listOfPixels;
     }
 
+    /*
+     * In some Cases the line between two points can not be described by a function because
+     * the two points have the same x coordinate. In this case this method creates a special
+     * list of pixels.
+     */
     private static List<Pixel> calculateListOfPixelsIfAFunctionIsNotPossible(int lon, int lat1, int lat2,
                                                                              List<Pixel> listObject) {
         int difference;
@@ -145,6 +122,12 @@ public class MapManipulator {
         return listObject;
     }
 
+    /*
+     * Depending on the number of pixels the image of the map has, this method
+     * "maps" a earth coordinate to a pixel coordinate in the image.
+     * The map image shows a rage of 55.095° N - 47.175° N and
+     * 15.447° E - 5.485° E
+     */
     private static int latitudeToPixel (double latitude, int pixelY) {
         return (int) Math.round((55.095 - latitude)/((55.095 - 47.175)/pixelY));
     }

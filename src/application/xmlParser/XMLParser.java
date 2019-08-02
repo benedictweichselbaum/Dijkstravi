@@ -11,6 +11,10 @@ import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
+/*
+* This class reads the xml-File with all highways, picks the important information, calculates the length and creates the graph.
+* The used algorithm has multiple optimizations and the created graph contains only relevant information.
+ */
 public class XMLParser {
 
     private Graph gr;
