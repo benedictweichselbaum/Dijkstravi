@@ -47,8 +47,10 @@ public class BellmanFord extends NavigationService {
             }
         }
 
-        printPrecursorsForDebugging();
-        printRes(distance, numberOfNodes);
+        System.out.println("Size precursors:" + precursors.size());
+
+        //printPrecursorsForDebugging();
+        //printRes(distance, numberOfNodes);
         return output(g, startNodeId, targetNodeId);
     }
 
@@ -65,21 +67,30 @@ public class BellmanFord extends NavigationService {
         if(!g.getNodeById(targetNode).getName().equals("HelperNode")){
             way.push(targetNode);
         }
+
         int predecessor = targetNode;
+        printPrecursorsForDebugging();
+        System.out.println("Bed1: " + (precursors.get(predecessor) != INFINITE));
+        System.out.println("Bed2: " + (predecessor != startNode));
         while ((precursors.get(predecessor) != INFINITE) && (predecessor != startNode)) {
+            System.out.println(" Ho! ");
             predecessor = precursors.get(predecessor);
             way.push(predecessor);
         }
+        System.out.println("Size Way Transitional:" + way.size());
         if (g.getNodeById(startNode).getName().equals("HelperNode")) {
             way.pop();
         }
+        System.out.println("Size Way:" + way.size());
         return way;
     }
 
 
     private void printPrecursorsForDebugging() {
         for (int i = 0; i < precursors.size(); i++) {
-            System.out.println("precursors: " + precursors.get(i) + "; position: " + i);
+            if(precursors.get(i) != INFINITE) {
+                System.out.println("precursors: " + precursors.get(i) + "; position: " + i);
+            }
         }
     }
 }
