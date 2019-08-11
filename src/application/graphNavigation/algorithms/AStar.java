@@ -7,11 +7,14 @@ public class AStar extends Dijkstra{
     @Override
     public int getPredictedDistance(int neighboringNode) {
         //predictedDistance: prognostizierte Distanz vom Nachbarknoten zum Zielknoten
-        //System.out.println("Luftlinie von Knoten " + neighboringNode + " bis Zielknoten: " + predictedDistance);
-         return (int) application.xmlParser.DistanceCalculator.calculateDistanceBetweenTwoNodes(
-                new MinimalPerformanceNode(getLatTargetNode(), getLngTargetNode()),
-                new MinimalPerformanceNode(getAutobahn().get(neighboringNode).getLatitude(),
-                        getAutobahn().get(neighboringNode).getLongitude()
+        return (int) application.xmlParser.DistanceCalculator.calculateDistanceBetweenTwoNodes(
+                new MinimalPerformanceNode(getLngTargetNode(), getLatTargetNode()),
+                new MinimalPerformanceNode(getAutobahn().get(neighboringNode).getLongitude(),
+                        getAutobahn().get(neighboringNode).getLatitude()
         ));
+        /*return (int) application.xmlParser.DistanceCalculator.calculateDistanceBetweenTwoNodes(
+                new MinimalPerformanceNode( -8.5278405,37.1221372),
+                new MinimalPerformanceNode( 10.9407158,49.4394070
+                ));*/ //Erg:2076824
     }
 }

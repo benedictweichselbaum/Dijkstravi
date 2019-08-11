@@ -111,6 +111,8 @@ public class Dijkstra extends NavigationService {
 
                 if (newDistance < distance.get(neighboringNode))
                 {
+                    //System.out.println("Luftlinie von Knoten " + neighboringNode + " bis Zielknoten: " + predictedDistance + " New Distance: " + newDistance);
+
                     distance.put(neighboringNode, newDistance);
                     predecessor.put(neighboringNode, nodeNumber);
 

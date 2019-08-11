@@ -54,6 +54,7 @@ public class DirectionGiver {
     private Connection treatmentNextConnection(Graph g, Stack<Integer> way, int from) {
         Connection connection;
         connection = g.getConnectionBetween2Points(from, way.peek());
+        //System.out.println("" + roadName + ": " + from);
 
         if(connection.getName().equals(roadName) || connection.getName().trim().equals("")){
             meterTillNextOrder = meterTillNextOrder + connection.getLength();
@@ -63,6 +64,7 @@ public class DirectionGiver {
             roadName = connection.getName();
         }
         else{
+            //System.out.println("!!!!!!!!" + roadName + ": " + from);
             orders = orderFollowRoad(orders, roadName, meterTillNextOrder);
             roadName = connection.getName();
             //orders = orderChangeRoad(orders,from,roadName);

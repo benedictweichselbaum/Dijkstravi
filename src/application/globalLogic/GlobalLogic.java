@@ -135,8 +135,9 @@ public class GlobalLogic {
                     break;
             }
               Stack<Integer> way = navigationService.calculateShortestWay(graph, idFrom, idTo);
-              if(way == null)
-                  return "Es wurde kein Weg gefunden.";
+              if(way == null) {
+                  return "Bitte warten! Ihr gewünschter Zielort ist leider noch nicht von Ihrem Startpunkt aus über Autobahnen zu erreichen.";
+              }
               Stack<Integer> wayForPicture = (Stack<Integer>) way.clone();
               String orders = navigationService.directions(graph, way);
 
