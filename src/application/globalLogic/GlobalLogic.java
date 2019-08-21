@@ -1,9 +1,6 @@
 package application.globalLogic;
 
-import application.graphNavigation.algorithms.AStar;
-import application.graphNavigation.algorithms.BellmanFord;
-import application.graphNavigation.algorithms.Dijkstra;
-import application.graphNavigation.algorithms.NavigationService;
+import application.graphNavigation.algorithms.*;
 import application.graphNavigation.graph.Connection;
 import application.graphNavigation.graph.Graph;
 import application.graphNavigation.graph.Node;
@@ -128,6 +125,7 @@ public class GlobalLogic {
                     navigationService = new AStar();
                     break;
                 case 2: algorithmus = "Bellman-Ford";
+                    //navigationService = new bff();
                     navigationService = new BellmanFord();
                     break;
                 case 3: algorithmus = "Min-Plus-Matrixmultiplikations";
