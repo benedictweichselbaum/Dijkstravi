@@ -125,8 +125,8 @@ public class GlobalLogic {
                     navigationService = new AStar();
                     break;
                 case 2: algorithmus = "Bellman-Ford";
-                    //navigationService = new bff();
-                    navigationService = new BellmanFord();
+                    navigationService = new bff();
+                    //navigationService = new BellmanFord();
                     break;
                 case 3: algorithmus = "Min-Plus-Matrixmultiplikations";
                     //navigationService = new ;
@@ -160,7 +160,7 @@ public class GlobalLogic {
             return "Routenbeschreibung von " + fromStr + " nach " + toStr + " mit dem " + algorithmus + "-Algorithmus:" + orders;
             //return "Wegberechnung von " + fromStr + " (" + fromIdString + ") nach " + toStr + " (" + toIdString + ") mit dem " + algorithmus + "-Algorithmus." + orders;
         }catch (Exception e){
-            return "Zum Starten der Wegberechnung bitte erst Start und Ziel auswählen." + e.toString();
+            return "Zum Starten der Wegberechnung bitte erst Start und Ziel auswählen." + e.toString() + "\n" + e.getLocalizedMessage()+ "\n" + e.getMessage();
         }
 
     }
