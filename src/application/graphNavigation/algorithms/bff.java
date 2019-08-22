@@ -19,22 +19,18 @@ public class bff extends NavigationService {
 
     @Override
     public Stack<Integer> calculateShortestWay(Graph g, int startNode, int targetNode) {
+        int amountOfNodes = g.getAmountOfNodes();
+        dista = new ArrayList<>(amountOfNodes);
+        predecessora = new ArrayList<>(amountOfNodes);
 
-        dista = new ArrayList<>(100275);
-        predecessora = new ArrayList<>(100275);
-
-        int amountofnodes = g.getAmountOfNodes();
-
-        for(int i = 0; i < amountofnodes; i++){
+        for(int i = 0; i < amountOfNodes; i++){
             dista.add(INFINITE);
             predecessora.add(INFINITE);
         }
         dista.set(startNode, 0);
-        System.out.println("Alle Knoten in ArrayLists erstellt.");
-
         boolean change = true;
-        for(int i = 1; i < amountofnodes; i++){
-            for(int k = 0; k < amountofnodes; k++){
+        for(int i = 1; i < amountOfNodes; i++){
+            for(int k = 0; k < amountOfNodes; k++){
                 for(Connection con : g.getAllConnectionsOfNode(k)) {
                     if(dista.get(k) < INFINITE && dista.get(k) + con.getLength() < dista.get(con.getAim())){
                         dista.set(con.getAim(), dista.get(k) + con.getLength());
@@ -45,11 +41,9 @@ public class bff extends NavigationService {
             }
 
             if(!change)
-                i = amountofnodes;
+                i = amountOfNodes;
             change = false;
         }
-
-        System.out.println("Fertig mit Wegberechnung. Entfernung: " + dista.get(targetNode));
 
         Stack<Integer> path = new Stack<>();
 
@@ -65,8 +59,6 @@ public class bff extends NavigationService {
 
     public Stack<Integer> calculateShortestWayHashMap(Graph g, int startNode, int targetNode) {
 
-        //bfnodeList = new ArrayList<>();
-
         dist = new HashMap<>(100275);
         predecessor = new HashMap<>(100275);
 
@@ -80,7 +72,6 @@ public class bff extends NavigationService {
         int amountofnodes = g.getAmountOfNodes();
 
         for(int i = 1; i < amountofnodes; i++){
-            //for (bfnode nod: bfnodeList) {
             for(int j = 0; j < amountofnodes; j++){
                 for(Connection con : g.getAllConnectionsOfNode(j)) {
                     if(dist.get(j) < INFINITE && dist.get(j) + con.getLength() < dist.get(con.getAim())){
