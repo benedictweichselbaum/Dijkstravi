@@ -10,6 +10,27 @@ Die module-Datei ist bereits im Repository. Das müsst ihr also nicht machen!
 # Link zur Aufgabe
 http://www.ba-horb.de/~pl/Programmieren/Projekt_Dijkstra.pdf
 
+# Ausführbare .jar erstellen
+
+### Einmalig
+- File -> Project Structure (Str + Alt + Umschalt + S)
+- Project Settings -> Artifacts
+- auf + klicken
+- JAR -> From modules with dependencies
+- Main als Main-Class auswählen
+- OK
+
+Optional
+- Name vergeben
+- Output directory anpassen
+
+### Zum Erstellen
+- Build -> Build Artifacts
+- Richtiges auswählen -> Build
+
+fertig, .jar liegt jetzt im Output-Verzeichnis
+
+
 # Hinweise:
 Das XML mit dem Autobahnnetz ist über die Overpass API entstanden.</br>
 Man kann es sich selbst über den "Overpass Turbo" holen.</br>
