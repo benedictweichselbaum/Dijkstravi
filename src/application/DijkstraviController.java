@@ -91,7 +91,7 @@ public class DijkstraviController implements Initializable {
         rbMinPlusMma.setToggleGroup(algRadioButtonGroup);
         algRadioButtonGroup.selectToggle(rbDijkstra);
 
-        File imageFile = new File("src/autobahnnetz_DE.png");
+        File imageFile = new File("src/application/autobahnnetz_DE.png");
         javafx.scene.image.Image autobahnNetworkImage = new Image(imageFile.toURI().toString());
         imgViewAutobahn.setImage(autobahnNetworkImage);
 

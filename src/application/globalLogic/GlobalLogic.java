@@ -139,7 +139,7 @@ public class GlobalLogic {
               Stack<Integer> wayForPicture = (Stack<Integer>) way.clone();
               String orders = navigationService.directions(graph, way);
 
-              File imageFile = new File("src/autobahnnetz_DE.png");
+              File imageFile = new File("src/application/autobahnnetz_DE.png");
               javafx.scene.image.Image autobahnNetworkImage = new Image(imageFile.toURI().toString());
               List<Node> listOfNodesForPicture = new ArrayList<>();
 

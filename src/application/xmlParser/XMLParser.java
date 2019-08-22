@@ -33,7 +33,7 @@ public class XMLParser {
     public Graph init(){
         try {
             System.out.println("Lade die XML.");
-            File inputFile = new File("german_autobahn.osm");
+            File inputFile = new File("src/application/german_autobahn.osm");
             SAXBuilder saxBuilder = new SAXBuilder();
             Document document = saxBuilder.build(inputFile);
             Element classElement = document.getRootElement();
