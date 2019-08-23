@@ -95,7 +95,7 @@ public class DijkstraviController implements Initializable {
         javafx.scene.image.Image autobahnNetworkImage = new Image(imageFile.toURI().toString());
         imgViewAutobahn.setImage(autobahnNetworkImage);
 
-        globalLogic = new GlobalLogic(cbFrom, cbTo, imgViewAutobahn);
+        globalLogic = new GlobalLogic(cbFrom, cbTo, imgViewAutobahn, this);
 
         new AutoCompleteComboBoxListener<>(cbFrom);
         new AutoCompleteComboBoxListener<>(cbTo);
@@ -127,6 +127,14 @@ public class DijkstraviController implements Initializable {
     @FXML
     public void pressedOptions (ActionEvent actionEvent) {
         this.globalLogic.getOptionWindow().setVisible(true);
+    }
+
+    public Label getLblProgress() {
+        return lblProgress;
+    }
+
+    public ProgressBar getPbAlgorithms() {
+        return pbAlgorithms;
     }
 }
 

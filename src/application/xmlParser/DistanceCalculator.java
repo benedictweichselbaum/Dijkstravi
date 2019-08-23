@@ -16,8 +16,7 @@ import java.util.List;
         double lat1 = Math.toRadians(node1.getLatitude());
         double lat2 = Math.toRadians(node2.getLatitude());
 
-        if (lon1 == lon2 && lat1 == lat2)
-            return 0;
+        if (lon1 == lon2 && lat1 == lat2) return 0;
 
         double differenceInLongitude = lon2 - lon1;
         double differenceInLatitude = lat2 - lat1;
