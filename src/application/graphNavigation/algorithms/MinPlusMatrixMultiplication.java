@@ -1,21 +1,21 @@
 /*
-package application.graphNavigation;
+package application.graphNavigation.algorithms.;
 
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 
-*/
+
 /*
  * the structure of the algorithm is from the book
  * Introduction to Algorithms by Thomas H. Cormen, Charles Leiserson, Ronald L. Rivest, Clifford Stein
  * 4. Auflage. ISBN 978-3-486-74861-1, S. 697-704, german version
  *
  * the algorithm has a runtime of O(n^3 * log n)
- * *//*
+ * */
 
-
+/*
 class MinPlusMatrixMultiplication implements NavigationService {
 
     public void calculateShortestWay(Graph g, long startNodeId, long targetNodeId) {
@@ -40,8 +40,8 @@ class MinPlusMatrixMultiplication implements NavigationService {
         return shortestDistMatrix;
     }
 
-    */
-/*private int[][] extendShortestPaths(int[][] calculatedMatrix, int[][] inputMatrix) {
+
+private int[][] extendShortestPaths(int[][] calculatedMatrix, int[][] inputMatrix) {
         int n = inputMatrix.length;
         int[][] shortestDistMatrix = new int[n][n];
 
@@ -62,11 +62,11 @@ class MinPlusMatrixMultiplication implements NavigationService {
         }
         printOutMatrix(shortestDistMatrix);
         return shortestDistMatrix;
-    }*//*
+    }
 
 
-    */
-/*private int[][] fasterAllPairsShortestPaths(int[][] inputMatrix){
+
+private int[][] fasterAllPairsShortestPaths(int[][] inputMatrix){
         int n=inputMatrix.length;
         int[][] startMatrix= Arrays.stream(inputMatrix).map(int[]::clone).toArray(int[][]::new);
         List<int[][]> matrices=new ArrayList<>();
@@ -80,7 +80,7 @@ class MinPlusMatrixMultiplication implements NavigationService {
         }
 
         return matrices.get(matrices.size()-1);
-    }*//*
+    }
 
 
     private int[][] allPairsShortestPaths(int[][] inputMatrix) {
@@ -137,4 +137,5 @@ class MinPlusMatrixMultiplication implements NavigationService {
         }
     }
 }
+
 */

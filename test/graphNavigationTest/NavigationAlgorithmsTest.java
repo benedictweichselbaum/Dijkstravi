@@ -7,6 +7,7 @@ import application.graphNavigation.algorithms.NavigationService;
 import application.graphNavigation.graph.Connection;
 import application.graphNavigation.graph.Graph;
 import application.graphNavigation.graph.Node;
+import application.graphNavigation.runningTime.RuntimeCalculation;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -24,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class NavigationAlgorithmsTest {
 
+    //Graf ohne Verbindungen
     private static Graph g;
 
     @BeforeAll
@@ -47,8 +49,11 @@ class NavigationAlgorithmsTest {
     @Test
     void dijkstraWithStopoverToHorb() {
         System.out.println("Dijkstra with stopover to Horb:");
+        RuntimeCalculation rc=new RuntimeCalculation();
         NavigationService dijkstra = new Dijkstra();
         Stack<Integer> way = dijkstra.calculateShortestWay(g, 1, 7);
+        rc.stopCalculation();
+        System.out.println(rc.getResult());
         assertEquals(1, way.pop());
         assertEquals(3, way.pop());
         assertEquals(4, way.pop());
@@ -95,8 +100,11 @@ class NavigationAlgorithmsTest {
     @Test
     void bellmanFordWithStopoverToHorb() {
         System.out.println("BellmanFord combination of simple ways:");
+        RuntimeCalculation rc=new RuntimeCalculation();
         NavigationService bellmanFord = new BellmanFord();
         Stack<Integer> way = bellmanFord.calculateShortestWay(g, 1, 7);
+        rc.stopCalculation();
+        System.out.println(rc.getResult());
         assertEquals(1, way.pop());
         assertEquals(3, way.pop());
         assertEquals(4, way.pop());
