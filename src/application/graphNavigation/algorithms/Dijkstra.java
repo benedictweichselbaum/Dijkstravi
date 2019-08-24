@@ -66,6 +66,7 @@ public class Dijkstra extends NavigationService {
         //System.out.println("Zielknoten: " + targetNodeId);
 
         // wiederhole bis alle Knoten besucht sind / Zielknoten besucht ist
+        Double progressUnit = 1.0/numberOfNodes;
         for (int i = 0; i < numberOfNodes; i++)
         {
             if(reachableUnvisitedNotes == null){
@@ -83,6 +84,7 @@ public class Dijkstra extends NavigationService {
 
             //System.out.println("NodeNumber: " + nodeNumber);
             calculateDistanceToUnvisitedNeighboringNodes(g, nodeNumber);
+            progress += progressUnit;
         }
         if(visited.contains(targetNode)) {
             //tem.out.println("Es gibt einen Weg!");

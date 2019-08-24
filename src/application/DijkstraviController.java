@@ -73,13 +73,13 @@ public class DijkstraviController implements Initializable {
     @FXML
     void clickedCalcRoute(ActionEvent event) {
        if(algRadioButtonGroup.getSelectedToggle() == rbDijkstra)
-           txtAreaRoute.setText(globalLogic.calculateWay(0));
+           globalLogic.calculateWay(0);
        else if(algRadioButtonGroup.getSelectedToggle() == rbAStrern)
-           txtAreaRoute.setText(globalLogic.calculateWay(1));
+           globalLogic.calculateWay(1);
        else if(algRadioButtonGroup.getSelectedToggle() == rbBellmanFord)
-           txtAreaRoute.setText(globalLogic.calculateWay(2));
+           globalLogic.calculateWay(2);
        else if(algRadioButtonGroup.getSelectedToggle() == rbMinPlusMma)
-           txtAreaRoute.setText(globalLogic.calculateWay(3));
+           globalLogic.calculateWay(3);
     }
 
     @Override
@@ -95,7 +95,7 @@ public class DijkstraviController implements Initializable {
         javafx.scene.image.Image autobahnNetworkImage = new Image(imageFile.toURI().toString());
         imgViewAutobahn.setImage(autobahnNetworkImage);
 
-        globalLogic = new GlobalLogic(cbFrom, cbTo, imgViewAutobahn);
+        globalLogic = new GlobalLogic(this);
 
         new AutoCompleteComboBoxListener<>(cbFrom);
         new AutoCompleteComboBoxListener<>(cbTo);
@@ -128,5 +128,30 @@ public class DijkstraviController implements Initializable {
     public void pressedOptions (ActionEvent actionEvent) {
         this.globalLogic.getOptionWindow().setVisible(true);
     }
+
+    public Label getLblProgress() {
+        return lblProgress;
+    }
+
+    public ProgressBar getPbAlgorithms() {
+        return pbAlgorithms;
+    }
+
+    public TextArea getTxtAreaRoute() {
+        return txtAreaRoute;
+    }
+
+    public ImageView getImgViewAutobahn() {
+        return imgViewAutobahn;
+    }
+
+    public ComboBox getCbFrom() {
+        return cbFrom;
+    }
+
+    public ComboBox getCbTo() {
+        return cbTo;
+    }
+
 }
 

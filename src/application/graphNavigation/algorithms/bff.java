@@ -9,13 +9,13 @@ import java.util.Stack;
 
 public class bff extends NavigationService {
 
-    ArrayList<bfnode> bfnodeList;
+    private ArrayList<bfnode> bfnodeList;
 
-    HashMap<Integer, Integer> dist;
-    HashMap<Integer, Integer> predecessor;
+    private HashMap<Integer, Integer> dist;
+    private HashMap<Integer, Integer> predecessor;
 
-    ArrayList<Integer> dista;
-    ArrayList<Integer> predecessora;
+    private ArrayList<Integer> dista;
+    private ArrayList<Integer> predecessora;
 
     @Override
     public Stack<Integer> calculateShortestWay(Graph g, int startNode, int targetNode) {
@@ -29,6 +29,7 @@ public class bff extends NavigationService {
         }
         dista.set(startNode, 0);
         boolean change = true;
+        double progressUnit = 1.0/(amountOfNodes);
         for(int i = 1; i < amountOfNodes; i++){
             for(int k = 0; k < amountOfNodes; k++){
                 for(Connection con : g.getAllConnectionsOfNode(k)) {
@@ -39,7 +40,7 @@ public class bff extends NavigationService {
                     }
                 }
             }
-
+            progress += progressUnit;
             if(!change)
                 i = amountOfNodes;
             change = false;
@@ -139,4 +140,5 @@ public class bff extends NavigationService {
 
         return path;
     }
+
 }
