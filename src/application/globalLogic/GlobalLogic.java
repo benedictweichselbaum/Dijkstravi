@@ -28,19 +28,13 @@ public class GlobalLogic {
     private Graph graph;
     private HashMap<String, ArrayList<Integer>> listOfExits;
     private HashMap<Integer, String> listOfExitsById;
-    private ComboBox from;
-    private ComboBox to;
     private ArrayList<Integer> nodesWithHelperConnection;
     private int idFrom, idTo;
     private OptionWindow optionWindow;
-    private ImageView imageView;
     private DijkstraviController dijkstraviController;
 
-    public GlobalLogic(ComboBox from, ComboBox to, ImageView iv, DijkstraviController dijkstraviController) {
-        this.from = from;
-        this.to = to;
+    public GlobalLogic(DijkstraviController dijkstraviController) {
         this.optionWindow = new OptionWindow();
-        this.imageView = iv;
         this.dijkstraviController = dijkstraviController;
         idFrom = idTo = -1;
         listOfExitsById = new HashMap<>();
@@ -54,8 +48,8 @@ public class GlobalLogic {
         ObservableList<String> observableList = FXCollections.observableArrayList();
 
         listOfExits.forEach((n, a) -> observableList.add(n));
-        this.from.setItems(observableList.sorted());
-        this.to.setItems(observableList.sorted());
+        dijkstraviController.getCbFrom().setItems(observableList.sorted());
+        dijkstraviController.getCbTo().setItems(observableList.sorted());
     }
 
     @SuppressWarnings("all")
@@ -93,8 +87,8 @@ public class GlobalLogic {
         dijkstraviController.getPbAlgorithms().setProgress(0);
         if (idTo > 1) deleteHelpStructure();
 
-        String fromStr = from.getEditor().getText();
-        String toStr = to.getEditor().getText();
+        String fromStr = dijkstraviController.getCbFrom().getEditor().getText();
+        String toStr = dijkstraviController.getCbTo().getEditor().getText();
 
         ArrayList<Integer> fromId = listOfExits.get(fromStr);
         ArrayList<Integer> toId = listOfExits.get(toStr);
