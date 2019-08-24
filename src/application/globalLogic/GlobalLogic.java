@@ -89,93 +89,61 @@ public class GlobalLogic {
         this.graph = graphCreater.getGraph();
     }
 
-    public String calculateWay(int alg) {
-        try {
-            if (idTo > 1)
-                deleteHelpStructure();
-            String fromStr = from.getEditor().getText();
-            String toStr = to.getEditor().getText();
+    public void calculateWay(int alg) {
+        dijkstraviController.getPbAlgorithms().setProgress(0);
+        if (idTo > 1) deleteHelpStructure();
 
-            ArrayList<Integer> fromId = listOfExits.get(fromStr);
-            ArrayList<Integer> toId = listOfExits.get(toStr);
+        String fromStr = from.getEditor().getText();
+        String toStr = to.getEditor().getText();
 
-            createHelpStructure(fromId, toId);
+        ArrayList<Integer> fromId = listOfExits.get(fromStr);
+        ArrayList<Integer> toId = listOfExits.get(toStr);
 
-            String fromIdString = "";
-            String toIdString = "";
-            for (Integer fi : fromId)
-                fromIdString += fi.toString() + ",";
-            for (Integer ti : toId)
-                toIdString += ti.toString() + ",";
-            fromIdString = fromIdString.substring(0, fromIdString.length() - 1);
-            toIdString = toIdString.substring(0, toIdString.length() - 1);
+        createHelpStructure(fromId, toId);
 
-            if (graph.getNodeById(idFrom).getName().equals("HelperNode")) {
-                fromIdString += " Hilfsknoten " + idFrom;
-            }
-            if (graph.getNodeById(idTo).getName().equals("HelperNode")) {
-                toIdString += " Hilfsknoten " + idTo;
-            }
+        String fromIdString = "";
+        String toIdString = "";
+        for (Integer fi : fromId)
+            fromIdString += fi.toString() + ",";
+        for (Integer ti : toId)
+            toIdString += ti.toString() + ",";
+        fromIdString = fromIdString.substring(0, fromIdString.length() - 1);
+        toIdString = toIdString.substring(0, toIdString.length() - 1);
 
-            String algorithmus = "";
-            NavigationService navigationService = null;
-            switch (alg) {
-                case 0:
-                    algorithmus = "Dijkstra";
-                    navigationService = new Dijkstra();
-                    break;
-                case 1:
-                    algorithmus = "A*";
-                    navigationService = new AStar();
-                    break;
-                case 2:
-                    algorithmus = "Bellman-Ford";
-                    navigationService = new bff();
-                    //navigationService = new BellmanFord();
-                    break;
-                case 3:
-                    algorithmus = "Min-Plus-Matrixmultiplikations";
-                    //navigationService = new ;
-                    break;
-            }
-
-            ProgessAlgBarUpdater progessAlgBarUpdater = new ProgessAlgBarUpdater(dijkstraviController.getPbAlgorithms(),
-                    dijkstraviController.getLblProgress(), navigationService);
-
-            progessAlgBarUpdater.start();
-            Stack<Integer> way = navigationService.calculateShortestWay(graph, idFrom, idTo);
-            if (way == null) {
-                return "Bitte warten! Ihr gewünschter Zielort ist leider noch nicht von Ihrem Startpunkt aus über Autobahnen zu erreichen.";
-            }
-            Stack<Integer> wayForPicture = (Stack<Integer>) way.clone();
-            String orders = navigationService.directions(graph, way);
-
-            File imageFile = new File("src/application/autobahnnetz_DE.png");
-            javafx.scene.image.Image autobahnNetworkImage = new Image(imageFile.toURI().toString());
-            List<Node> listOfNodesForPicture = new ArrayList<>();
-
-            int counterToSkipFirstAndLastNode = 0;
-            for (Integer w : wayForPicture) {
-                if (counterToSkipFirstAndLastNode == 0 && graph.getNodeById(w).getName().equals("HelperWay")) {
-                    counterToSkipFirstAndLastNode++;
-                } else if (counterToSkipFirstAndLastNode == wayForPicture.size() - 1
-                        && graph.getNodeById(w).getName().equals("HelperWay")) {
-                    break;
-                } else {
-                    counterToSkipFirstAndLastNode++;
-                    listOfNodesForPicture.add(graph.getNodeById(w));
-                }
-            }
-            imageView.setImage(MapManipulator.drawWayWithListOfNodes(autobahnNetworkImage, listOfNodesForPicture));
-
-            return "Routenbeschreibung von " + fromStr + " nach " + toStr + " mit dem " + algorithmus + "-Algorithmus:" + orders;
-            //return "Wegberechnung von " + fromStr + " (" + fromIdString + ") nach " + toStr + " (" + toIdString + ") mit dem " + algorithmus + "-Algorithmus." + orders;
-        } catch (Exception e) {
-            return "Zum Starten der Wegberechnung bitte erst Start und Ziel auswählen." + e.toString() + "\n" + e.getLocalizedMessage() + "\n" + e.getMessage();
+        if (graph.getNodeById(idFrom).getName().equals("HelperNode")) {
+            fromIdString += " Hilfsknoten " + idFrom;
+        }
+        if (graph.getNodeById(idTo).getName().equals("HelperNode")) {
+            toIdString += " Hilfsknoten " + idTo;
         }
 
-    }
+        String algorithmus = "";
+        NavigationService navigationService = null;
+        switch (alg) {
+            case 0:
+                algorithmus = "Dijkstra";
+                navigationService = new Dijkstra();
+                break;
+            case 1:
+                algorithmus = "A*";
+                navigationService = new AStar();
+                break;
+            case 2:
+                algorithmus = "Bellman-Ford";
+                navigationService = new bff();
+                //navigationService = new BellmanFord();
+                break;
+            case 3:
+                algorithmus = "Min-Plus-Matrixmultiplikations";
+                //navigationService = new ;
+                break;
+        }
 
+        ProgessAlgBarUpdater progessAlgBarUpdater = new ProgessAlgBarUpdater(dijkstraviController, navigationService);
+        AlgorithmThread algorithmThread = new AlgorithmThread(navigationService, graph, idFrom, idTo,
+                progessAlgBarUpdater, dijkstraviController, fromStr, toStr, algorithmus);
+        algorithmThread.start();
+    }
     public OptionWindow getOptionWindow() {
         return optionWindow;
     }
