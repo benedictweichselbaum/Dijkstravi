@@ -5,12 +5,12 @@ import application.graphNavigation.algorithms.NavigationService;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 
-public class ProgessAlgBarUpdater extends Thread {
+public class ProgressAleBarUpdater extends Thread {
 
     private NavigationService navigationService;
     private DijkstraviController dijkstraviController;
 
-    public ProgessAlgBarUpdater (DijkstraviController controller, NavigationService navigationService) {
+    public ProgressAleBarUpdater(DijkstraviController controller, NavigationService navigationService) {
         this.navigationService = navigationService;
         this.dijkstraviController = controller;
     }
@@ -18,10 +18,13 @@ public class ProgessAlgBarUpdater extends Thread {
     @Override
     public void run() {
         double progress;
-        while ((progress = navigationService.getProgress()) <= 1.0) {
-            dijkstraviController.getPbAlgorithms().setProgress(progress*100);
-            dijkstraviController.getLblProgress().setText("Berechnung läuft");
+        while ((progress = navigationService.getProgress()*100) <= 1.0) {
+            if (progress >= 0.9) {
+                dijkstraviController.getPbAlgorithms().setProgress(1.0);
+                return;
+            }
+
+            dijkstraviController.getPbAlgorithms().setProgress(progress);
         }
-        dijkstraviController.getLblProgress().setText("Fertig");
     }
 }

@@ -1,23 +1,17 @@
 package application.globalLogic;
 
 import application.DijkstraviController;
-import application.algorithmProgess.ProgessAlgBarUpdater;
+import application.algorithmProgess.ProgressAleBarUpdater;
 import application.graphNavigation.algorithms.*;
 import application.graphNavigation.graph.Connection;
 import application.graphNavigation.graph.Graph;
 import application.graphNavigation.graph.Node;
-import application.imageManipulation.MapManipulator;
 import application.menuBarDialogs.optionDialog.OptionWindow;
 import application.graphCreatorWithDialog.GraphCreater;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.ComboBox;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
-import java.io.File;
 import java.util.*;
-import java.util.List;
 
 /**
  * This class manages all parts of the internal logic of the program.
@@ -133,9 +127,9 @@ public class GlobalLogic {
                 break;
         }
 
-        ProgessAlgBarUpdater progessAlgBarUpdater = new ProgessAlgBarUpdater(dijkstraviController, navigationService);
+        ProgressAleBarUpdater progressAleBarUpdater = new ProgressAleBarUpdater(dijkstraviController, navigationService);
         AlgorithmThread algorithmThread = new AlgorithmThread(navigationService, graph, idFrom, idTo,
-                progessAlgBarUpdater, dijkstraviController, fromStr, toStr, algorithmus);
+                progressAleBarUpdater, dijkstraviController, fromStr, toStr, algorithmus);
         algorithmThread.start();
     }
     public OptionWindow getOptionWindow() {
