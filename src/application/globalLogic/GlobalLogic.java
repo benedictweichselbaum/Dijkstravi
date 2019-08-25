@@ -167,8 +167,8 @@ public class GlobalLogic {
     }
 
     private Node addHelperNode(ArrayList<Integer> listOfNodes) {
-        int lat = 0;
-        int lon = 0;
+        double lat = 0;
+        double lon = 0;
         for (int nodeId : listOfNodes) {
             Node nd = graph.getNodeById(nodeId);
             lat += nd.getLatitude();

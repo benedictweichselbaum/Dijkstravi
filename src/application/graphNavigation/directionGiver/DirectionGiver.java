@@ -14,11 +14,17 @@ public class DirectionGiver {
     private String roadName;
     private double meterTillNextOrder;
     private double meterTillDestination;
+    private String location;
+    private String destination;
+    private boolean isOutputAutobahnChangeInProgress;
 
     public String directions(Graph g, Stack<Integer> way){
         this.g = g;
+        location = "";
+        destination = "";
+        isOutputAutobahnChangeInProgress = false;
         if(way != null) {
-            //System.out.println(lineSeparator);
+            //System.out.println(way.size());
             orders = lineSeparator + lineSeparator;
 
             initWithFirstConnection(g, way);
@@ -29,13 +35,13 @@ public class DirectionGiver {
                 connection = treatmentNextConnection(g, way, from);
 
                 meterTillDestination = meterTillDestination + connection.getLength();
-                //System.out.println(connection.getAllInformationsAsString());
                 from = way.pop();
             }
-            orders = orderFollowRoad(orders, roadName, meterTillNextOrder);
+
+            outputOrderAutobahnChange();
+            orders = orderFollowRoad(orders, roadName, meterTillNextOrder, g.getNodeById(from).getName());
 
             orders = orderNavigationFinished(orders, meterTillDestination);
-            //Sytem.out.println(lineSeparator + orders);
         }
         else{
             orders = outputWayNotFound();
@@ -54,35 +60,101 @@ public class DirectionGiver {
     private Connection treatmentNextConnection(Graph g, Stack<Integer> way, int from) {
         Connection connection;
         connection = g.getConnectionBetween2Points(from, way.peek());
-        //System.out.println("" + roadName + ": " + from);
 
-        if(connection.getName().equals(roadName) || connection.getName().trim().equals("")){
+        String actualLocation = g.getNodeById(from).getName();
+        String actualRoadName = connection.getName().trim();
+        //System.out.println(connection.getAllInformationAsString(g) + " Von ID:" + from + " Von:" + actualLocation);
+
+        if(roadName.trim().equals("") && !actualRoadName.equals("")){
             meterTillNextOrder = meterTillNextOrder + connection.getLength();
+            roadName = actualRoadName;
         }
-        else if(roadName.trim().equals("") && !connection.getName().trim().equals("")){
+        else if(actualLocation != null && actualRoadName.equals("")) {
             meterTillNextOrder = meterTillNextOrder + connection.getLength();
-            roadName = connection.getName();
+            if ((actualLocation.contains("Kreuz") || actualLocation.contains("Dreieck"))){
+                outputOrderAutobahnChange();
+                isOutputAutobahnChangeInProgress = false;
+
+                location = actualLocation;
+                destination = connection.getDestination();
+            }
+            getDestination(connection);
+        }
+        else if(!actualRoadName.equals(roadName) && !actualRoadName.equals("")){
+            outputOrderAutobahnChange();
+            isOutputAutobahnChangeInProgress = true;
+
+            orders = orderFollowRoad(orders, roadName, meterTillNextOrder, "") + lineSeparator;
+            roadName = actualRoadName;
+
+            getDestination(connection);
+            if(location.equals("") && actualLocation != null){
+                location = actualLocation;
+            }
+            meterTillNextOrder = connection.getLength();
         }
         else{
-            //System.out.println("!!!!!!!!" + roadName + ": " + from);
-            orders = orderFollowRoad(orders, roadName, meterTillNextOrder);
-            roadName = connection.getName();
-            //orders = orderChangeRoad(orders,from,roadName);
-            meterTillNextOrder = connection.getLength();
+            if(!actualRoadName.equals("") && !isOutputAutobahnChangeInProgress){
+                location = "";
+            }
+            getDestination(connection);
+            meterTillNextOrder = meterTillNextOrder + connection.getLength();
         }
         return connection;
     }
 
-    private String orderFollowRoad(String orders, String roadName, double meterTillNextOrder) {
-        return orders + "Folgen Sie der " + roadName + " für " + MathematicOperations.meterToKilometer(meterTillNextOrder, 3) + "km" + lineSeparator;
+    private void getDestination(Connection connection) {
+        if (destination.equals("") && isOutputAutobahnChangeInProgress) {
+            destination = connection.getDestination();
+        }
     }
 
-    private String orderChangeRoad(String orders, int exit, String nextRoad) {
-        return orders + "Nehmen Sie die Ausfahrt: " + exit + g.getNodeById(exit).getName() + " und fahren Sie auf die " + nextRoad + " in Richtung: X" + lineSeparator;
+    private void outputOrderAutobahnChange() {
+        if (isOutputAutobahnChangeInProgress) {
+            orders = orderAutobahnChange(location, destination, roadName);
+            location = "";
+            destination = "";
+        }
+    }
+
+    private String orderAutobahnChange(String location, String destination, String street){
+        location = location.replace("/", " / ");
+        destination = destination.replace(";", " / ");
+        street = street.replace(";", " / ");
+
+
+        if(location.equals("")){
+            if(!destination.equals("")){
+                destination = " in Richtung " + destination;
+            }
+            return String.format((orders + "Fahren Sie auf die %s%s." + lineSeparator), street, destination);
+        }
+
+        if(location.contains("Kreuz") || location.contains("Dreieck")){
+            location = "Am " + location;
+        }
+        else{
+            location = "Bei " +  location;
+        }
+        if(!destination.equals("")){
+            destination = String.format(" der Beschilderung in Richtung %s folgen und", destination);
+        }
+        return String.format((orders + "%s%s auf die %s fahren." + lineSeparator),
+                location, destination, street);
+    }
+
+    private String orderFollowRoad(String orders, String street, double meterTillNextOrder, String finalDestination) {
+        street = street.replace(";", " / ");
+        String meterTillNextOrderOutput = "" + MathematicOperations.meterToKilometer(meterTillNextOrder, 3);
+        if(!finalDestination.equals("")){
+            finalDestination = String.format(" bis zu Ihrem Ziel %s", finalDestination);
+        }
+
+        return String.format((orders + "Folgen Sie der %s für %s km%s." + lineSeparator), street, meterTillNextOrderOutput, finalDestination);
     }
 
     private String orderNavigationFinished(String orders, double meterTillDestination) {
-        orders = orders + "Sie haben Ihr Ziel erreicht!" + lineSeparator;
+        orders = orders + lineSeparator + "Sie haben Ihr Ziel erreicht!" + lineSeparator;
         orders = orders + lineSeparator + "Entfernung: " + MathematicOperations.meterToKilometer(meterTillDestination, 3) + "km";
         orders = orders + lineSeparator + "Danke für die Navigation mit Dijkstravi!";
         return orders;
@@ -91,4 +163,5 @@ public class DirectionGiver {
     private String outputWayNotFound() {
         return lineSeparator + "ERROR! Es gibt KEINEN Weg zwischen den ausgewählten Punkten!";
     }
+
 }
