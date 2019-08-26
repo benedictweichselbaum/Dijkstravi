@@ -61,6 +61,8 @@ public class AlgorithmThread extends Thread {
 
             setImage(wayForPicture, autobahnNetworkImage, listOfNodesForPicture);
 
+            controller.enableFields();
+
             controller.getTxtAreaRoute().setText("Routenbeschreibung von " + fromStr + " nach " + toStr
                     + " mit dem " + algorithm + "-Algorithmus:" + orders);
             this.navigationService.progress = 1.0;
@@ -68,6 +70,7 @@ public class AlgorithmThread extends Thread {
             controller.getTxtAreaRoute().setText("Zum Starten der Wegberechnung bitte erst Start und Ziel auswählen."
                     + e.toString() + "\n" + e.getLocalizedMessage() + "\n" + e.getMessage());
             this.navigationService.progress = 1.0;
+            controller.enableFields();
         }
         progressAleBarUpdater.interrupt();
         this.interrupt();

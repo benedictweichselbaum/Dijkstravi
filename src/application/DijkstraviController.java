@@ -159,5 +159,15 @@ public class DijkstraviController implements Initializable {
     public void clickedChangeDir(ActionEvent actionEvent) {
         globalLogic.changeDirection();
     }
+
+    public void disableFields(){
+        getTxtAreaRoute().setDisable(true);
+        btnCalcRoute.setDisable(true);
+    }
+
+    public void enableFields(){
+        getTxtAreaRoute().setDisable(false);
+        btnCalcRoute.setDisable(false);
+    }
 }
 

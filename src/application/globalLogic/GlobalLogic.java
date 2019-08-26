@@ -78,6 +78,7 @@ public class GlobalLogic {
     }
 
     public void calculateWay(int alg) {
+        dijkstraviController.disableFields();
         dijkstraviController.getPbAlgorithms().setProgress(0);
         if (idTo > 1) deleteHelpStructure();
 
