@@ -201,4 +201,10 @@ public class GlobalLogic {
             graph.deleteLastNodeWithOutgoingConnections();
         idTo = 0;
     }
+
+    public void changeDirection(){
+        String fromStr = dijkstraviController.getCbFrom().getEditor().getText();
+        dijkstraviController.getCbFrom().getEditor().setText(dijkstraviController.getCbTo().getEditor().getText());
+        dijkstraviController.getCbTo().getEditor().setText(fromStr);
+    }
 }

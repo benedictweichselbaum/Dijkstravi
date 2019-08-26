@@ -20,6 +20,9 @@ import javafx.scene.layout.AnchorPane;
 public class DijkstraviController implements Initializable {
 
     @FXML
+    public Button changeDir;
+
+    @FXML
     AnchorPane pane;
 
     @FXML
@@ -153,5 +156,8 @@ public class DijkstraviController implements Initializable {
         return cbTo;
     }
 
+    public void clickedChangeDir(ActionEvent actionEvent) {
+        globalLogic.changeDirection();
+    }
 }
 
