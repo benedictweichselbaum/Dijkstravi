@@ -1,7 +1,7 @@
 package application.graphNavigation.algorithms;
 
 import application.DijkstraviController;
-import application.algorithmProgess.ProgessAlgBarUpdater;
+import application.algorithmProgess.ProgressAleBarUpdater;
 import application.graphNavigation.graph.Graph;
 import application.graphNavigation.graph.Node;
 import application.imageManipulation.MapManipulator;
@@ -19,7 +19,7 @@ public class AlgorithmThread extends Thread {
     private Graph graph;
     private int startNode;
     private int targetNode;
-    private ProgessAlgBarUpdater progessAlgBarUpdater;
+    private ProgressAleBarUpdater progressAleBarUpdater;
     private DijkstraviController controller;
     private String fromStr;
     private String toStr;
@@ -27,14 +27,14 @@ public class AlgorithmThread extends Thread {
     private int maxSpeed;
 
     public AlgorithmThread(NavigationService navigationService, Graph graph, int startNode, int targetNode,
-                           ProgessAlgBarUpdater progessAlgBarUpdater, DijkstraviController controller,
+                           ProgressAleBarUpdater progressAleBarUpdater, DijkstraviController controller,
                            String fromStr, String toStr, String algorithm, int maxSpeed) {
         this.navigationService = navigationService;
         this.way = null;
         this.graph = graph;
         this.startNode = startNode;
         this.targetNode = targetNode;
-        this.progessAlgBarUpdater = progessAlgBarUpdater;
+        this.progressAleBarUpdater = progressAleBarUpdater;
         this.controller = controller;
         this.fromStr = fromStr;
         this.toStr = toStr;
@@ -44,7 +44,7 @@ public class AlgorithmThread extends Thread {
 
     @Override
     public void run() {
-        progessAlgBarUpdater.start();
+        progressAleBarUpdater.start();
         try {
             way = navigationService.calculateShortestWay(graph, startNode, targetNode);
 
@@ -63,11 +63,19 @@ public class AlgorithmThread extends Thread {
 
             setImage(wayForPicture, autobahnNetworkImage, listOfNodesForPicture);
 
-            controller.getTxtAreaRoute().setText("Routenbeschreibung von " + fromStr + " nach " + toStr + " mit dem " + algorithm + "-Algorithmus:" + orders);
+            controller.enableFields();
+
+            controller.getTxtAreaRoute().setText("Routenbeschreibung von " + fromStr + " nach " + toStr
+                    + " mit dem " + algorithm + "-Algorithmus:" + orders);
+            this.navigationService.progress = 1.0;
         } catch (Exception e) {
             controller.getTxtAreaRoute().setText("Zum Starten der Wegberechnung bitte erst Start und Ziel auswählen."
                     + e.toString() + "\n" + e.getLocalizedMessage() + "\n" + e.getMessage());
+            this.navigationService.progress = 1.0;
+            controller.enableFields();
         }
+        progressAleBarUpdater.interrupt();
+        this.interrupt();
     }
 
     private void setImage(Stack<Integer> wayForPicture, Image autobahnNetworkImage, List<Node> listOfNodesForPicture) {

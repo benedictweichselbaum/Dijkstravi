@@ -1,23 +1,17 @@
 package application.globalLogic;
 
 import application.DijkstraviController;
-import application.algorithmProgess.ProgessAlgBarUpdater;
+import application.algorithmProgess.ProgressAleBarUpdater;
 import application.graphNavigation.algorithms.*;
 import application.graphNavigation.graph.Connection;
 import application.graphNavigation.graph.Graph;
 import application.graphNavigation.graph.Node;
-import application.imageManipulation.MapManipulator;
 import application.menuBarDialogs.optionDialog.OptionWindow;
 import application.graphCreatorWithDialog.GraphCreater;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.ComboBox;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
-import java.io.File;
 import java.util.*;
-import java.util.List;
 
 /**
  * This class manages all parts of the internal logic of the program.
@@ -84,6 +78,7 @@ public class GlobalLogic {
     }
 
     public void calculateWay(int alg) {
+        dijkstraviController.disableFields();
         dijkstraviController.getPbAlgorithms().setProgress(0);
         if (idTo > 1) deleteHelpStructure();
 
@@ -133,9 +128,9 @@ public class GlobalLogic {
                 break;
         }
 
-        ProgessAlgBarUpdater progessAlgBarUpdater = new ProgessAlgBarUpdater(dijkstraviController, navigationService);
+        ProgressAleBarUpdater progressAleBarUpdater = new ProgressAleBarUpdater(dijkstraviController, navigationService);
         AlgorithmThread algorithmThread = new AlgorithmThread(navigationService, graph, idFrom, idTo,
-                progessAlgBarUpdater, dijkstraviController, fromStr, toStr, algorithmus, optionWindow.getMaxSpeed());
+                progressAleBarUpdater, dijkstraviController, fromStr, toStr, algorithmus, optionWindow.getMaxSpeed());
         algorithmThread.start();
     }
     public OptionWindow getOptionWindow() {
@@ -206,5 +201,11 @@ public class GlobalLogic {
         if (graph.getNodeById(idFrom).getName().equals("HelperNode"))
             graph.deleteLastNodeWithOutgoingConnections();
         idTo = 0;
+    }
+
+    public void changeDirection(){
+        String fromStr = dijkstraviController.getCbFrom().getEditor().getText();
+        dijkstraviController.getCbFrom().getEditor().setText(dijkstraviController.getCbTo().getEditor().getText());
+        dijkstraviController.getCbTo().getEditor().setText(fromStr);
     }
 }
