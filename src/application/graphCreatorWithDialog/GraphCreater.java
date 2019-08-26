@@ -29,8 +29,6 @@ public class GraphCreater extends Thread{
     public void run () {
         synchronized (this) {
             XMLParser xmlParser = new XMLParser(listOfExitsById);
-            //ProgressBarUpdater progressBarUpdater = new ProgressBarUpdater(progressBar, progressText, xmlParser);
-            //progressBarUpdater.start();
             showCreateDialog();
             graph = xmlParser.init();
             this.jFrame.dispose();
