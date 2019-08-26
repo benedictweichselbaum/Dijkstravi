@@ -1,5 +1,7 @@
 package application.Mathematics;
 
+import application.graphNavigation.graph.Connection;
+
 public abstract class MathematicOperations {
 
     public static void main(String... args) {
@@ -22,12 +24,25 @@ public abstract class MathematicOperations {
         return Math.round(value) / factor;
     }
 
-    private static double calculateTimeForDistance(int distance, int speed){
+    public static double calculateTimeForDistance(int distance, int speed){
         //Entfernung (distance) in Metern
         //Geschwindigkeit (speed) in km/h
 
         double speedInMeterPerSeconds = (double) speed / 3.6;
         return distance / speedInMeterPerSeconds;
+    }
+
+    public static double calculateTimeForConnection(Connection connection, int personalMaxSpeed){
+        //Entfernung (distance) in Metern
+        //Geschwindigkeit (speed) in km/h
+
+        double speedInMeterPerSecond = (double) connection.getPersonalMaxSpeed(personalMaxSpeed) / 3.6;
+        return connection.getLength() / speedInMeterPerSecond;
+    }
+
+    public static String secondsToHoursAndMinutes(double seconds){
+        int secondsRound = (int) Math.round(seconds);
+        return String.format("%d Std. %d Min.", (secondsRound / 3600), (secondsRound % 3600)/60);
     }
 
 }

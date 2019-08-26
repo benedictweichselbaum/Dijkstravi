@@ -24,10 +24,11 @@ public class AlgorithmThread extends Thread {
     private String fromStr;
     private String toStr;
     private String algorithm;
+    private int maxSpeed;
 
     public AlgorithmThread(NavigationService navigationService, Graph graph, int startNode, int targetNode,
                            ProgessAlgBarUpdater progessAlgBarUpdater, DijkstraviController controller,
-                           String fromStr, String toStr, String algorithm) {
+                           String fromStr, String toStr, String algorithm, int maxSpeed) {
         this.navigationService = navigationService;
         this.way = null;
         this.graph = graph;
@@ -38,6 +39,7 @@ public class AlgorithmThread extends Thread {
         this.fromStr = fromStr;
         this.toStr = toStr;
         this.algorithm = algorithm;
+        this.maxSpeed = maxSpeed;
     }
 
     @Override
@@ -53,7 +55,7 @@ public class AlgorithmThread extends Thread {
             }
 
             Stack<Integer> wayForPicture = (Stack<Integer>) way.clone();
-            String orders = navigationService.directions(graph, way);
+            String orders = navigationService.directions(graph, way, maxSpeed);
 
             File imageFile = new File("src/application/autobahnnetz_DE.png");
             Image autobahnNetworkImage = new Image(imageFile.toURI().toString());

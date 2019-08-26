@@ -135,7 +135,7 @@ public class GlobalLogic {
 
         ProgessAlgBarUpdater progessAlgBarUpdater = new ProgessAlgBarUpdater(dijkstraviController, navigationService);
         AlgorithmThread algorithmThread = new AlgorithmThread(navigationService, graph, idFrom, idTo,
-                progessAlgBarUpdater, dijkstraviController, fromStr, toStr, algorithmus);
+                progessAlgBarUpdater, dijkstraviController, fromStr, toStr, algorithmus, optionWindow.getMaxSpeed());
         algorithmThread.start();
     }
     public OptionWindow getOptionWindow() {
