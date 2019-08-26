@@ -67,7 +67,7 @@ public class DirectionGiver {
 
         String actualLocation = g.getNodeById(from).getName();
         String actualRoadName = connection.getName().trim();
-        System.out.println(connection.getAllInformationAsString() + " Von ID:" + from + " Von:" + actualLocation);
+        //System.out.println(connection.getAllInformationAsString() + " Von ID:" + from + " Von:" + actualLocation);
 
         if(roadName.trim().equals("") && !actualRoadName.equals("")){
             meterTillNextOrder = meterTillNextOrder + connection.getLength();
