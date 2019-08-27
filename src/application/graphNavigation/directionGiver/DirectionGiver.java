@@ -166,7 +166,9 @@ public class DirectionGiver {
     }
 
     private String outputWayNotFound() {
-        return lineSeparator + "ERROR! Es gibt KEINEN Weg zwischen den ausgewählten Punkten!";
+        return lineSeparator + lineSeparator + "Bitte warten!"
+                + lineSeparator + "Ihr gewünschter Zielort ist leider noch nicht von Ihrem Startpunkt aus über Autobahnen zu erreichen."
+                + lineSeparator + lineSeparator + "Danke für die Navigation mit Dijkstravi!";
     }
 
 }

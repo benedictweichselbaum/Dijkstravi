@@ -71,10 +71,16 @@ public class BellmanFord extends NavigationService {
             predecessor = precursors.get(predecessor);
             way.push(predecessor);
         }
-        if (g.getNodeById(startNode).getName().equals("HelperNode")) {
+        if (g.getNodeById(startNode).getName().equals("HelperNode") && !way.empty()) {
             way.pop();
         }
-        return way;
+
+        if(way.empty() || way.size() == 1){
+            return null;
+        }
+        else{
+            return way;
+        }
     }
 }
 

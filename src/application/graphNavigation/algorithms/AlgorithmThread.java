@@ -51,26 +51,25 @@ public class AlgorithmThread extends Thread {
             rc=new RuntimeCalculation();
             way = navigationService.calculateShortestWay(graph, startNode, targetNode);
             rc.stopCalculation();
-            if (way == null) {
-                controller.getTxtAreaRoute()
-                        .setText("Bitte warten! Ihr gewünschter Zielort ist leider noch " +
-                                "nicht von Ihrem Startpunkt aus über Autobahnen zu erreichen.");
+
+            if (way != null) {
+                Stack<Integer> wayForPicture = (Stack<Integer>) way.clone();
+
+                File imageFile = new File("src/application/autobahnnetz_DE.png");
+                Image autobahnNetworkImage = new Image(imageFile.toURI().toString());
+                List<Node> listOfNodesForPicture = new ArrayList<>();
+
+                setImage(wayForPicture, autobahnNetworkImage, listOfNodesForPicture);
             }
 
-            Stack<Integer> wayForPicture = (Stack<Integer>) way.clone();
             String orders = navigationService.directions(graph, way, maxSpeed);
-
-            File imageFile = new File("src/application/autobahnnetz_DE.png");
-            Image autobahnNetworkImage = new Image(imageFile.toURI().toString());
-            List<Node> listOfNodesForPicture = new ArrayList<>();
-
-            setImage(wayForPicture, autobahnNetworkImage, listOfNodesForPicture);
 
             controller.enableFields();
 
             controller.getTxtAreaRoute().setText("Routenbeschreibung von " + fromStr + " nach " + toStr
                     + " mit dem " + algorithm + "-Algorithmus (Laufzeit des Algorithmus: " + rc.getResult() + ")" + orders);
             this.navigationService.progress = 1.0;
+
         } catch (Exception e) {
             controller.getTxtAreaRoute().setText("Zum Starten der Wegberechnung bitte erst Start und Ziel auswählen."
                     + e.toString() + "\n" + e.getLocalizedMessage() + "\n" + e.getMessage());
