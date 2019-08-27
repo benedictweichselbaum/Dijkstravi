@@ -51,11 +51,6 @@ public class AlgorithmThread extends Thread {
             rc=new RuntimeCalculation();
             way = navigationService.calculateShortestWay(graph, startNode, targetNode);
             rc.stopCalculation();
-            if (way == null) {
-                controller.getTxtAreaRoute()
-                        .setText("Bitte warten! Ihr gewünschter Zielort ist leider noch " +
-                                "nicht von Ihrem Startpunkt aus über Autobahnen zu erreichen.");
-            }
 
             Stack<Integer> wayForPicture = (Stack<Integer>) way.clone();
             String orders = navigationService.directions(graph, way, maxSpeed);
@@ -72,10 +67,7 @@ public class AlgorithmThread extends Thread {
                     + " mit dem " + algorithm + "-Algorithmus (Laufzeit des Algorithmus: " + rc.getResult() + ")" + orders);
             this.navigationService.progress = 1.0;
         } catch (Exception e) {
-            controller.getTxtAreaRoute().setText("Zum Starten der Wegberechnung bitte erst Start und Ziel auswählen."
-                    + e.toString() + "\n" + e.getLocalizedMessage() + "\n" + e.getMessage());
-            this.navigationService.progress = 1.0;
-            controller.enableFields();
+            noWayFound();
         }
         progressAleBarUpdater.interrupt();
         this.interrupt();
@@ -96,6 +88,12 @@ public class AlgorithmThread extends Thread {
         }
         controller.getImgViewAutobahn()
                 .setImage(MapManipulator.drawWayWithListOfNodes(autobahnNetworkImage, listOfNodesForPicture));
+    }
+
+    private void noWayFound(){
+        controller.getTxtAreaRoute().setText("Es konnte keine Route von " + fromStr + " nach " + toStr + " gefunden werden.");
+        this.navigationService.progress = 1.0;
+        controller.enableFields();
     }
 
     public Stack<Integer> getWay() {

@@ -78,34 +78,26 @@ public class GlobalLogic {
     }
 
     public void calculateWay(int alg) {
-        dijkstraviController.disableFields();
-        dijkstraviController.getPbAlgorithms().setProgress(0);
-        if (idTo > 1) deleteHelpStructure();
+        try {
+            initialiseForNewWay();
 
-        String fromStr = dijkstraviController.getCbFrom().getEditor().getText();
-        String toStr = dijkstraviController.getCbTo().getEditor().getText();
+            String fromStr = dijkstraviController.getCbFrom().getEditor().getText();
+            String toStr = dijkstraviController.getCbTo().getEditor().getText();
 
-        ArrayList<Integer> fromId = listOfExits.get(fromStr);
-        ArrayList<Integer> toId = listOfExits.get(toStr);
+            ArrayList<Integer> fromId = listOfExits.get(fromStr);
+            ArrayList<Integer> toId = listOfExits.get(toStr);
 
-        createHelpStructure(fromId, toId);
+            createHelpStructure(fromId, toId);
 
-        String fromIdString = "";
-        String toIdString = "";
-        for (Integer fi : fromId)
-            fromIdString += fi.toString() + ",";
-        for (Integer ti : toId)
-            toIdString += ti.toString() + ",";
-        fromIdString = fromIdString.substring(0, fromIdString.length() - 1);
-        toIdString = toIdString.substring(0, toIdString.length() - 1);
-
-        if (graph.getNodeById(idFrom).getName().equals("HelperNode")) {
-            fromIdString += " Hilfsknoten " + idFrom;
+            AlgorithmThread algorithmThread = createAlgorithmThread(alg, fromStr, toStr);
+            algorithmThread.start();
+        }catch (Exception ignored){
+            dijkstraviController.enableFields();
+            dijkstraviController.getTxtAreaRoute().setText("Die Berechnung konnte leider nicht erfolgreich durchgeführt werden.\nÜberprüfe bitte die Eingaben.");
         }
-        if (graph.getNodeById(idTo).getName().equals("HelperNode")) {
-            toIdString += " Hilfsknoten " + idTo;
-        }
+    }
 
+    private AlgorithmThread createAlgorithmThread(int alg, String fromStr, String toStr){
         String algorithmus = "";
         NavigationService navigationService = null;
         switch (alg) {
@@ -119,20 +111,26 @@ public class GlobalLogic {
                 break;
             case 2:
                 algorithmus = "Bellman-Ford";
-                //navigationService = new bff();
-                navigationService = new BellmanFord();
+                navigationService = new BellmanFordFast();
+                //navigationService = new BellmanFord();
                 break;
             case 3:
                 algorithmus = "SPF";
-                navigationService = new Spfa();
+                navigationService = new ShortestPathFasterAlgorithm();
                 break;
         }
 
         ProgressAleBarUpdater progressAleBarUpdater = new ProgressAleBarUpdater(dijkstraviController, navigationService);
-        AlgorithmThread algorithmThread = new AlgorithmThread(navigationService, graph, idFrom, idTo,
+        return new AlgorithmThread(navigationService, graph, idFrom, idTo,
                 progressAleBarUpdater, dijkstraviController, fromStr, toStr, algorithmus, optionWindow.getMaxSpeed());
-        algorithmThread.start();
     }
+
+    private void initialiseForNewWay(){
+        dijkstraviController.disableFields();
+        dijkstraviController.getPbAlgorithms().setProgress(0);
+        if (idTo > 1) deleteHelpStructure();
+    }
+
     public OptionWindow getOptionWindow() {
         return optionWindow;
     }
