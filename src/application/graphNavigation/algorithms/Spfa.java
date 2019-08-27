@@ -15,6 +15,7 @@ public class Spfa extends NavigationService {
     public Stack<Integer> calculateShortestWay(Graph g, int startNode, int targetNode) {
 
         int amountOfNodes = g.getAmountOfNodes();
+        double progressUnit = (0.2/(amountOfNodes))/100;
         dist = new ArrayList<>(amountOfNodes);
         predecessor = new ArrayList<>(amountOfNodes);
 
@@ -27,7 +28,15 @@ public class Spfa extends NavigationService {
         Queue<Integer> queue = new LinkedList<>();
         queue.add(startNode);
 
+        int z = 0;
+        boolean t = false;
         while(queue.size() > 0) {
+            z++;
+            progress += progressUnit;
+            if(progress >= 1.0 && !t) {
+                System.out.println("progress");
+                t = true;
+            }
             Integer u = queue.poll();
             for(Connection con : g.getAllConnectionsOfNode(u)) {
                 if(dist.get(u) + con.getLength() < dist.get(con.getAim())){
@@ -36,11 +45,15 @@ public class Spfa extends NavigationService {
 
                     if(!queue.contains(con.getAim())){
                         queue.add(con.getAim());
+
                     }
                 }
             }
         }
 
+        progress = 1.0;
+
+        System.out.println(z + " Durchläufe");
 
         Stack<Integer> path = new Stack<>();
 
