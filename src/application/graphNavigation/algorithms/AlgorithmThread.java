@@ -4,6 +4,7 @@ import application.DijkstraviController;
 import application.algorithmProgess.ProgressAleBarUpdater;
 import application.graphNavigation.graph.Graph;
 import application.graphNavigation.graph.Node;
+import application.graphNavigation.runningTime.RuntimeCalculation;
 import application.imageManipulation.MapManipulator;
 import javafx.scene.image.Image;
 
@@ -25,6 +26,7 @@ public class AlgorithmThread extends Thread {
     private String toStr;
     private String algorithm;
     private int maxSpeed;
+    private RuntimeCalculation rc;
 
     public AlgorithmThread(NavigationService navigationService, Graph graph, int startNode, int targetNode,
                            ProgressAleBarUpdater progressAleBarUpdater, DijkstraviController controller,
@@ -46,8 +48,9 @@ public class AlgorithmThread extends Thread {
     public void run() {
         progressAleBarUpdater.start();
         try {
+            rc=new RuntimeCalculation();
             way = navigationService.calculateShortestWay(graph, startNode, targetNode);
-
+            rc.stopCalculation();
             if (way == null) {
                 controller.getTxtAreaRoute()
                         .setText("Bitte warten! Ihr gewünschter Zielort ist leider noch " +
@@ -66,7 +69,7 @@ public class AlgorithmThread extends Thread {
             controller.enableFields();
 
             controller.getTxtAreaRoute().setText("Routenbeschreibung von " + fromStr + " nach " + toStr
-                    + " mit dem " + algorithm + "-Algorithmus:" + orders);
+                    + " mit dem " + algorithm + "-Algorithmus (Laufzeit des Algorithmus: " + rc.getResult() + ")" + orders);
             this.navigationService.progress = 1.0;
         } catch (Exception e) {
             controller.getTxtAreaRoute().setText("Zum Starten der Wegberechnung bitte erst Start und Ziel auswählen."

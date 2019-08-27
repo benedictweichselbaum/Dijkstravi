@@ -119,8 +119,8 @@ public class GlobalLogic {
                 break;
             case 2:
                 algorithmus = "Bellman-Ford";
-                navigationService = new bff();
-                //navigationService = new BellmanFord();
+                //navigationService = new bff();
+                navigationService = new BellmanFord();
                 break;
             case 3:
                 algorithmus = "Min-Plus-Matrixmultiplikations";

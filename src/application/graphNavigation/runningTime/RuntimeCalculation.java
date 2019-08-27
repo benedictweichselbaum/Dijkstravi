@@ -17,7 +17,7 @@ public class RuntimeCalculation {
     public String getResult(){
         String res;
         if(neededTime>1000){
-            res = neededTime + "s";
+            res = neededTime/1000 + "s";
         }
         else {
             res = neededTime + "ms";
