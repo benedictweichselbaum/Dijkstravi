@@ -71,10 +71,7 @@ public class AlgorithmThread extends Thread {
             this.navigationService.progress = 1.0;
 
         } catch (Exception e) {
-            controller.getTxtAreaRoute().setText("Zum Starten der Wegberechnung bitte erst Start und Ziel auswählen."
-                    + e.toString() + "\n" + e.getLocalizedMessage() + "\n" + e.getMessage());
-            this.navigationService.progress = 1.0;
-            controller.enableFields();
+            noWayFound();
         }
         progressAleBarUpdater.interrupt();
         this.interrupt();
@@ -95,6 +92,12 @@ public class AlgorithmThread extends Thread {
         }
         controller.getImgViewAutobahn()
                 .setImage(MapManipulator.drawWayWithListOfNodes(autobahnNetworkImage, listOfNodesForPicture));
+    }
+
+    private void noWayFound(){
+        controller.getTxtAreaRoute().setText("Es konnte keine Route von " + fromStr + " nach " + toStr + " gefunden werden.");
+        this.navigationService.progress = 1.0;
+        controller.enableFields();
     }
 
     public Stack<Integer> getWay() {

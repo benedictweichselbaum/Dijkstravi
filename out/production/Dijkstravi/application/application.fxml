@@ -2,11 +2,8 @@
 
 <?import java.lang.*?>
 <?import javafx.collections.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -17,23 +14,27 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.DijkstraviController">
+<AnchorPane id="AnchorPane" fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="application.DijkstraviController">
   <children>
     <MenuBar layoutX="0.0" layoutY="0.0" prefHeight="26.0" prefWidth="1000.0">
       <menus>
         <Menu mnemonicParsing="false" text="Über">
           <items>
+            <MenuItem mnemonicParsing="false" onAction="#pressedBeschreibung" text="Beschreibung" />
             <MenuItem mnemonicParsing="false" onAction="#pressedInformation" text="Informationen" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" onAction="#pressedOptions" text="Einstellungen">
           <items>
             <MenuItem mnemonicParsing="false" text="Optionen" />
-            <MenuItem fx:id="btnExit" mnemonicParsing="false" onAction="#pressedExit" text="Beenden" />
+            <MenuItem mnemonicParsing="false" onAction="#pressedExit" text="Beenden" fx:id="btnExit" />
           </items>
         </Menu>
       </menus>
@@ -45,14 +46,14 @@
         <Font size="24.0" />
       </font>
     </Label>
-    <ImageView fx:id="imgViewAutobahn" fitWidth="400" layoutX="560.0" layoutY="93.0" pickOnBounds="false" />
+    <ImageView fx:id="imgViewAutobahn" fitWidth="400.0" layoutX="560.0" layoutY="93.0" pickOnBounds="false" />
     <Button fx:id="btnCalcRoute" layoutX="28.0" layoutY="224.0" mnemonicParsing="false" onAction="#clickedCalcRoute" prefHeight="28.0" prefWidth="114.0" text="Berechnen" />
     <TextArea fx:id="txtAreaRoute" disable="false" editable="false" layoutX="254.0" layoutY="137.0" prefHeight="410.85498046875" prefWidth="278.0" wrapText="true" />
     <RadioButton fx:id="rbDijkstra" layoutX="28.0" layoutY="320.0" mnemonicParsing="false" text="Dijkstra" />
     <Label layoutX="254.0" layoutY="113.0" text="Routenbeschreibung" />
     <RadioButton fx:id="rbBellmanFord" layoutX="28.0" layoutY="354.0" mnemonicParsing="false" text="Bellman-Ford" />
     <RadioButton fx:id="rbAStrern" layoutX="28.0" layoutY="384.0" mnemonicParsing="false" text="A* Algorithmus" />
-    <RadioButton fx:id="rbMinPlusMma" layoutX="28.0" layoutY="415.0" mnemonicParsing="false" text="Min-Plus MMA" />
+    <RadioButton fx:id="rbSpfa" layoutX="28.0" layoutY="415.0" mnemonicParsing="false" text="SPFA" />
     <Label layoutX="28.0" layoutY="284.0" text="Algorithmus" />
     <ProgressBar fx:id="pbAlgorithms" layoutX="28.0" layoutY="562.0" prefHeight="22.0" prefWidth="941.0" progress="0.0" />
     <Label fx:id="lblProgress" layoutX="28.0" layoutY="568.0" prefWidth="941.0" text="" textAlignment="CENTER" />
@@ -72,6 +73,6 @@
       </font>
     </Label>
     <ScrollPane fx:id="scrollPane" content="$null" layoutX="574.0" layoutY="78.0" prefHeight="469.0" prefWidth="405.0" />
-      <Button fx:id="changeDir" onAction="#clickedChangeDir" layoutX="200.0" layoutY="226.0" mnemonicParsing="false" text="↑↓" />
+    <Button fx:id="changeDir" layoutX="184.0" layoutY="228.0" mnemonicParsing="false" onAction="#clickedChangeDir" text="↑↓" />
   </children>
 </AnchorPane>
