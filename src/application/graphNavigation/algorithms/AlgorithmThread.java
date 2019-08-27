@@ -2,6 +2,7 @@ package application.graphNavigation.algorithms;
 
 import application.DijkstraviController;
 import application.algorithmProgess.ProgressAleBarUpdater;
+import application.graphNavigation.algorithms.exceptions.NoWayFoundException;
 import application.graphNavigation.graph.Graph;
 import application.graphNavigation.graph.Node;
 import application.graphNavigation.runningTime.RuntimeCalculation;
@@ -60,6 +61,8 @@ public class AlgorithmThread extends Thread {
                 List<Node> listOfNodesForPicture = new ArrayList<>();
 
                 setImage(wayForPicture, autobahnNetworkImage, listOfNodesForPicture);
+            }else{
+                throw new NoWayFoundException();
             }
 
             String orders = navigationService.directions(graph, way, maxSpeed);
