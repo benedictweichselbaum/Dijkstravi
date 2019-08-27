@@ -119,8 +119,8 @@ public class GlobalLogic {
                 break;
             case 2:
                 algorithmus = "Bellman-Ford";
-                navigationService = new bff();
-                //navigationService = new BellmanFord();
+                //navigationService = new bff();
+                navigationService = new BellmanFord();
                 break;
             case 3:
                 algorithmus = "SPF";
@@ -130,7 +130,7 @@ public class GlobalLogic {
 
         ProgressAleBarUpdater progressAleBarUpdater = new ProgressAleBarUpdater(dijkstraviController, navigationService);
         AlgorithmThread algorithmThread = new AlgorithmThread(navigationService, graph, idFrom, idTo,
-                progressAleBarUpdater, dijkstraviController, fromStr, toStr, algorithmus);
+                progressAleBarUpdater, dijkstraviController, fromStr, toStr, algorithmus, optionWindow.getMaxSpeed());
         algorithmThread.start();
     }
     public OptionWindow getOptionWindow() {

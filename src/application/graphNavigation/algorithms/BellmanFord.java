@@ -34,6 +34,7 @@ public class BellmanFord extends NavigationService {
     }
 
     private void relax(int numberOfNodes) {
+        double progressUnit = 1.0/(numberOfNodes);
         boolean change = true;
         for (int i = 1; i < numberOfNodes; i++) {
             for(int src = 0; src < numberOfNodes; src++){
@@ -52,6 +53,7 @@ public class BellmanFord extends NavigationService {
                     }
                 }
             }
+            progress += progressUnit;
             if(!change){
                 i = numberOfNodes;
             }

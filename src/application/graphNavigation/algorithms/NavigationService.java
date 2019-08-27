@@ -13,8 +13,8 @@ public abstract class NavigationService {
 
     public abstract Stack<Integer> calculateShortestWay(Graph g, int startNode, int targetNode);
 
-    public String directions(Graph g, Stack<Integer> way) {
-        return new DirectionGiver().directions(g, way);
+    public String directions(Graph g, Stack<Integer> way, int maxSpeed) {
+        return new DirectionGiver().directions(g, way, maxSpeed);
     }
 
     public Double getProgress() {

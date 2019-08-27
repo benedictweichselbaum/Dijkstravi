@@ -3,6 +3,7 @@ package application.graphNavigation.directionGiver;
 import application.Mathematics.MathematicOperations;
 import application.graphNavigation.graph.Connection;
 import application.graphNavigation.graph.Graph;
+import application.menuBarDialogs.optionDialog.OptionWindow;
 
 import java.util.Stack;
 
@@ -14,11 +15,12 @@ public class DirectionGiver {
     private String roadName;
     private double meterTillNextOrder;
     private double meterTillDestination;
+    private double secondsTillDestination;
     private String location;
     private String destination;
     private boolean isOutputAutobahnChangeInProgress;
 
-    public String directions(Graph g, Stack<Integer> way){
+    public String directions(Graph g, Stack<Integer> way, int personalMaxSpeed){
         this.g = g;
         location = "";
         destination = "";
@@ -27,7 +29,7 @@ public class DirectionGiver {
             //System.out.println(way.size());
             orders = lineSeparator + lineSeparator;
 
-            initWithFirstConnection(g, way);
+            initWithFirstConnection(g, way, personalMaxSpeed);
             Connection connection;
 
             int from = way.pop();
@@ -35,13 +37,14 @@ public class DirectionGiver {
                 connection = treatmentNextConnection(g, way, from);
 
                 meterTillDestination = meterTillDestination + connection.getLength();
+                secondsTillDestination = secondsTillDestination + MathematicOperations.calculateTimeForConnection(connection, personalMaxSpeed);
                 from = way.pop();
             }
 
             outputOrderAutobahnChange();
             orders = orderFollowRoad(orders, roadName, meterTillNextOrder, g.getNodeById(from).getName());
 
-            orders = orderNavigationFinished(orders, meterTillDestination);
+            orders = orderNavigationFinished(orders);
         }
         else{
             orders = outputWayNotFound();
@@ -49,11 +52,12 @@ public class DirectionGiver {
         return orders;
     }
 
-    private void initWithFirstConnection(Graph g, Stack<Integer> way) {
+    private void initWithFirstConnection(Graph g, Stack<Integer> way, int personalMaxSpeed) {
         int from = way.pop();
         Connection connection = g.getConnectionBetween2Points(from, way.peek());
         meterTillNextOrder = connection.getLength();
         meterTillDestination = connection.getLength();
+        secondsTillDestination = MathematicOperations.calculateTimeForConnection(connection, personalMaxSpeed);
         roadName = connection.getName();
     }
 
@@ -63,7 +67,7 @@ public class DirectionGiver {
 
         String actualLocation = g.getNodeById(from).getName();
         String actualRoadName = connection.getName().trim();
-        //System.out.println(connection.getAllInformationAsString(g) + " Von ID:" + from + " Von:" + actualLocation);
+        //System.out.println(connection.getAllInformationAsString() + " Von ID:" + from + " Von:" + actualLocation);
 
         if(roadName.trim().equals("") && !actualRoadName.equals("")){
             meterTillNextOrder = meterTillNextOrder + connection.getLength();
@@ -153,9 +157,10 @@ public class DirectionGiver {
         return String.format((orders + "Folgen Sie der %s für %s km%s." + lineSeparator), street, meterTillNextOrderOutput, finalDestination);
     }
 
-    private String orderNavigationFinished(String orders, double meterTillDestination) {
+    private String orderNavigationFinished(String orders) {
         orders = orders + lineSeparator + "Sie haben Ihr Ziel erreicht!" + lineSeparator;
         orders = orders + lineSeparator + "Entfernung: " + MathematicOperations.meterToKilometer(meterTillDestination, 3) + "km";
+        orders = orders + lineSeparator + "Fahrzeit: " + MathematicOperations.secondsToHoursAndMinutes(secondsTillDestination);
         orders = orders + lineSeparator + "Danke für die Navigation mit Dijkstravi!";
         return orders;
     }

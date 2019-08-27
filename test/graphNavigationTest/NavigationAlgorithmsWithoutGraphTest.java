@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Anyway, the results differ from real navigation systems, because only length-values from edges could be used
  */
 
-class NavigationAlgorithmsTest {
+class NavigationAlgorithmsWithoutGraphTest {
 
     //Graf ohne Verbindungen
     private static Graph g;

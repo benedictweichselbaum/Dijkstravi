@@ -18,10 +18,12 @@ public class Connection {
     }
 
     public int getPersonalMaxSpeed(int myMaxspeed){
-        if(maxspeed > 0 && maxspeed <= myMaxspeed)
+        if(maxspeed > 0 && maxspeed <= myMaxspeed) {
             return maxspeed;
-        else
+        }
+        else {
             return myMaxspeed;
+        }
     }
 
     public String getAllInformationAsString(){
