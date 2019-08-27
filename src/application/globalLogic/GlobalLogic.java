@@ -123,8 +123,8 @@ public class GlobalLogic {
                 //navigationService = new BellmanFord();
                 break;
             case 3:
-                algorithmus = "Min-Plus-Matrixmultiplikations";
-                //navigationService = new ;
+                algorithmus = "SPF";
+                navigationService = new Spfa();
                 break;
         }
 

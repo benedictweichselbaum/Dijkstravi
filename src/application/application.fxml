@@ -52,7 +52,7 @@
     <Label layoutX="254.0" layoutY="113.0" text="Routenbeschreibung" />
     <RadioButton fx:id="rbBellmanFord" layoutX="28.0" layoutY="354.0" mnemonicParsing="false" text="Bellman-Ford" />
     <RadioButton fx:id="rbAStrern" layoutX="28.0" layoutY="384.0" mnemonicParsing="false" text="A* Algorithmus" />
-    <RadioButton fx:id="rbMinPlusMma" layoutX="28.0" layoutY="415.0" mnemonicParsing="false" text="Min-Plus MMA" />
+    <RadioButton fx:id="rbSpfa" layoutX="28.0" layoutY="415.0" mnemonicParsing="false" text="SPFA" />
     <Label layoutX="28.0" layoutY="284.0" text="Algorithmus" />
     <ProgressBar fx:id="pbAlgorithms" layoutX="28.0" layoutY="562.0" prefHeight="22.0" prefWidth="941.0" progress="0.0" />
     <Label fx:id="lblProgress" layoutX="28.0" layoutY="568.0" prefWidth="941.0" text="" textAlignment="CENTER" />

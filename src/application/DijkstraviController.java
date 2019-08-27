@@ -44,7 +44,7 @@ public class DijkstraviController implements Initializable {
     private RadioButton rbDijkstra;
 
     @FXML
-    private RadioButton rbMinPlusMma;
+    private RadioButton rbSpfa;
 
     @FXML
     private TextArea txtAreaRoute;
@@ -81,7 +81,7 @@ public class DijkstraviController implements Initializable {
            globalLogic.calculateWay(1);
        else if(algRadioButtonGroup.getSelectedToggle() == rbBellmanFord)
            globalLogic.calculateWay(2);
-       else if(algRadioButtonGroup.getSelectedToggle() == rbMinPlusMma)
+       else if(algRadioButtonGroup.getSelectedToggle() == rbSpfa)
            globalLogic.calculateWay(3);
     }
 
@@ -91,7 +91,7 @@ public class DijkstraviController implements Initializable {
         rbAStrern.setToggleGroup(algRadioButtonGroup);
         rbBellmanFord.setToggleGroup(algRadioButtonGroup);
         rbDijkstra.setToggleGroup(algRadioButtonGroup);
-        rbMinPlusMma.setToggleGroup(algRadioButtonGroup);
+        rbSpfa.setToggleGroup(algRadioButtonGroup);
         algRadioButtonGroup.selectToggle(rbDijkstra);
 
         File imageFile = new File("src/application/autobahnnetz_DE.png");
