@@ -52,7 +52,7 @@ public class AlgorithmThread extends Thread {
         progressAleBarUpdater.start();
         try {
             rc=new RuntimeCalculation();
-            way = navigationService.calculateShortestWay(graph, startNode, targetNode);
+            way = navigationService.initCalculateShortestWay(graph, startNode, targetNode, maxSpeed, fastestPath);
             rc.stopCalculation();
 
             if (way != null) {
