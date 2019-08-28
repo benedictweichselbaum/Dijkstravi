@@ -1,9 +1,6 @@
 package graphNavigationTest;
 
-import application.graphNavigation.algorithms.AStar;
-import application.graphNavigation.algorithms.BellmanFord;
-import application.graphNavigation.algorithms.Dijkstra;
-import application.graphNavigation.algorithms.NavigationService;
+import application.graphNavigation.algorithms.*;
 import application.graphNavigation.graph.Connection;
 import application.graphNavigation.graph.Graph;
 import application.graphNavigation.graph.Node;
@@ -37,21 +34,53 @@ class NavigationAlgorithmsWithoutGraphTest {
     }
 
     @Test
-    void dijkstraCombinationOfSimpleWays() {
-        System.out.println("Dijkstra combination of simple ways:");
-        NavigationService dijkstra = new Dijkstra();
-        Stack<Integer> way = dijkstra.calculateShortestWay(g, 0, 3);
+    void dijkstra(){
+        algorithmsWithStopoverToHorb(new Dijkstra());
+        algorithmsCombinationOfSimpleWays(new Dijkstra());
+    }
+
+    @Test
+    void aStar(){
+        algorithmsWithStopoverToHorb(new AStar());
+        algorithmsCombinationOfSimpleWays(new AStar());
+    }
+
+    @Test
+    void belmanFord(){
+        algorithmsWithStopoverToHorb(new BellmanFord());
+        algorithmsCombinationOfSimpleWays(new BellmanFord());
+    }
+
+    @Test
+    void belmanFordFast(){
+        algorithmsWithStopoverToHorbWithoutStartAndEnd(new BellmanFordFast());
+        algorithmsCombinationOfSimpleWaysWithoutStartAndEnd(new BellmanFordFast());
+    }
+
+    @Test
+    void shortestPathFasterAlgorithm(){
+        algorithmsWithStopoverToHorbWithoutStartAndEnd(new ShortestPathFasterAlgorithm());
+        algorithmsCombinationOfSimpleWaysWithoutStartAndEnd(new ShortestPathFasterAlgorithm());
+    }
+
+    void algorithmsCombinationOfSimpleWays(NavigationService navigationService) {
+        System.out.println("Algorithms combination of simple ways:");
+        Stack<Integer> way = navigationService.calculateShortestWay(g, 0, 3);
         assertEquals(0, way.pop());
         assertEquals(1, way.pop());
         assertEquals(3, way.pop());
     }
 
-    @Test
-    void dijkstraWithStopoverToHorb() {
-        System.out.println("Dijkstra with stopover to Horb:");
+    void algorithmsCombinationOfSimpleWaysWithoutStartAndEnd(NavigationService navigationService) {
+        System.out.println("Algorithms combination of simple ways:");
+        Stack<Integer> way = navigationService.calculateShortestWay(g, 0, 3);
+        assertEquals(1, way.pop());
+    }
+
+    void algorithmsWithStopoverToHorb(NavigationService navigationService) {
+        System.out.println("Algorihtm with stopover to Horb:");
         RuntimeCalculation rc=new RuntimeCalculation();
-        NavigationService dijkstra = new Dijkstra();
-        Stack<Integer> way = dijkstra.calculateShortestWay(g, 1, 7);
+        Stack<Integer> way = navigationService.calculateShortestWay(g, 1, 7);
         rc.stopCalculation();
         System.out.println(rc.getResult());
         assertEquals(1, way.pop());
@@ -61,55 +90,15 @@ class NavigationAlgorithmsWithoutGraphTest {
         assertEquals(7, way.pop());
     }
 
-
-    @Test
-    void aStarCombinationOfSimpleWays() {
-        System.out.println("AStar combination of simple ways:");
-        NavigationService aStar = new AStar();
-        Stack<Integer> way = aStar.calculateShortestWay(g, 0, 3);
-        assertEquals(0, way.pop());
-        assertEquals(1, way.pop());
-        assertEquals(3, way.pop());
-    }
-
-    @Test
-    void aStarWithStopoverToHorb() {
-        System.out.println("AStar with stopover to Horb:");
-        NavigationService aStar = new AStar();
-        Stack<Integer> way = aStar.calculateShortestWay(g, 1, 7);
-        assertEquals(1, way.pop());
-        assertEquals(3, way.pop());
-        assertEquals(4, way.pop());
-        assertEquals(5, way.pop());
-        assertEquals(7, way.pop());
-    }
-
-    @Test
-    void bellmanFordCombinationOfSimpleWays() {
-        System.out.println("BellmanFord combination of simple ways:");
-        NavigationService bellmanFord = new BellmanFord();
-        Stack<Integer> way = bellmanFord.calculateShortestWay(g, 0, 3);
-        for(int connection:way){
-            System.out.println("Way found: "+connection);
-        }
-        assertEquals(0, way.pop());
-        assertEquals(1, way.pop());
-        assertEquals(3, way.pop());
-    }
-
-    @Test
-    void bellmanFordWithStopoverToHorb() {
-        System.out.println("BellmanFord combination of simple ways:");
+    void algorithmsWithStopoverToHorbWithoutStartAndEnd(NavigationService navigationService) {
+        System.out.println("Algorihtm with stopover to Horb:");
         RuntimeCalculation rc=new RuntimeCalculation();
-        NavigationService bellmanFord = new BellmanFord();
-        Stack<Integer> way = bellmanFord.calculateShortestWay(g, 1, 7);
+        Stack<Integer> way = navigationService.calculateShortestWay(g, 1, 7);
         rc.stopCalculation();
         System.out.println(rc.getResult());
-        assertEquals(1, way.pop());
         assertEquals(3, way.pop());
         assertEquals(4, way.pop());
         assertEquals(5, way.pop());
-        assertEquals(7, way.pop());
     }
 
     private static void insertSomeEdges(Graph gr) {
