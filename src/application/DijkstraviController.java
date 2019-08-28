@@ -22,6 +22,7 @@ public class DijkstraviController implements Initializable {
 
     @FXML
     public Button changeDir;
+    public ToggleButton shortestPath;
 
     @FXML
     AnchorPane pane;
@@ -76,9 +77,7 @@ public class DijkstraviController implements Initializable {
 
     @FXML
     void clickedCalcRoute(ActionEvent event) {
-
-        boolean fastestPath = false; //false: shortestPath
-
+        boolean fastestPath = !shortestPath.isSelected();
        if(algRadioButtonGroup.getSelectedToggle() == rbDijkstra)
            globalLogic.calculateWay(0, fastestPath);
        else if(algRadioButtonGroup.getSelectedToggle() == rbAStrern)

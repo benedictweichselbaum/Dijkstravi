@@ -18,8 +18,8 @@ public class BellmanFordFast extends NavigationService {
         for(int i = 1; i < amountOfNodes; i++){
             for(int k = 0; k < amountOfNodes; k++){
                 for(Connection con : g.getAllConnectionsOfNode(k)) {
-                    if(dist.get(k) < INFINITE && dist.get(k) + con.getLength() < dist.get(con.getAim())){
-                        dist.set(con.getAim(), dist.get(k) + con.getLength());
+                    if(dist.get(k) < INFINITE && dist.get(k) + getDistance(con) < dist.get(con.getAim())){
+                        dist.set(con.getAim(), dist.get(k) + getDistance(con));
                         predecessor.set(con.getAim(),k);
                         change = true;
                     }

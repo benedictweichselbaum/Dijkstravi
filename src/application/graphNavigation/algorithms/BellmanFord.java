@@ -40,7 +40,7 @@ public class BellmanFord extends NavigationService {
             for(int src = 0; src < numberOfNodes; src++){
                 for (int k = 0; k < links.get(src).size(); k++) {
                     int dest = links.get(src).get(k).getAim();
-                    int weight = links.get(src).get(k).getLength();
+                    int weight = getDistance(links.get(src).get(k));
 
                     int distanceOfSrc = distance.get(src);
                     if (distanceOfSrc != INFINITE) {
