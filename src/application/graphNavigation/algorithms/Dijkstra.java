@@ -105,7 +105,7 @@ public class Dijkstra extends NavigationService {
             int neighboringNode = connectionToNeighbor.getAim();
             if (!visited.contains(neighboringNode))
             {
-                int distanceToNeighbor = connectionToNeighbor.getLength();
+                int distanceToNeighbor = getDistance(connectionToNeighbor);
                 //System.out.println(connectionToNeighbor.getAllInformationsAsString());
                 predictedDistance = getPredictedDistance(neighboringNode);
                 newDistance = distance.get(nodeNumber) + distanceToNeighbor;

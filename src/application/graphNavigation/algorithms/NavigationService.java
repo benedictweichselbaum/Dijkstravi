@@ -1,6 +1,8 @@
 package application.graphNavigation.algorithms;
 
+import application.Mathematics.MathematicOperations;
 import application.graphNavigation.directionGiver.DirectionGiver;
+import application.graphNavigation.graph.Connection;
 import application.graphNavigation.graph.Graph;
 
 import java.util.ArrayList;
@@ -11,17 +13,30 @@ public abstract class NavigationService {
     int INFINITE = Integer.MAX_VALUE;
     ArrayList<Integer> dist;
     ArrayList<Integer> predecessor;
+    private boolean fastestPath;
+    private int personalMaxSpeed;
+
 
     Double progress = 0.0;
 
     public abstract Stack<Integer> calculateShortestWay(Graph g, int startNode, int targetNode);
 
-    String directions(Graph g, Stack<Integer> way, int maxSpeed) {
-        return new DirectionGiver().directions(g, way, maxSpeed);
+    String directions(Graph g, Stack<Integer> way, int maxSpeed, boolean fastestPath) {
+        this.fastestPath = fastestPath;
+        this.personalMaxSpeed = maxSpeed;
+        return new DirectionGiver().directions(g, way, personalMaxSpeed);
     }
 
     public Double getProgress() {
         return progress;
+    }
+
+    int getDistance(Connection con){
+        if(fastestPath) {
+            return (int) Math.round(MathematicOperations.calculateTimeForConnection(con, personalMaxSpeed));
+        }
+        else
+            return con.getLength();
     }
 
     void initArrays(int amountOfNodes){

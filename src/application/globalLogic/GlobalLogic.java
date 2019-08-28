@@ -77,7 +77,7 @@ public class GlobalLogic {
         this.graph = graphCreater.getGraph();
     }
 
-    public void calculateWay(int alg) {
+    public void calculateWay(int alg, boolean fastestPath) {
         try {
             initialiseForNewWay();
 
@@ -89,7 +89,7 @@ public class GlobalLogic {
 
             createHelpStructure(fromId, toId);
 
-            AlgorithmThread algorithmThread = createAlgorithmThread(alg, fromStr, toStr);
+            AlgorithmThread algorithmThread = createAlgorithmThread(alg, fromStr, toStr, fastestPath);
             algorithmThread.start();
         }catch (Exception ignored){
             dijkstraviController.enableFields();
@@ -97,7 +97,7 @@ public class GlobalLogic {
         }
     }
 
-    private AlgorithmThread createAlgorithmThread(int alg, String fromStr, String toStr){
+    private AlgorithmThread createAlgorithmThread(int alg, String fromStr, String toStr, boolean fastestPath){
         String algorithmus = "";
         NavigationService navigationService = null;
         switch (alg) {
@@ -122,7 +122,7 @@ public class GlobalLogic {
 
         ProgressAleBarUpdater progressAleBarUpdater = new ProgressAleBarUpdater(dijkstraviController, navigationService);
         return new AlgorithmThread(navigationService, graph, idFrom, idTo,
-                progressAleBarUpdater, dijkstraviController, fromStr, toStr, algorithmus, optionWindow.getMaxSpeed());
+                progressAleBarUpdater, dijkstraviController, fromStr, toStr, algorithmus, optionWindow.getMaxSpeed(), fastestPath);
     }
 
     private void initialiseForNewWay(){

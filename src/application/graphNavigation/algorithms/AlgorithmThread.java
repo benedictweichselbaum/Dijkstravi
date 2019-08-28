@@ -27,11 +27,12 @@ public class AlgorithmThread extends Thread {
     private String toStr;
     private String algorithm;
     private int maxSpeed;
+    private boolean fastestPath;
     private RuntimeCalculation rc;
 
     public AlgorithmThread(NavigationService navigationService, Graph graph, int startNode, int targetNode,
                            ProgressAleBarUpdater progressAleBarUpdater, DijkstraviController controller,
-                           String fromStr, String toStr, String algorithm, int maxSpeed) {
+                           String fromStr, String toStr, String algorithm, int maxSpeed, boolean fastestPath) {
         this.navigationService = navigationService;
         this.way = null;
         this.graph = graph;
@@ -43,6 +44,7 @@ public class AlgorithmThread extends Thread {
         this.toStr = toStr;
         this.algorithm = algorithm;
         this.maxSpeed = maxSpeed;
+        this.fastestPath = fastestPath;
     }
 
     @Override
@@ -65,7 +67,7 @@ public class AlgorithmThread extends Thread {
                 throw new NoWayFoundException();
             }
 
-            String orders = navigationService.directions(graph, way, maxSpeed);
+            String orders = navigationService.directions(graph, way, maxSpeed, fastestPath);
 
             controller.enableFields();
 

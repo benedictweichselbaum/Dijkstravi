@@ -76,14 +76,17 @@ public class DijkstraviController implements Initializable {
 
     @FXML
     void clickedCalcRoute(ActionEvent event) {
+
+        boolean fastestPath = false; //false: shortestPath
+
        if(algRadioButtonGroup.getSelectedToggle() == rbDijkstra)
-           globalLogic.calculateWay(0);
+           globalLogic.calculateWay(0, fastestPath);
        else if(algRadioButtonGroup.getSelectedToggle() == rbAStrern)
-           globalLogic.calculateWay(1);
+           globalLogic.calculateWay(1, fastestPath);
        else if(algRadioButtonGroup.getSelectedToggle() == rbBellmanFord)
-           globalLogic.calculateWay(2);
+           globalLogic.calculateWay(2, fastestPath);
        else if(algRadioButtonGroup.getSelectedToggle() == rbSpfa)
-           globalLogic.calculateWay(3);
+           globalLogic.calculateWay(3, fastestPath);
     }
 
     @Override
