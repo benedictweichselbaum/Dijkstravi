@@ -71,12 +71,11 @@ public class AlgorithmThread extends Thread {
 
             controller.enableFields();
 
-            controller.getTxtAreaRoute().setText("Routenbeschreibung von " + fromStr + " nach " + toStr
-                    + " mit dem " + algorithm + "-Algorithmus (Laufzeit des Algorithmus: " + rc.getResult() + ")" + orders);
+            initialOrder(orders);
             this.navigationService.progress = 1.0;
 
         } catch (Exception e) {
-            noWayFound();
+            orderWayNotFound();
         }
         progressAleBarUpdater.interrupt();
         this.interrupt();
@@ -99,7 +98,21 @@ public class AlgorithmThread extends Thread {
                 .setImage(MapManipulator.drawWayWithListOfNodes(autobahnNetworkImage, listOfNodesForPicture));
     }
 
-    private void noWayFound(){
+    private void initialOrder(String orders) {
+        String mode;
+        if(fastestPath){
+            mode = "schnellsten";
+        }
+        else{
+            mode = "kürzesten";
+        }
+
+        String output = String.format("Routenbeschreibung des %s Weges von %s nach %s mit dem %s-Algorithmus (Laufzeit des Algorithmus: %s)"
+                        + orders, mode, fromStr, toStr, algorithm, rc.getResult());
+        controller.getTxtAreaRoute().setText(output);
+    }
+
+    private void orderWayNotFound(){
         controller.getTxtAreaRoute().setText("Es konnte keine Route von " + fromStr + " nach " + toStr + " gefunden werden.");
         this.navigationService.progress = 1.0;
         controller.enableFields();
