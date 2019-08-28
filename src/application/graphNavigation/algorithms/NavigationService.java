@@ -59,4 +59,12 @@ public abstract class NavigationService {
         else
             return con.getLength();
     }
+
+    boolean isFastestPath() {
+        return fastestPath;
+    }
+
+    int getPersonalMaxSpeed() {
+        return personalMaxSpeed;
+    }
 }

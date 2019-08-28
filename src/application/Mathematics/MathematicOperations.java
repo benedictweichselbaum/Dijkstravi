@@ -12,6 +12,14 @@ public abstract class MathematicOperations {
         return Math.round(value) / factor;
     }
 
+    public static double calculateTimeForDistance(int distance, int speed){
+        //Entfernung (distance) in Metern
+        //Geschwindigkeit (speed) in km/h
+
+        double speedInMeterPerSeconds = (double) speed / 3.6;
+        return distance / speedInMeterPerSeconds;
+    }
+
     public static double calculateTimeForConnection(Connection connection, int personalMaxSpeed){
         //Entfernung (distance) in Metern
         //Geschwindigkeit (speed) in km/h
