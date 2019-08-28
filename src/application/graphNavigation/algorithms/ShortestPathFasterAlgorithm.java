@@ -22,8 +22,8 @@ public class ShortestPathFasterAlgorithm extends NavigationService {
             progress += progressUnit;
             Integer u = queue.poll();
             for(Connection con : g.getAllConnectionsOfNode(u)) {
-                if(dist.get(u) + con.getLength() < dist.get(con.getAim())){
-                    dist.set(con.getAim(), dist.get(u) + con.getLength());
+                if(dist.get(u) + getDistance(con) < dist.get(con.getAim())){
+                    dist.set(con.getAim(), dist.get(u) + getDistance(con));
                     predecessor.set(con.getAim(),u);
 
                     if(!queue.contains(con.getAim())){

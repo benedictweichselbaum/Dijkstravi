@@ -13,9 +13,8 @@ public abstract class NavigationService {
     int INFINITE = Integer.MAX_VALUE;
     ArrayList<Integer> dist;
     ArrayList<Integer> predecessor;
-    private boolean fastestPath;
-    private int personalMaxSpeed;
-
+    boolean fastestPath;
+    int personalMaxSpeed;
 
     Double progress = 0.0;
 
@@ -29,14 +28,6 @@ public abstract class NavigationService {
 
     public Double getProgress() {
         return progress;
-    }
-
-    int getDistance(Connection con){
-        if(fastestPath) {
-            return (int) Math.round(MathematicOperations.calculateTimeForConnection(con, personalMaxSpeed));
-        }
-        else
-            return con.getLength();
     }
 
     void initArrays(int amountOfNodes){
@@ -59,5 +50,13 @@ public abstract class NavigationService {
         }while(predecessor.get(aktkn) != startNode && dist.get(aktkn) < INFINITE);
 
         return path;
+    }
+
+    int getDistance(Connection con){
+        if(fastestPath) {
+            return (int) Math.round(MathematicOperations.calculateTimeForConnection(con, personalMaxSpeed));
+        }
+        else
+            return con.getLength();
     }
 }
