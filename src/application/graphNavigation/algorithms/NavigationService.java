@@ -1,6 +1,7 @@
 package application.graphNavigation.algorithms;
 
 import application.graphNavigation.directionGiver.DirectionGiver;
+import application.graphNavigation.graph.Connection;
 import application.graphNavigation.graph.Graph;
 
 import java.util.ArrayList;
@@ -11,6 +12,8 @@ public abstract class NavigationService {
     int INFINITE = Integer.MAX_VALUE;
     ArrayList<Integer> dist;
     ArrayList<Integer> predecessor;
+    boolean fastestPath;
+    int personalMaxSpeed;
 
     Double progress = 0.0;
 
@@ -44,5 +47,12 @@ public abstract class NavigationService {
         }while(predecessor.get(aktkn) != startNode && dist.get(aktkn) < INFINITE);
 
         return path;
+    }
+
+    int getDistance(Connection con){
+        if(fastestPath)
+            return con.getLength() * con.getPersonalMaxSpeed(personalMaxSpeed);
+        else
+            return con.getLength();
     }
 }
