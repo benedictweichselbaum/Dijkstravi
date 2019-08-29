@@ -56,16 +56,16 @@ class NavigationAlgorithmsWithoutGraphTest {
 
     @Test
     void shortestPathFasterWithoutStartAndEnd(){
-        algorithmsWithStopoverToHorbWithoutStartAndEnd(new ShortestPathFasterAlgorithm());
-        algorithmsCombinationOfSimpleWaysWithoutStartAndEnd(new ShortestPathFasterAlgorithm());
-        algorithmsHelperNodeIntegrationWithoutStartEnd(new ShortestPathFasterAlgorithm());
+        algorithmsWithStopoverToHorb(new ShortestPathFasterAlgorithm());
+        algorithmsCombinationOfSimpleWays(new ShortestPathFasterAlgorithm());
+        algorithmsHelperNodeIntegration(new ShortestPathFasterAlgorithm());
     }
 
     @Test
     void bellmanFordFastWithStopoverToHorbWithoutStartAndEnd(){
-        algorithmsWithStopoverToHorbWithoutStartAndEnd(new BellmanFordFast());
-        algorithmsCombinationOfSimpleWaysWithoutStartAndEnd(new BellmanFordFast());
-        algorithmsHelperNodeIntegrationWithoutStartEnd(new BellmanFordFast());
+        algorithmsWithStopoverToHorb(new BellmanFordFast());
+        algorithmsCombinationOfSimpleWays(new BellmanFordFast());
+        algorithmsHelperNodeIntegration(new BellmanFordFast());
     }
 
     void algorithmsCombinationOfSimpleWays(NavigationService navigationService) {
@@ -74,21 +74,6 @@ class NavigationAlgorithmsWithoutGraphTest {
         assertEquals(0, way.pop());
         assertEquals(1, way.pop());
         assertEquals(3, way.pop());
-    }
-
-    void algorithmsCombinationOfSimpleWaysWithoutStartAndEnd(NavigationService navigationService) {
-        System.out.println("Algorithms combination of simple ways");
-        //Stack<Integer> way = navigationService.calculateShortestWay(g, 0, 3);
-        Stack<Integer> way = navigationService.initCalculateShortestWay(g, 0, 3, 130, false);
-        assertEquals(1, way.pop());
-    }
-
-    void algorithmsWithStopoverToHorbWithoutStartAndEnd(NavigationService navigationService) {
-        System.out.println("Algorithm with stopover to Horb Without Start and End");
-        Stack<Integer> way = navigationService.initCalculateShortestWay(g, 1,7,130,false);
-        assertEquals(3, way.pop());
-        assertEquals(4, way.pop());
-        assertEquals(5, way.pop());
     }
 
     void algorithmsWithStopoverToHorb(NavigationService navigationService) {

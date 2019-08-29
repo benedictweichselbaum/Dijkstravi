@@ -48,7 +48,7 @@ public abstract class NavigationService {
     Stack<Integer> giveWay(int startNode, int targetNode, Graph g){
         Stack<Integer> path = new Stack<>();
         if(!g.getNodeById(targetNode).getName().equals("HelperNode")){
-            path.push(targetNode);
+            path.add(targetNode);
         }
         int aktkn = targetNode;
 
@@ -57,8 +57,8 @@ public abstract class NavigationService {
             aktkn = predecessor.get(aktkn);
         }while(predecessor.get(aktkn) != startNode && dist.get(aktkn) < INFINITE);
 
-        if(g.getNodeById(startNode).getName().equals("HelperNode")){
-            path.pop();
+        if(!g.getNodeById(startNode).getName().equals("HelperNode")){
+            path.add(startNode);
         }
         return path;
     }
