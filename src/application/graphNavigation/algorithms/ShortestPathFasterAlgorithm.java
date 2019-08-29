@@ -35,6 +35,6 @@ public class ShortestPathFasterAlgorithm extends NavigationService {
         }
         progress = 1.0;
 
-        return giveWay(startNode, targetNode);
+        return giveWay(startNode, targetNode, g);
     }
 }

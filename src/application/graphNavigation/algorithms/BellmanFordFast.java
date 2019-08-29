@@ -31,6 +31,6 @@ public class BellmanFordFast extends NavigationService {
             change = false;
         }
 
-        return giveWay(startNode, targetNode);
+        return giveWay(startNode, targetNode, g);
     }
 }
