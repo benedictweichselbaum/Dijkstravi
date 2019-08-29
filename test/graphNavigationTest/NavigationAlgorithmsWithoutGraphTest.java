@@ -35,37 +35,42 @@ class NavigationAlgorithmsWithoutGraphTest {
 
     @Test
     void dijkstra(){
-        algorithmsWithStopoverToHorb(new Dijkstra());
         algorithmsCombinationOfSimpleWays(new Dijkstra());
+        algorithmsWithStopoverToHorb(new Dijkstra());
+        algorithmsHelperNodeIntegration(new Dijkstra());
     }
 
     @Test
     void aStar(){
-        algorithmsWithStopoverToHorb(new AStar());
         algorithmsCombinationOfSimpleWays(new AStar());
+        algorithmsWithStopoverToHorb(new AStar());
+        algorithmsHelperNodeIntegration(new AStar());
     }
 
     @Test
-    void belmanFord(){
+    void bellmanFord(){
         algorithmsWithStopoverToHorb(new BellmanFord());
         algorithmsCombinationOfSimpleWays(new BellmanFord());
+        algorithmsHelperNodeIntegration(new BellmanFord());
     }
 
     @Test
-    void belmanFordFast(){
-        algorithmsWithStopoverToHorbWithoutStartAndEnd(new BellmanFordFast());
-        algorithmsCombinationOfSimpleWaysWithoutStartAndEnd(new BellmanFordFast());
-    }
-
-    @Test
-    void shortestPathFasterAlgorithm(){
+    void shortestPathFasterWithoutStartAndEnd(){
         algorithmsWithStopoverToHorbWithoutStartAndEnd(new ShortestPathFasterAlgorithm());
         algorithmsCombinationOfSimpleWaysWithoutStartAndEnd(new ShortestPathFasterAlgorithm());
+        algorithmsHelperNodeIntegrationWithoutStartEnd(new ShortestPathFasterAlgorithm());
+    }
+
+    @Test
+    void bellmanFordFastWithStopoverToHorbWithoutStartAndEnd(){
+        algorithmsWithStopoverToHorbWithoutStartAndEnd(new BellmanFordFast());
+        algorithmsCombinationOfSimpleWaysWithoutStartAndEnd(new BellmanFordFast());
+        algorithmsHelperNodeIntegrationWithoutStartEnd(new BellmanFordFast());
     }
 
     void algorithmsCombinationOfSimpleWays(NavigationService navigationService) {
         System.out.println("Algorithms combination of simple ways:");
-        Stack<Integer> way = navigationService.calculateShortestWay(g, 0, 3);
+        Stack<Integer> way = navigationService.initCalculateShortestWay(g, 0, 3, 130, false);
         assertEquals(0, way.pop());
         assertEquals(1, way.pop());
         assertEquals(3, way.pop());
@@ -73,16 +78,23 @@ class NavigationAlgorithmsWithoutGraphTest {
 
     void algorithmsCombinationOfSimpleWaysWithoutStartAndEnd(NavigationService navigationService) {
         System.out.println("Algorithms combination of simple ways:");
-        Stack<Integer> way = navigationService.calculateShortestWay(g, 0, 3);
+        //Stack<Integer> way = navigationService.calculateShortestWay(g, 0, 3);
+        Stack<Integer> way = navigationService.initCalculateShortestWay(g, 0, 3, 130, false);
         assertEquals(1, way.pop());
     }
 
+    void algorithmsWithStopoverToHorbWithoutStartAndEnd(NavigationService navigationService) {
+        System.out.println("Algorithm with stopover to Horb Without Start and End:");
+        Stack<Integer> way = navigationService.initCalculateShortestWay(g, 1,7,130,false);
+        assertEquals(3, way.pop());
+        assertEquals(4, way.pop());
+        assertEquals(5, way.pop());
+    }
+
     void algorithmsWithStopoverToHorb(NavigationService navigationService) {
-        System.out.println("Algorihtm with stopover to Horb:");
-        RuntimeCalculation rc=new RuntimeCalculation();
-        Stack<Integer> way = navigationService.calculateShortestWay(g, 1, 7);
-        rc.stopCalculation();
-        System.out.println(rc.getResult());
+        System.out.println("Algorithm with stopover to Horb:");
+        //Stack<Integer> way = navigationService.calculateShortestWay(g, 1, 7);
+        Stack<Integer> way = navigationService.initCalculateShortestWay(g, 1,7,130,false);
         assertEquals(1, way.pop());
         assertEquals(3, way.pop());
         assertEquals(4, way.pop());
@@ -90,15 +102,31 @@ class NavigationAlgorithmsWithoutGraphTest {
         assertEquals(7, way.pop());
     }
 
-    void algorithmsWithStopoverToHorbWithoutStartAndEnd(NavigationService navigationService) {
-        System.out.println("Algorihtm with stopover to Horb:");
-        RuntimeCalculation rc=new RuntimeCalculation();
-        Stack<Integer> way = navigationService.calculateShortestWay(g, 1, 7);
-        rc.stopCalculation();
-        System.out.println(rc.getResult());
-        assertEquals(3, way.pop());
+    void algorithmsHelperNodeIntegration(NavigationService navigationService) {
+        System.out.println("Algorithm Helper Node Integration:");
+        //Stack<Integer> way = navigationService.calculateShortestWay(g, 1, 7);
+        Stack<Integer> way = navigationService.initCalculateShortestWay(g, 4,8,130,false);
         assertEquals(4, way.pop());
         assertEquals(5, way.pop());
+        assertEquals(7, way.pop());
+        assertTrue(way.isEmpty());
+    }
+
+    void algorithmsHelperNodeIntegrationWithoutStartEnd(NavigationService navigationService) {
+        System.out.println("Algorithm Helper Node Integration:");
+        Stack<Integer> way = navigationService.initCalculateShortestWay(g, 4,8,130,false);
+        assertEquals(5, way.pop());
+        assertTrue(way.isEmpty());
+    }
+
+    void algorithmThrowsNoWayFoundExceptionIfNecessary(NavigationService navigationService) {
+        System.out.println("Algorithm Helper Node Integration:");
+        //Stack<Integer> way = navigationService.calculateShortestWay(g, 1, 7);
+        Stack<Integer> way = navigationService.initCalculateShortestWay(g, 4,8,130,false);
+        assertEquals(4, way.pop());
+        assertEquals(5, way.pop());
+        assertEquals(7, way.pop());
+        assertTrue(way.isEmpty());
     }
 
     private static void insertSomeEdges(Graph gr) {
@@ -120,6 +148,8 @@ class NavigationAlgorithmsWithoutGraphTest {
         gr.addEdge(0, 6, 155000, 130, "A8", "Ulm");
         gr.addEdge(7, 5, 61900, 130, "A81", "Stuttgart");
         gr.addEdge(5, 7, 61900, 130, "A81", "Horb");
+        gr.addEdge(8, 7, 61900, 130, "Helper Node", "Horb");
+        gr.addEdge(7, 8, 61900, 130, "Horb", "Helper Node");
     }
 
     private static void addSomeNodes(Graph g) {
@@ -131,6 +161,8 @@ class NavigationAlgorithmsWithoutGraphTest {
         Node stuttgart = new Node(5, true, 48.775408, 9.183056, "Stuttgart");
         Node ulm = new Node(6, true, 48.398468, 9.988471, "Ulm");
         Node horb = new Node(7, true, 48.445462, 8.696793, "Horb DHBW");
+        Node helperNodeHorb = new Node(8, true, 48.445462, 8.696793, "HelperNode");
+        Node unconnectedNode = new Node(9, true, 48.000000, 8.000000, "Unconnected Node");
 
 
         g.addNodesSorted(muenchen);
@@ -141,6 +173,8 @@ class NavigationAlgorithmsWithoutGraphTest {
         g.addNodesSorted(stuttgart);
         g.addNodesSorted(ulm);
         g.addNodesSorted(horb);
+        g.addNodesSorted(helperNodeHorb);
+        g.addNodesSorted(unconnectedNode);
     }
 
     private static void printAllConnectionsOfAllNodes(Graph gr) {

@@ -47,14 +47,30 @@ public class AlgorithmThread extends Thread {
         this.fastestPath = fastestPath;
     }
 
+    public AlgorithmThread(){}
+
     @Override
     public void run() {
         progressAleBarUpdater.start();
         try {
-            rc=new RuntimeCalculation();
+            rc = new RuntimeCalculation();
             way = navigationService.initCalculateShortestWay(graph, startNode, targetNode, maxSpeed, fastestPath);
             rc.stopCalculation();
 
+            try {
+                if (connectionFound(way)) {
+                    Stack<Integer> wayForPicture = (Stack<Integer>) way.clone();
+
+                    File imageFile = new File("src/application/autobahnnetz_DE.png");
+                    Image autobahnNetworkImage = new Image(imageFile.toURI().toString());
+                    List<Node> listOfNodesForPicture = new ArrayList<>();
+
+                    setImage(wayForPicture, autobahnNetworkImage, listOfNodesForPicture);
+                }
+            } catch (NoWayFoundException e) {}
+
+            /*
+            //Der alte Code
             if (way != null) {
                 Stack<Integer> wayForPicture = (Stack<Integer>) way.clone();
 
@@ -65,7 +81,7 @@ public class AlgorithmThread extends Thread {
                 setImage(wayForPicture, autobahnNetworkImage, listOfNodesForPicture);
             }else{
                 throw new NoWayFoundException();
-            }
+            }*/
 
             String orders = navigationService.directions(graph, way, maxSpeed, fastestPath);
 
@@ -79,6 +95,12 @@ public class AlgorithmThread extends Thread {
         }
         progressAleBarUpdater.interrupt();
         this.interrupt();
+    }
+
+    public boolean connectionFound(Stack<Integer> way) throws NoWayFoundException {
+        if (way == null) {
+            throw new NoWayFoundException();
+        } else return true;
     }
 
     private void setImage(Stack<Integer> wayForPicture, Image autobahnNetworkImage, List<Node> listOfNodesForPicture) {
@@ -100,19 +122,18 @@ public class AlgorithmThread extends Thread {
 
     private void initialOrder(String orders) {
         String mode;
-        if(fastestPath){
+        if (fastestPath) {
             mode = "schnellsten";
-        }
-        else{
+        } else {
             mode = "kürzesten";
         }
 
         String output = String.format("Routenbeschreibung des %s Weges von %s nach %s mit dem %s-Algorithmus (Laufzeit des Algorithmus: %s)"
-                        + orders, mode, fromStr, toStr, algorithm, rc.getResult());
+                + orders, mode, fromStr, toStr, algorithm, rc.getResult());
         controller.getTxtAreaRoute().setText(output);
     }
 
-    private void orderWayNotFound(){
+    private void orderWayNotFound() {
         controller.getTxtAreaRoute().setText("Es konnte keine Route von " + fromStr + " nach " + toStr + " gefunden werden.");
         this.navigationService.progress = 1.0;
         controller.enableFields();
