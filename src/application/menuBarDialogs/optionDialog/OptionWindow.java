@@ -74,7 +74,7 @@ public class OptionWindow extends JFrame {
 
             if (newSpeed <= 0)
                 throw new InvalidMaxSpeedException();
-            else if (newSpeed > 3000)
+            else if (newSpeed > 300)
                 throw new TooHighMaxSpeedException();
             else
                 this.maxSpeed = newSpeed;
