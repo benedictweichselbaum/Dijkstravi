@@ -13,7 +13,7 @@ import java.util.Stack;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class NoWayFoundExceptionGlobalLogicTest {
+class NoWayFoundExceptionTest {
     private static Graph g;
 
     @BeforeAll
