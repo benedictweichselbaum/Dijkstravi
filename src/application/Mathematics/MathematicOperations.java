@@ -29,8 +29,17 @@ public abstract class MathematicOperations {
     }
 
     public static String secondsToHoursAndMinutes(double seconds){
-        int secondsRound = (int) Math.round(seconds);
-        return String.format("%d Std. %d Min.", (secondsRound / 3600), (secondsRound % 3600)/60);
+        int hours = (int) (seconds / 3600);
+        int minutes = (int) Math.round((seconds % 3600)/60);
+
+        if(minutes == 0 && (((int)(seconds % 3600)/60)) == 59){
+            hours = hours + 1;
+        }
+        else if(minutes == 0){
+            return "< 1 Min.";
+        }
+
+        return String.format("%d Std. %d Min.", hours, minutes);
     }
 
 }
