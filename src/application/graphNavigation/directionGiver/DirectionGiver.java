@@ -39,7 +39,7 @@ public class DirectionGiver {
                 connection = treatmentNextConnection(way, from);
 
                 meterTillDestination = meterTillDestination + connection.getLength();
-                secondsTillDestination = secondsTillDestination + MathematicOperations.calculateTimeForConnection(connection, personalMaxSpeed);
+                secondsTillDestination = secondsTillDestination + MathematicOperations.calculateTimeForConnection(connection, connection.getPersonalMaxSpeed(personalMaxSpeed));
                 from = way.pop();
             }
 
@@ -58,15 +58,16 @@ public class DirectionGiver {
         int from = way.pop();
         Connection connection = g.getConnectionBetween2Points(from, way.peek());
         meterTillNextOrder = connection.getLength();
-        secondsTillNextOrder = MathematicOperations.calculateTimeForConnection(connection, personalMaxSpeed);
+        secondsTillNextOrder = MathematicOperations.calculateTimeForConnection(connection, connection.getPersonalMaxSpeed(personalMaxSpeed));
         meterTillDestination = connection.getLength();
-        secondsTillDestination = MathematicOperations.calculateTimeForConnection(connection, personalMaxSpeed);
+        secondsTillDestination = MathematicOperations.calculateTimeForConnection(connection, connection.getPersonalMaxSpeed(personalMaxSpeed));
         roadName = connection.getName();
     }
 
     private Connection treatmentNextConnection(Stack<Integer> way, int from) {
         Connection connection;
         connection = g.getConnectionBetween2Points(from, way.peek());
+        double timeForConnection = MathematicOperations.calculateTimeForConnection(connection, connection.getPersonalMaxSpeed(personalMaxSpeed));
 
         String actualLocation = g.getNodeById(from).getName();
         String actualRoadName = connection.getName().trim();
@@ -75,12 +76,12 @@ public class DirectionGiver {
 
         if(roadName.trim().equals("") && !actualRoadName.equals("")){
             meterTillNextOrder = meterTillNextOrder + connection.getLength();
-            secondsTillNextOrder = secondsTillNextOrder + MathematicOperations.calculateTimeForConnection(connection, personalMaxSpeed);
+            secondsTillNextOrder = secondsTillNextOrder + timeForConnection;
             roadName = actualRoadName;
         }
         else if(actualLocation != null && actualRoadName.equals("")) {
             meterTillNextOrder = meterTillNextOrder + connection.getLength();
-            secondsTillNextOrder = secondsTillNextOrder + MathematicOperations.calculateTimeForConnection(connection, personalMaxSpeed);
+            secondsTillNextOrder = secondsTillNextOrder + timeForConnection;
             if ((actualLocation.contains("Kreuz") || actualLocation.contains("Dreieck"))){
                 outputOrderAutobahnChange();
                 isOutputAutobahnChangeInProgress = false;
@@ -102,7 +103,7 @@ public class DirectionGiver {
                 location = actualLocation;
             }
             meterTillNextOrder = connection.getLength();
-            secondsTillNextOrder = MathematicOperations.calculateTimeForConnection(connection, personalMaxSpeed);
+            secondsTillNextOrder = timeForConnection;
         }
         else{
             if(!actualRoadName.equals("") && !isOutputAutobahnChangeInProgress){
@@ -110,7 +111,7 @@ public class DirectionGiver {
             }
             getDestination(connection);
             meterTillNextOrder = meterTillNextOrder + connection.getLength();
-            secondsTillNextOrder = secondsTillNextOrder + MathematicOperations.calculateTimeForConnection(connection, personalMaxSpeed);
+            secondsTillNextOrder = secondsTillNextOrder + timeForConnection;
         }
         return connection;
     }
