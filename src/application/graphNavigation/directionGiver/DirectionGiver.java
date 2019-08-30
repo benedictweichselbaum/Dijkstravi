@@ -142,7 +142,7 @@ public class DirectionGiver {
 
         if(location.equals("")){
             if(!destination.equals("")){
-                destination = " in Richtung " + destination;
+                destination = " in Richtung " + getLimitedNumberOfDestinations(3);
             }
             return String.format((orders + "Fahren Sie auf die %s%s." + lineSeparator), roadName, destination);
         }
@@ -197,7 +197,11 @@ public class DirectionGiver {
     }
 
     private String getLimitedNumberOfDestinations(int limit){
+
         String[] destinations = destination.split(" / ");
+        if(destinations.length < limit){
+            limit = destinations.length;
+        }
         String destinationsForOutput = destinations[0];
 
         for(int i = 1; i < limit; i++){
