@@ -67,7 +67,9 @@ public class AlgorithmThread extends Thread {
 
                     setImage(wayForPicture, autobahnNetworkImage, listOfNodesForPicture);
                 }
-            } catch (NoWayFoundException e) {}
+            } catch (NoWayFoundException e) {
+                orderWayNotFound();
+            }
 
             /*
             //Der alte Code
