@@ -71,20 +71,6 @@ public class AlgorithmThread extends Thread {
                 orderWayNotFound();
             }
 
-            /*
-            //Der alte Code
-            if (way != null) {
-                Stack<Integer> wayForPicture = (Stack<Integer>) way.clone();
-
-                File imageFile = new File("src/application/autobahnnetz_DE.png");
-                Image autobahnNetworkImage = new Image(imageFile.toURI().toString());
-                List<Node> listOfNodesForPicture = new ArrayList<>();
-
-                setImage(wayForPicture, autobahnNetworkImage, listOfNodesForPicture);
-            }else{
-                throw new NoWayFoundException();
-            }*/
-
             String orders = abstractAlgorithm.directions(graph, way, maxSpeed, fastestPath, controller);
 
             controller.enableFields();

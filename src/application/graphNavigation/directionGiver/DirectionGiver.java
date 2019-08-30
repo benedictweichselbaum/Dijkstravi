@@ -154,7 +154,7 @@ public class DirectionGiver {
             location = "Bei " +  location;
         }
         if(!destination.equals("")){
-            destination = String.format(" der Beschilderung in Richtung %s folgen und", destination);
+            destination = String.format(" der Beschilderung in Richtung %s folgen und", getLimitedNumberOfDestinations(3));
         }
         return String.format((orders + "%s%s auf die %s fahren." + lineSeparator),
                 location, destination, roadName);
@@ -194,6 +194,17 @@ public class DirectionGiver {
         orders = lineSeparator + lineSeparator + "Bitte warten!"
                 + lineSeparator + "Ihr gewünschter Zielort ist leider noch nicht von Ihrem Startpunkt aus über Autobahnen zu erreichen."
                 + lineSeparator + lineSeparator + "Danke für die Navigation mit Dijkstravi!";
+    }
+
+    private String getLimitedNumberOfDestinations(int limit){
+        String[] destinations = destination.split(" / ");
+        String destinationsForOutput = destinations[0];
+
+        for(int i = 1; i < limit; i++){
+            destinationsForOutput = String.format("%s / " + destinations[i], destinationsForOutput);
+        }
+
+        return destinationsForOutput;
     }
 
 }
