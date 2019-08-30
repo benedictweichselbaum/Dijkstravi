@@ -23,14 +23,14 @@ public abstract class AbstractAlgorithm {
 
     public Stack<Integer> initCalculateShortestWay(Graph g, int startNode, int targetNode, int maxSpeed, boolean fastestPath){
         this.fastestPath = fastestPath;
-        this.personalMaxSpeed = maxSpeed;
+        personalMaxSpeed = maxSpeed;
         return calculateShortestWay(g, startNode, targetNode);
     }
     public abstract Stack<Integer> calculateShortestWay(Graph g, int startNode, int targetNode);
 
-    String directions(Graph g, Stack<Integer> way, int maxSpeed, boolean fastestPath, DijkstraviController dijkstraviController) {
-        this.fastestPath = fastestPath;
-        this.personalMaxSpeed = maxSpeed;
+    String directions(Graph g, Stack<Integer> way, DijkstraviController dijkstraviController) {
+        //this.fastestPath = fastestPath;
+        //this.personalMaxSpeed = maxSpeed;
         return new DirectionGiver().directions(g, way, personalMaxSpeed, dijkstraviController);
     }
 

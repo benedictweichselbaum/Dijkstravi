@@ -67,7 +67,7 @@ public class AlgorithmThread extends Thread {
 
             setImage(wayForPicture, autobahnNetworkImage, listOfNodesForPicture);
 
-            String orders = abstractAlgorithm.directions(graph, way, maxSpeed, fastestPath, controller);
+            String orders = abstractAlgorithm.directions(graph, way, controller);
 
             controller.enableFields();
 
