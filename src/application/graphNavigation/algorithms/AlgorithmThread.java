@@ -139,7 +139,7 @@ public class AlgorithmThread extends Thread {
         controller.getTxtAreaRoute().setText("Es konnte keine Route von " + fromStr + " nach " + toStr + " gefunden werden.");
         this.abstractAlgorithm.progress = 1.0;
         controller.enableFields();
-
+        controller.deleteDistanceAndDuration();
         File imageFile = new File("src/application/autobahnnetz_DE.png");
         Image autobahnNetworkImage = new Image(imageFile.toURI().toString());
         controller.getImgViewAutobahn()
