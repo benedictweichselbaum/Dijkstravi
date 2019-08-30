@@ -184,6 +184,15 @@ public class DijkstraviController implements Initializable {
         globalLogic.changeDirection();
     }
 
+    public void deleteDistanceAndDuration(){
+        Platform.runLater(
+                () -> {
+                    getLblDistance().setText("");
+                    getLblDuration().setText("");
+                }
+        );
+    }
+
     public void disableFields(){
         getTxtAreaRoute().setDisable(true);
         btnCalcRoute.setDisable(true);

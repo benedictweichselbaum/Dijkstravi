@@ -57,19 +57,15 @@ public class AlgorithmThread extends Thread {
             way = abstractAlgorithm.initCalculateShortestWay(graph, startNode, targetNode, maxSpeed, fastestPath);
             rc.stopCalculation();
 
-            try {
-                if (connectionFound(way)) {
-                    Stack<Integer> wayForPicture = (Stack<Integer>) way.clone();
+            connectionFound(way);
 
-                    File imageFile = new File("src/application/autobahnnetz_DE.png");
-                    Image autobahnNetworkImage = new Image(imageFile.toURI().toString());
-                    List<Node> listOfNodesForPicture = new ArrayList<>();
+            Stack<Integer> wayForPicture = (Stack<Integer>) way.clone();
 
-                    setImage(wayForPicture, autobahnNetworkImage, listOfNodesForPicture);
-                }
-            } catch (NoWayFoundException e) {
-                orderWayNotFound();
-            }
+            File imageFile = new File("src/application/autobahnnetz_DE.png");
+            Image autobahnNetworkImage = new Image(imageFile.toURI().toString());
+            List<Node> listOfNodesForPicture = new ArrayList<>();
+
+            setImage(wayForPicture, autobahnNetworkImage, listOfNodesForPicture);
 
             String orders = abstractAlgorithm.directions(graph, way, maxSpeed, fastestPath, controller);
 
@@ -125,7 +121,7 @@ public class AlgorithmThread extends Thread {
         controller.getTxtAreaRoute().setText("Es konnte keine Route von " + fromStr + " nach " + toStr + " gefunden werden.");
         this.abstractAlgorithm.progress = 1.0;
         controller.enableFields();
-
+        controller.deleteDistanceAndDuration();
         File imageFile = new File("src/application/autobahnnetz_DE.png");
         Image autobahnNetworkImage = new Image(imageFile.toURI().toString());
         controller.getImgViewAutobahn()
