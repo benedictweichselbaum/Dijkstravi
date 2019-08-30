@@ -7,7 +7,7 @@ import application.graphNavigation.graph.Node;
 
 import java.util.*;
 
-public class Dijkstra extends NavigationService {
+public class Dijkstra extends AbstractAlgorithm {
 
     private ArrayList<Node> autobahn = new ArrayList<>();
     private HashMap<Integer, ArrayList<Connection>> links = new HashMap<>();

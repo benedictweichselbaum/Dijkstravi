@@ -1,4 +1,4 @@
-package application.imageManipulation;
+package application.routeDrawing;
 
 import application.graphNavigation.graph.Node;
 import javafx.scene.image.Image;
@@ -15,7 +15,7 @@ import java.util.List;
  * It takes a list of Nodes an draws a line between them.
  **/
 
-public abstract class MapManipulator {
+public abstract class MapRouteDrawer {
 
     public static Image drawWayWithListOfNodes (Image image, List<Node> listOfNodes) {
         List<Pixel> allPixelWay = new ArrayList<>();

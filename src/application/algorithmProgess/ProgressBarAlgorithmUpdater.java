@@ -1,24 +1,22 @@
 package application.algorithmProgess;
 
 import application.DijkstraviController;
-import application.graphNavigation.algorithms.NavigationService;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
+import application.graphNavigation.algorithms.AbstractAlgorithm;
 
-public class ProgressAleBarUpdater extends Thread {
+public class ProgressBarAlgorithmUpdater extends Thread {
 
-    private NavigationService navigationService;
+    private AbstractAlgorithm abstractAlgorithm;
     private DijkstraviController dijkstraviController;
 
-    public ProgressAleBarUpdater(DijkstraviController controller, NavigationService navigationService) {
-        this.navigationService = navigationService;
+    public ProgressBarAlgorithmUpdater(DijkstraviController controller, AbstractAlgorithm abstractAlgorithm) {
+        this.abstractAlgorithm = abstractAlgorithm;
         this.dijkstraviController = controller;
     }
 
     @Override
     public void run() {
         double progress;
-        while ((progress = navigationService.getProgress()*100) <= 1.0) {
+        while ((progress = abstractAlgorithm.getProgress()*100) <= 1.0) {
             if (progress >= 0.9) {
                 dijkstraviController.getPbAlgorithms().setProgress(1.0);
                 return;

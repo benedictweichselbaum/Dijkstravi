@@ -6,8 +6,8 @@ import java.util.ResourceBundle;
 
 import application.autocompleteComboBox.AutoCompleteComboBoxListener;
 import application.globalLogic.GlobalLogic;
-import application.imageManipulation.Zoomer;
-import application.menuBarDialogs.beschreibungWindow.BeschreibungWindow;
+import application.routeDrawing.Zoomer;
+import application.menuBarDialogs.instructionWindow.InstructionWindow;
 import application.menuBarDialogs.informationWindow.InformationWindow;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -132,8 +132,8 @@ public class DijkstraviController implements Initializable {
 
     @FXML
     public void pressedBeschreibung(ActionEvent actionEvent) {
-        BeschreibungWindow beschreibungWindow = new BeschreibungWindow();
-        beschreibungWindow.setVisible(true);
+        InstructionWindow instructionWindow = new InstructionWindow();
+        instructionWindow.setVisible(true);
     }
 
     @FXML

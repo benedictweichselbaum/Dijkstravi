@@ -1,7 +1,7 @@
 package application.globalLogic;
 
 import application.DijkstraviController;
-import application.algorithmProgess.ProgressAleBarUpdater;
+import application.algorithmProgess.ProgressBarAlgorithmUpdater;
 import application.graphNavigation.algorithms.*;
 import application.graphNavigation.graph.Connection;
 import application.graphNavigation.graph.Graph;
@@ -99,30 +99,30 @@ public class GlobalLogic {
 
     private AlgorithmThread createAlgorithmThread(int alg, String fromStr, String toStr, boolean fastestPath){
         String algorithmus = "";
-        NavigationService navigationService = null;
+        AbstractAlgorithm abstractAlgorithm = null;
         switch (alg) {
             case 0:
                 algorithmus = "Dijkstra";
-                navigationService = new Dijkstra();
+                abstractAlgorithm = new Dijkstra();
                 break;
             case 1:
                 algorithmus = "A*";
-                navigationService = new AStar();
+                abstractAlgorithm = new AStar();
                 break;
             case 2:
                 algorithmus = "Bellman-Ford";
-                navigationService = new BellmanFordFast();
+                abstractAlgorithm = new BellmanFordFast();
                 //navigationService = new BellmanFord();
                 break;
             case 3:
                 algorithmus = "SPF";
-                navigationService = new ShortestPathFasterAlgorithm();
+                abstractAlgorithm = new ShortestPathFasterAlgorithm();
                 break;
         }
 
-        ProgressAleBarUpdater progressAleBarUpdater = new ProgressAleBarUpdater(dijkstraviController, navigationService);
-        return new AlgorithmThread(navigationService, graph, idFrom, idTo,
-                progressAleBarUpdater, dijkstraviController, fromStr, toStr, algorithmus, optionWindow.getMaxSpeed(), fastestPath);
+        ProgressBarAlgorithmUpdater progressBarAlgorithmUpdater = new ProgressBarAlgorithmUpdater(dijkstraviController, abstractAlgorithm);
+        return new AlgorithmThread(abstractAlgorithm, graph, idFrom, idTo,
+                progressBarAlgorithmUpdater, dijkstraviController, fromStr, toStr, algorithmus, optionWindow.getMaxSpeed(), fastestPath);
     }
 
     private void initialiseForNewWay(){

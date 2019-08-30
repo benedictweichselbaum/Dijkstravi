@@ -73,18 +73,18 @@ class NavigationAlgorithmsWithoutGraphTest {
     }
 
 
-    void shortestPathCombinationOfSimpleWays(NavigationService navigationService) {
+    void shortestPathCombinationOfSimpleWays(AbstractAlgorithm abstractAlgorithm) {
         System.out.println("Shortest Path combination of simple ways");
-        Stack<Integer> way = navigationService.initCalculateShortestWay(g, 0, 3, 130, false);
+        Stack<Integer> way = abstractAlgorithm.initCalculateShortestWay(g, 0, 3, 130, false);
         assertEquals(0, way.pop());
         assertEquals(1, way.pop());
         assertEquals(3, way.pop());
     }
 
-    void shortestPathWithStopoverToHorb(NavigationService navigationService) {
+    void shortestPathWithStopoverToHorb(AbstractAlgorithm abstractAlgorithm) {
         System.out.println("Shortest Path with stopover to Horb");
         //Stack<Integer> way = navigationService.calculateShortestWay(g, 1, 7);
-        Stack<Integer> way = navigationService.initCalculateShortestWay(g, 1, 7, 130, false);
+        Stack<Integer> way = abstractAlgorithm.initCalculateShortestWay(g, 1, 7, 130, false);
         assertEquals(1, way.pop());
         assertEquals(3, way.pop());
         assertEquals(4, way.pop());
@@ -92,25 +92,25 @@ class NavigationAlgorithmsWithoutGraphTest {
         assertEquals(7, way.pop());
     }
 
-    void algorithmsHelperNodeIntegration(NavigationService navigationService) {
+    void algorithmsHelperNodeIntegration(AbstractAlgorithm abstractAlgorithm) {
         System.out.println("Algorithm Helper Node Integration");
         //Stack<Integer> way = navigationService.calculateShortestWay(g, 1, 7);
-        Stack<Integer> way = navigationService.initCalculateShortestWay(g, 4, 8, 130, false);
+        Stack<Integer> way = abstractAlgorithm.initCalculateShortestWay(g, 4, 8, 130, false);
         assertEquals(4, way.pop());
         assertEquals(5, way.pop());
         assertEquals(7, way.pop());
         assertTrue(way.isEmpty());
     }
 
-    void shortestFastestPathseparationTest(NavigationService navigationService) {
+    void shortestFastestPathseparationTest(AbstractAlgorithm abstractAlgorithm) {
         System.out.println("Shortest/Fastest Path separation Test");
-        Stack<Integer> way = navigationService.initCalculateShortestWay(g, 10, 13, 200, false);
+        Stack<Integer> way = abstractAlgorithm.initCalculateShortestWay(g, 10, 13, 200, false);
         assertEquals(10, way.pop());
         assertEquals(11, way.pop());
         assertEquals(13, way.pop());
 
 
-        way = navigationService.initCalculateShortestWay(g, 10, 13, 200, true);
+        way = abstractAlgorithm.initCalculateShortestWay(g, 10, 13, 200, true);
         assertEquals(10, way.pop());
         assertEquals(12, way.pop());
         assertEquals(13, way.pop());

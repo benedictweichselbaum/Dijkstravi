@@ -16,7 +16,7 @@ import java.util.HashMap;
 public class GraphCreater extends Thread{
 
     private HashMap<Integer, String> listOfExitsById;
-    private JFrame jFrame;
+    private JFrame openingDialog;
 
     private Graph graph;
 
@@ -31,24 +31,24 @@ public class GraphCreater extends Thread{
             XMLParser xmlParser = new XMLParser(listOfExitsById);
             showCreateDialog();
             graph = xmlParser.init();
-            this.jFrame.dispose();
+            this.openingDialog.dispose();
             notify();
         }
     }
 
     private void showCreateDialog () {
-        jFrame = new JFrame("Graph berechnen");
-        Container pane = jFrame.getContentPane();
+        openingDialog = new JFrame("Graph berechnen");
+        Container pane = openingDialog.getContentPane();
         JLabel jLabel = new JLabel("        Der Graph wird berechnet...");
-        jFrame.setLayout(new GridLayout(1, 1));
-        jFrame.setLocation(800, 400);
+        openingDialog.setLayout(new GridLayout(1, 1));
+        openingDialog.setLocation(800, 400);
 
         pane.add(jLabel);
         //pane.add(jProgressBar);
 
-        jFrame.setSize(350, 100);
-        jFrame.setResizable(false);
-        jFrame.setVisible(true);
+        openingDialog.setSize(350, 100);
+        openingDialog.setResizable(false);
+        openingDialog.setVisible(true);
     }
 
     public Graph getGraph() {

@@ -5,7 +5,7 @@ import application.graphNavigation.graph.Graph;
 
 import java.util.Stack;
 
-public class BellmanFordFast extends NavigationService {
+public class BellmanFordFast extends AbstractAlgorithm {
 
     @Override
     public Stack<Integer> calculateShortestWay(Graph g, int startNode, int targetNode) {

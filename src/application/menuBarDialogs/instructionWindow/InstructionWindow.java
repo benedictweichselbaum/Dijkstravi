@@ -1,4 +1,4 @@
-package application.menuBarDialogs.beschreibungWindow;
+package application.menuBarDialogs.instructionWindow;
 
 import javax.swing.*;
 import java.awt.*;
@@ -7,12 +7,12 @@ import java.awt.*;
  * Simple Java Swing JFrame class for use of the programm.
  * Information text formatted with HTML.
  */
-public class BeschreibungWindow extends JFrame{
+public class InstructionWindow extends JFrame{
 
     private JLabel informationText;
     private JButton btnClose;
 
-    public BeschreibungWindow() {
+    public InstructionWindow() {
         super("Kurzbedienungsanleitung des Programms");
         Container pane = this.getContentPane();
         this.setLayout(new FlowLayout());

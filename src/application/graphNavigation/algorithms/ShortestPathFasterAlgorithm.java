@@ -5,7 +5,7 @@ import application.graphNavigation.graph.Graph;
 
 import java.util.*;
 
-public class ShortestPathFasterAlgorithm extends NavigationService {
+public class ShortestPathFasterAlgorithm extends AbstractAlgorithm {
 
     @Override
     public Stack<Integer> calculateShortestWay(Graph g, int startNode, int targetNode) {

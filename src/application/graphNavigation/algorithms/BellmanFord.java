@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.Stack;
 
 
-public class BellmanFord extends NavigationService {
+public class BellmanFord extends AbstractAlgorithm {
 
     private HashMap<Integer, ArrayList<Connection>> links;
     private Map<Integer, Integer> precursors;

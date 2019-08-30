@@ -8,7 +8,7 @@ import application.graphNavigation.graph.Graph;
 import java.util.ArrayList;
 import java.util.Stack;
 
-public abstract class NavigationService {
+public abstract class AbstractAlgorithm {
 
     int INFINITE = Integer.MAX_VALUE;
     ArrayList<Integer> dist;
