@@ -36,7 +36,7 @@ public class InstructionWindow extends JFrame{
                 "<li>In das Feld \"Nach\" die ersten Buchstaben der Zielausfahrt eintippen</li>" +
                 "<li>In der erscheinenden Drop-Down Liste die gewünschte Zielausfahrt wählen</li>" +
                 "</ul>" +
-                "<h3>Algorithmus auswählen</h3>" +
+                "<h3>Algorithmus und Routenoption auswählen</h3>" +
                 "<p>Unter dem Punkt \"Algorithmus\" kann zwischen vier Algorithmen ausgewählt werden:</p>" +
                 "<ul>" +
                 "<li>Dijstra Algorithmus: Der Standard Algorithmus</li>" +
@@ -44,6 +44,7 @@ public class InstructionWindow extends JFrame{
                 "<li>Bellman-Ford: Dieser Algorithmus berechnet vom ausgewählten Start zu jedem Knoten den kürzesten Weg</li>" +
                 "<li>Shortest Path Faster Algorithmus: Dieser Algorithmus ist eine Optimierung des Bellman-Ford Algorithmus</li>" +
                 "</ul>" +
+                "<p>Mit den Knöpfen darunter kann ausgewählt werden, ob die kürzeste Strecke oder die schnellste Route berechnet werden soll.</p>" +
                 "<h3>Berechnung starten</h3>" +
                 "<p>Um die Berechnung mit den ausgewählten Eingaben zu starten, auf Berechnen klicken. Während der Berechnung ist im " +
                 "Forschrittsbalken am unteren Rand des Fensters der aktuelle Berechnungsstatus zu sehen.</p>" +
@@ -54,6 +55,7 @@ public class InstructionWindow extends JFrame{
                 "<li>Hereinzoomen: \"+\" oder \"P\"</li>" +
                 "<li>Herauszoomen: \"-\" oder \"M\"</li>" +
                 "<li>Im Bild navigieren: Pfeiltasten oder Mausrad</li>" +
+                "<li>Bild zurückzoomen: N oder Z</li>" +
                 "<li></li>" +
                 "</ul>" +
                 "</br></p></body></html>";
