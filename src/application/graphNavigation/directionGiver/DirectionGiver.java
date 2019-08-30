@@ -1,13 +1,15 @@
 package application.graphNavigation.directionGiver;
 
 import application.DijkstraviController;
-import application.Mathematics.MathematicOperations;
+import application.unitConverter.UnitConverter;
 import application.graphNavigation.graph.Connection;
 import application.graphNavigation.graph.Graph;
 import javafx.application.Platform;
 
 import java.util.Stack;
-
+/**
+ * This class generates the directions for the UI.
+ */
 public class DirectionGiver {
 
     private final String lineSeparator = System.getProperty("line.separator");
@@ -43,7 +45,7 @@ public class DirectionGiver {
                 connection = treatmentNextConnection(way, from);
 
                 meterTillDestination = meterTillDestination + connection.getLength();
-                secondsTillDestination = secondsTillDestination + MathematicOperations.calculateTimeForConnection(connection, connection.getPersonalMaxSpeed(personalMaxSpeed));
+                secondsTillDestination = secondsTillDestination + UnitConverter.calculateTimeForConnection(connection, connection.getPersonalMaxSpeed(personalMaxSpeed));
                 from = way.pop();
             }
 
@@ -62,16 +64,16 @@ public class DirectionGiver {
         int from = way.pop();
         Connection connection = g.getConnectionBetween2Points(from, way.peek());
         meterTillNextOrder = connection.getLength();
-        secondsTillNextOrder = MathematicOperations.calculateTimeForConnection(connection, connection.getPersonalMaxSpeed(personalMaxSpeed));
+        secondsTillNextOrder = UnitConverter.calculateTimeForConnection(connection, connection.getPersonalMaxSpeed(personalMaxSpeed));
         meterTillDestination = connection.getLength();
-        secondsTillDestination = MathematicOperations.calculateTimeForConnection(connection, connection.getPersonalMaxSpeed(personalMaxSpeed));
+        secondsTillDestination = UnitConverter.calculateTimeForConnection(connection, connection.getPersonalMaxSpeed(personalMaxSpeed));
         roadName = connection.getName();
     }
 
     private Connection treatmentNextConnection(Stack<Integer> way, int from) {
         Connection connection;
         connection = g.getConnectionBetween2Points(from, way.peek());
-        double timeForConnection = MathematicOperations.calculateTimeForConnection(connection, connection.getPersonalMaxSpeed(personalMaxSpeed));
+        double timeForConnection = UnitConverter.calculateTimeForConnection(connection, connection.getPersonalMaxSpeed(personalMaxSpeed));
 
         String actualLocation = g.getNodeById(from).getName();
         String actualRoadName = connection.getName().trim();
@@ -162,8 +164,8 @@ public class DirectionGiver {
 
     private String orderFollowRoad(String finalDestination) {
         roadName = roadName.replace(";", " / ");
-        String meterTillNextOrderOutput = "" + MathematicOperations.meterToKilometer(meterTillNextOrder, 3);
-        String secondsTillNextOrderOutput = "" + MathematicOperations.secondsToHoursAndMinutes(secondsTillNextOrder);
+        String meterTillNextOrderOutput = "" + UnitConverter.meterToKilometer(meterTillNextOrder, 3);
+        String secondsTillNextOrderOutput = "" + UnitConverter.secondsToHoursAndMinutes(secondsTillNextOrder);
         if(!finalDestination.equals("")){
             finalDestination = String.format(" bis zu Ihrem Ziel %s", finalDestination);
         }
@@ -174,8 +176,8 @@ public class DirectionGiver {
 
     private void orderNavigationFinished() {
         orders = orders + lineSeparator + "Sie haben Ihr Ziel erreicht!" + lineSeparator;
-        orders = orders + lineSeparator + "Entfernung: " + MathematicOperations.meterToKilometer(meterTillDestination, 3) + "km";
-        orders = orders + lineSeparator + "Fahrzeit: " + MathematicOperations.secondsToHoursAndMinutes(secondsTillDestination);
+        orders = orders + lineSeparator + "Entfernung: " + UnitConverter.meterToKilometer(meterTillDestination, 3) + "km";
+        orders = orders + lineSeparator + "Fahrzeit: " + UnitConverter.secondsToHoursAndMinutes(secondsTillDestination);
         orders = orders + lineSeparator + "Danke für die Navigation mit Dijkstravi!";
         setDistanceAndDuration();
     }
@@ -184,8 +186,8 @@ public class DirectionGiver {
         // Avoid throwing IllegalStateException by running from a non-JavaFX thread.
         Platform.runLater(
                 () -> {
-                    dijkstraviController.getLblDistance().setText(MathematicOperations.meterToKilometer(meterTillDestination, 3) + "km");
-                    dijkstraviController.getLblDuration().setText(MathematicOperations.secondsToHoursAndMinutes(secondsTillDestination));
+                    dijkstraviController.getLblDistance().setText(UnitConverter.meterToKilometer(meterTillDestination, 3) + "km");
+                    dijkstraviController.getLblDuration().setText(UnitConverter.secondsToHoursAndMinutes(secondsTillDestination));
                 }
         );
     }

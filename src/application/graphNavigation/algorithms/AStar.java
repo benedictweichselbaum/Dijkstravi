@@ -1,6 +1,6 @@
 package application.graphNavigation.algorithms;
 
-import application.Mathematics.MathematicOperations;
+import application.unitConverter.UnitConverter;
 import application.graphNavigation.graph.MinimalPerformanceNode;
 
 public class AStar extends Dijkstra{
@@ -15,7 +15,7 @@ public class AStar extends Dijkstra{
                 ));
 
         if(this.isFastestPath()){
-            return (int) Math.round(MathematicOperations.calculateTimeForDistance(distance, this.getPersonalMaxSpeed()));
+            return (int) Math.round(UnitConverter.calculateTimeForDistance(distance, this.getPersonalMaxSpeed()));
         }
         else {
             return distance;

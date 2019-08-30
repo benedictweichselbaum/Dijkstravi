@@ -1,8 +1,10 @@
-package application.Mathematics;
+package application.unitConverter;
 
 import application.graphNavigation.graph.Connection;
-
-public abstract class MathematicOperations {
+/**
+ * This class provides methods to convert units.
+ */
+public abstract class UnitConverter {
 
     public static double meterToKilometer(double value, int places) {
         if (places < 0) throw new IllegalArgumentException();
