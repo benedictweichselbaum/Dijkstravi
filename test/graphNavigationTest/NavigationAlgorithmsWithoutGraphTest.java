@@ -76,10 +76,25 @@ class NavigationAlgorithmsWithoutGraphTest {
         assertEquals(3, way.pop());
     }
 
-    void algorithmsWithStopoverToHorb(NavigationService navigationService) {
+    void shortestPathCombinationOfSimpleWaysWithoutStartAndEnd(NavigationService navigationService) {
+        System.out.println("Algorithms combination of simple ways");
+        //Stack<Integer> way = navigationService.calculateShortestWay(g, 0, 3);
+        Stack<Integer> way = navigationService.initCalculateShortestWay(g, 0, 3, 130, false);
+        assertEquals(1, way.pop());
+    }
+
+    void shortestPathWithStopoverToHorbWithoutStartAndEnd(NavigationService navigationService) {
+        System.out.println("Algorithm with stopover to Horb Without Start and End");
+        Stack<Integer> way = navigationService.initCalculateShortestWay(g, 1, 7, 130, false);
+        assertEquals(3, way.pop());
+        assertEquals(4, way.pop());
+        assertEquals(5, way.pop());
+    }
+
+    void shortestPathWithStopoverToHorb(NavigationService navigationService) {
         System.out.println("Algorithm with stopover to Horb");
         //Stack<Integer> way = navigationService.calculateShortestWay(g, 1, 7);
-        Stack<Integer> way = navigationService.initCalculateShortestWay(g, 1,7,130,false);
+        Stack<Integer> way = navigationService.initCalculateShortestWay(g, 1, 7, 130, false);
         assertEquals(1, way.pop());
         assertEquals(3, way.pop());
         assertEquals(4, way.pop());
@@ -90,7 +105,7 @@ class NavigationAlgorithmsWithoutGraphTest {
     void algorithmsHelperNodeIntegration(NavigationService navigationService) {
         System.out.println("Algorithm Helper Node Integration");
         //Stack<Integer> way = navigationService.calculateShortestWay(g, 1, 7);
-        Stack<Integer> way = navigationService.initCalculateShortestWay(g, 4,8,130,false);
+        Stack<Integer> way = navigationService.initCalculateShortestWay(g, 4, 8, 130, false);
         assertEquals(4, way.pop());
         assertEquals(5, way.pop());
         assertEquals(7, way.pop());
@@ -99,9 +114,20 @@ class NavigationAlgorithmsWithoutGraphTest {
 
     void algorithmsHelperNodeIntegrationWithoutStartEnd(NavigationService navigationService) {
         System.out.println("Algorithm Helper Node Integration");
-        Stack<Integer> way = navigationService.initCalculateShortestWay(g, 4,8,130,false);
+        Stack<Integer> way = navigationService.initCalculateShortestWay(g, 4, 8, 130, false);
         assertEquals(5, way.pop());
         assertTrue(way.isEmpty());
+    }
+
+    void fastestPathWithStopoverToHorb(NavigationService navigationService) {
+        System.out.println("Algorithm with stopover to Horb");
+        //Stack<Integer> way = navigationService.calculateShortestWay(g, 1, 7);
+        Stack<Integer> way = navigationService.initCalculateShortestWay(g, 1, 7, 250, true);
+        assertEquals(1, way.pop());
+        assertEquals(3, way.pop());
+        assertEquals(4, way.pop());
+        assertEquals(5, way.pop());
+        assertEquals(7, way.pop());
     }
 
     private static void insertSomeEdges(Graph gr) {
@@ -128,10 +154,10 @@ class NavigationAlgorithmsWithoutGraphTest {
     }
 
     private static void addSomeNodes(Graph g) {
-        Node muenchen = new Node(0, true, 48.140235,11.560985,  "München");
-        Node ingolstadt = new Node(1, true,  48.765942, 11.425247,"Ingolstadt");
-        Node landshut = new Node(2, true,  48.547067,12.142666, "Landshut");
-        Node nuernberg = new Node(3, true,  49.446800,11.078967, "Nürnberg");
+        Node muenchen = new Node(0, true, 48.140235, 11.560985, "München");
+        Node ingolstadt = new Node(1, true, 48.765942, 11.425247, "Ingolstadt");
+        Node landshut = new Node(2, true, 48.547067, 12.142666, "Landshut");
+        Node nuernberg = new Node(3, true, 49.446800, 11.078967, "Nürnberg");
         Node heilbronn = new Node(4, true, 49.137541, 9.219953, "Heilbronn");
         Node stuttgart = new Node(5, true, 48.775408, 9.183056, "Stuttgart");
         Node ulm = new Node(6, true, 48.398468, 9.988471, "Ulm");

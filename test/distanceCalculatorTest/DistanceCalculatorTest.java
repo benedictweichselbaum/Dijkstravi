@@ -1,4 +1,4 @@
-package distanceClaculatorTest;
+package distanceCalculatorTest;
 
 import application.graphNavigation.graph.MinimalPerformanceNode;
 import application.xmlParser.DistanceCalculator;
