@@ -57,8 +57,8 @@ public class AlgorithmThread extends Thread {
             way = abstractAlgorithm.initCalculateShortestWay(graph, startNode, targetNode, maxSpeed, fastestPath);
             rc.stopCalculation();
 
-            try {
-                if (connectionFound(way)) {
+            connectionFound(way);
+
                     Stack<Integer> wayForPicture = (Stack<Integer>) way.clone();
 
                     File imageFile = new File("src/application/autobahnnetz_DE.png");
@@ -66,10 +66,7 @@ public class AlgorithmThread extends Thread {
                     List<Node> listOfNodesForPicture = new ArrayList<>();
 
                     setImage(wayForPicture, autobahnNetworkImage, listOfNodesForPicture);
-                }
-            } catch (NoWayFoundException e) {
-                orderWayNotFound();
-            }
+
 
             /*
             //Der alte Code
