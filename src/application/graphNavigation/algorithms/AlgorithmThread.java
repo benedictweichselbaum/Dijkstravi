@@ -85,7 +85,7 @@ public class AlgorithmThread extends Thread {
                 throw new NoWayFoundException();
             }*/
 
-            String orders = abstractAlgorithm.directions(graph, way, maxSpeed, fastestPath);
+            String orders = abstractAlgorithm.directions(graph, way, maxSpeed, fastestPath, controller);
 
             controller.enableFields();
 

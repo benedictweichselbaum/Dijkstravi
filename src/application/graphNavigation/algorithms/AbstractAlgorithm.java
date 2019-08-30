@@ -1,5 +1,6 @@
 package application.graphNavigation.algorithms;
 
+import application.DijkstraviController;
 import application.Mathematics.MathematicOperations;
 import application.graphNavigation.directionGiver.DirectionGiver;
 import application.graphNavigation.graph.Connection;
@@ -25,10 +26,10 @@ public abstract class AbstractAlgorithm {
     }
     public abstract Stack<Integer> calculateShortestWay(Graph g, int startNode, int targetNode);
 
-    String directions(Graph g, Stack<Integer> way, int maxSpeed, boolean fastestPath) {
+    String directions(Graph g, Stack<Integer> way, int maxSpeed, boolean fastestPath, DijkstraviController dijkstraviController) {
         this.fastestPath = fastestPath;
         this.personalMaxSpeed = maxSpeed;
-        return new DirectionGiver().directions(g, way, personalMaxSpeed);
+        return new DirectionGiver().directions(g, way, personalMaxSpeed, dijkstraviController);
     }
 
     public Double getProgress() {

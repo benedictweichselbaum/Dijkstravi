@@ -9,6 +9,7 @@ import application.globalLogic.GlobalLogic;
 import application.routeDrawing.Zoomer;
 import application.menuBarDialogs.instructionWindow.InstructionWindow;
 import application.menuBarDialogs.informationWindow.InformationWindow;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -23,6 +24,10 @@ public class DijkstraviController implements Initializable {
     @FXML
     public Button changeDir;
     public ToggleButton shortestPath;
+    @FXML
+    Label distance;
+    @FXML
+    public Label duration;
 
     @FXML
     AnchorPane pane;
@@ -145,6 +150,16 @@ public class DijkstraviController implements Initializable {
         return lblProgress;
     }
 
+    @FXML
+    public Label getLblDistance() {
+        return distance;
+    }
+
+    @FXML
+    public Label getLblDuration() {
+        return duration;
+    }
+
     public ProgressBar getPbAlgorithms() {
         return pbAlgorithms;
     }
@@ -172,11 +187,17 @@ public class DijkstraviController implements Initializable {
     public void disableFields(){
         getTxtAreaRoute().setDisable(true);
         btnCalcRoute.setDisable(true);
+        getLblDistance().setDisable(true);
+        getLblDuration().setDisable(true);
+
     }
 
+    @FXML
     public void enableFields(){
         getTxtAreaRoute().setDisable(false);
         btnCalcRoute.setDisable(false);
+        getLblDistance().setDisable(false);
+        getLblDuration().setDisable(false);
     }
 }
 

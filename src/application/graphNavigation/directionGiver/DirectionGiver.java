@@ -1,8 +1,10 @@
 package application.graphNavigation.directionGiver;
 
+import application.DijkstraviController;
 import application.Mathematics.MathematicOperations;
 import application.graphNavigation.graph.Connection;
 import application.graphNavigation.graph.Graph;
+import javafx.application.Platform;
 
 import java.util.Stack;
 
@@ -20,10 +22,12 @@ public class DirectionGiver {
     private String destination;
     private boolean isOutputAutobahnChangeInProgress;
     private int personalMaxSpeed;
+    private DijkstraviController dijkstraviController;
 
-    public String directions(Graph g, Stack<Integer> way, int personalMaxSpeed){
+    public String directions(Graph g, Stack<Integer> way, int personalMaxSpeed, DijkstraviController dijkstraviController){
         this.g = g;
         this.personalMaxSpeed = personalMaxSpeed;
+        this.dijkstraviController = dijkstraviController;
         location = "";
         destination = "";
         isOutputAutobahnChangeInProgress = false;
@@ -173,6 +177,17 @@ public class DirectionGiver {
         orders = orders + lineSeparator + "Entfernung: " + MathematicOperations.meterToKilometer(meterTillDestination, 3) + "km";
         orders = orders + lineSeparator + "Fahrzeit: " + MathematicOperations.secondsToHoursAndMinutes(secondsTillDestination);
         orders = orders + lineSeparator + "Danke für die Navigation mit Dijkstravi!";
+        setDistanceAndDuration();
+    }
+
+    private void setDistanceAndDuration(){
+        // Avoid throwing IllegalStateException by running from a non-JavaFX thread.
+        Platform.runLater(
+                () -> {
+                    dijkstraviController.getLblDistance().setText(MathematicOperations.meterToKilometer(meterTillDestination, 3) + "km");
+                    dijkstraviController.getLblDuration().setText(MathematicOperations.secondsToHoursAndMinutes(secondsTillDestination));
+                }
+        );
     }
 
     private void outputWayNotFound() {
