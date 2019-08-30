@@ -1,5 +1,8 @@
 package application.graphNavigation.graph;
 
+/**
+ * Class that carries information of the connection to the next node.
+ */
 public class Connection {
     private int aim;
     private int length;

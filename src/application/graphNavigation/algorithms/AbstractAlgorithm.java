@@ -14,8 +14,8 @@ public abstract class AbstractAlgorithm {
     int INFINITE = Integer.MAX_VALUE;
     ArrayList<Integer> dist;
     ArrayList<Integer> predecessor;
-    boolean fastestPath = true;
-    int personalMaxSpeed;
+    private boolean fastestPath = true;
+    private int personalMaxSpeed;
 
     Double progress = 0.0;
 

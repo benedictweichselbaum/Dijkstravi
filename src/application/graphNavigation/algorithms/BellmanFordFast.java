@@ -4,7 +4,9 @@ import application.graphNavigation.graph.Connection;
 import application.graphNavigation.graph.Graph;
 
 import java.util.Stack;
-
+/**
+ * Smart implementation of the Bellman Ford Algorithm. This algorithm calculates the fastest/shortest ways from the startNode to all other Nodes.
+ */
 public class BellmanFordFast extends AbstractAlgorithm {
 
     @Override

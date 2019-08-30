@@ -6,7 +6,9 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 
-
+/*
+ * This class enables the zooming of the map.
+ */
 public class Zoomer{
 
     private ImageView imageView;

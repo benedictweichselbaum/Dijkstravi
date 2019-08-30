@@ -1,5 +1,7 @@
 package application.graphNavigation.algorithms.exceptions;
-
+/**
+ * This exception is thrown if there is no way between start and end.
+ */
 public class NoWayFoundException extends Exception {
 
     public NoWayFoundException () {
