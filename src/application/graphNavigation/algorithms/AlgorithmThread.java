@@ -61,8 +61,8 @@ public class AlgorithmThread extends Thread {
 
             Stack<Integer> wayForPicture = (Stack<Integer>) way.clone();
 
-            File imageFile = new File("src/application/autobahnnetz_DE.png");
-            Image autobahnNetworkImage = new Image(imageFile.toURI().toString());
+
+            Image autobahnNetworkImage = (controller.getImgViewAutobahn().getImage());
             List<Node> listOfNodesForPicture = new ArrayList<>();
 
             setImage(wayForPicture, autobahnNetworkImage, listOfNodesForPicture);
