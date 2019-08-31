@@ -43,10 +43,8 @@ public class Dijkstra extends AbstractAlgorithm {
         predecessor = new HashMap<>();
 
         // die rot markierten Knoten -> PP
-       // System.out.println("startNode " + startNode);
         reachableUnvisitedNotes = new HashMap<>();
         reachableUnvisitedNotes.put(startNode, 0);
-       // System.out.println("Init startNode " + reachableUnvisitedNotes.get(startNode));
 
         for (int i = 0; i < numberOfNodes; i++) {
             distance.put(i, INFINITE);
@@ -62,8 +60,6 @@ public class Dijkstra extends AbstractAlgorithm {
 
         int nodeNumber;
         init(g, startNodeId, targetNodeId);
-        //System.out.println("Startknoten: " + startNodeId);
-        //System.out.println("Zielknoten: " + targetNodeId);
 
         // wiederhole bis alle Knoten besucht sind / Zielknoten besucht ist
         Double progressUnit = 1.0/numberOfNodes;
@@ -76,22 +72,18 @@ public class Dijkstra extends AbstractAlgorithm {
             visited.add(nodeNumber);
             reachableUnvisitedNotes.remove(nodeNumber);
 
-            //System.out.println("Knoten mit min. Distanz: " + nodeNumber);
             //um nicht zu allen Knoten den kürzesten Weg vom Startknoten aus zu berechnen
             if(nodeNumber == targetNode){
                 break;
             }
 
-            //System.out.println("NodeNumber: " + nodeNumber);
             calculateDistanceToUnvisitedNeighboringNodes(g, nodeNumber);
             progress += progressUnit;
         }
         if(visited.contains(targetNode)) {
-            //tem.out.println("Es gibt einen Weg!");
             return output(g);
         }
         else{
-            //System.out.println("ERROR! Es gibt KEINEN Weg!");
             return null;
         }
     }
@@ -133,14 +125,13 @@ public class Dijkstra extends AbstractAlgorithm {
         Stack<Integer> way = new Stack<>();
         int nodeNumber;
         double totalDistance = ((double)distance.get(targetNode)/1000);
-        //System.out.println("Entfernung: " + distance.get(targetNode) + "m");
-        //System.out.println("Entfernung: " + totalDistance + "km");
+
 
         if(!g.getNodeById(targetNode).getName().equals("HelperNode")){
             way.push(targetNode);
         }
         nodeNumber = targetNode;
-        //what if the target node is not reachable from the start node, is there a infinite check?
+
         while (nodeNumber != startNode)
         {
             nodeNumber = predecessor.get(nodeNumber);
@@ -159,7 +150,6 @@ public class Dijkstra extends AbstractAlgorithm {
         for (Map.Entry<Integer, Integer> entry : nodeAndDistance.entrySet()) {
             if (min == null || min.getValue() > entry.getValue()) {
                 min = entry;
-                //System.out.println(min.getKey());
             }
         }
         if (min != null) {

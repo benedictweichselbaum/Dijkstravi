@@ -36,7 +36,7 @@ public abstract class UnitConverter {
 
     public static String secondsToHoursAndMinutes(double seconds){
         if (seconds < 0){
-            throw new IllegalArgumentException("Time-Calculation for Distance failed");
+            throw new IllegalArgumentException("Converting seconds failed - value of seconds is negative!");
         }
 
         int hours = (int) (seconds / 3600);
