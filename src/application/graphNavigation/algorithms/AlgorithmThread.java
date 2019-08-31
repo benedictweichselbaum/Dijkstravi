@@ -1,6 +1,7 @@
 package application.graphNavigation.algorithms;
 
 import application.DijkstraviController;
+import application.PictureGetter;
 import application.algorithmProgess.ProgressBarAlgorithmUpdater;
 import application.graphNavigation.algorithms.exceptions.NoWayFoundException;
 import application.graphNavigation.graph.Graph;
@@ -61,8 +62,7 @@ public class AlgorithmThread extends Thread {
 
             Stack<Integer> wayForPicture = (Stack<Integer>) way.clone();
 
-
-            Image autobahnNetworkImage = (controller.getImgViewAutobahn().getImage());
+            Image autobahnNetworkImage = new Image(new PictureGetter().getImage().toURI().toString());
             List<Node> listOfNodesForPicture = new ArrayList<>();
 
             setImage(wayForPicture, autobahnNetworkImage, listOfNodesForPicture);
