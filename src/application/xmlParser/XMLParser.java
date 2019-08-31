@@ -1,6 +1,11 @@
 package application.xmlParser;
 import java.io.*;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.*;
+import java.util.jar.JarOutputStream;
 
 import application.graphNavigation.graph.Graph;
 import application.graphNavigation.graph.MinimalPerformanceNode;
@@ -30,7 +35,18 @@ public class XMLParser {
 
     public Graph init(){
         try {
-            File inputFile = new File("src/application/german_autobahn.osm");
+            Path temp = Files.createTempFile("resource-", "ext");
+            Files.copy(this.getClass().getResourceAsStream("german_autobahn.osm"), temp, StandardCopyOption.REPLACE_EXISTING);
+
+            FileInputStream fileInputStream = new FileInputStream(temp.toFile());
+            byte[] bytes = new byte[fileInputStream.available()];
+            fileInputStream.read(bytes);
+            fileInputStream.close();
+            File inputFile = new File("osm.tmp");
+            FileOutputStream outputStream = new FileOutputStream(inputFile);
+            outputStream.write(bytes);
+            outputStream.flush();
+            outputStream.close();
             SAXBuilder saxBuilder = new SAXBuilder();
             Document document = saxBuilder.build(inputFile);
             Element classElement = document.getRootElement();

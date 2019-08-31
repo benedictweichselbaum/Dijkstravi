@@ -1,7 +1,13 @@
 package application;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.ResourceBundle;
 
 import application.autocompleteComboBox.AutoCompleteComboBoxListener;
@@ -101,8 +107,22 @@ public class DijkstraviController implements Initializable {
         rbDijkstra.setToggleGroup(algRadioButtonGroup);
         rbSpfa.setToggleGroup(algRadioButtonGroup);
         algRadioButtonGroup.selectToggle(rbDijkstra);
-
-        File imageFile = new File("src/application/autobahnnetz_DE.png");
+        File imageFile = null;
+        try {
+            Path temp = Files.createTempFile("picture-", "ext");
+            Files.copy(this.getClass().getResourceAsStream("autobahnnetz_DE.png"), temp, StandardCopyOption.REPLACE_EXISTING);
+            FileInputStream fileInputStream = new FileInputStream(temp.toFile());
+            byte[] bytes = new byte[fileInputStream.available()];
+            fileInputStream.read(bytes);
+            fileInputStream.close();
+            imageFile = new File ("tempPic.tmp");
+            FileOutputStream outputStream = new FileOutputStream(imageFile);
+            outputStream.write(bytes);
+            outputStream.flush();
+            outputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         javafx.scene.image.Image autobahnNetworkImage = new Image(imageFile.toURI().toString());
         imgViewAutobahn.setImage(autobahnNetworkImage);
 
