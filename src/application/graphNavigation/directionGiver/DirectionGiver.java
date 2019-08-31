@@ -164,7 +164,7 @@ public class DirectionGiver {
 
     private String orderFollowRoad(String finalDestination) {
         roadName = roadName.replace(";", " / ");
-        String meterTillNextOrderOutput = "" + UnitConverter.meterToKilometer(meterTillNextOrder, 3);
+        String meterTillNextOrderOutput = "" + UnitConverter.meterToKilometer(meterTillNextOrder, 1);
         String secondsTillNextOrderOutput = "" + UnitConverter.secondsToHoursAndMinutes(secondsTillNextOrder);
         if(!finalDestination.equals("")){
             finalDestination = String.format(" bis zu Ihrem Ziel %s", finalDestination);
@@ -176,7 +176,7 @@ public class DirectionGiver {
 
     private void orderNavigationFinished() {
         orders = orders + lineSeparator + "Sie haben Ihr Ziel erreicht!" + lineSeparator;
-        orders = orders + lineSeparator + "Entfernung: " + UnitConverter.meterToKilometer(meterTillDestination, 3) + "km";
+        orders = orders + lineSeparator + "Entfernung: " + UnitConverter.meterToKilometer(meterTillDestination, 1) + "km";
         orders = orders + lineSeparator + "Fahrzeit: " + UnitConverter.secondsToHoursAndMinutes(secondsTillDestination);
         orders = orders + lineSeparator + "Danke für die Navigation mit Dijkstravi!";
         setDistanceAndDuration();
@@ -186,7 +186,7 @@ public class DirectionGiver {
         // Avoid throwing IllegalStateException by running from a non-JavaFX thread.
         Platform.runLater(
                 () -> {
-                    dijkstraviController.getLblDistance().setText(UnitConverter.meterToKilometer(meterTillDestination, 3) + "km");
+                    dijkstraviController.getLblDistance().setText(UnitConverter.meterToKilometer(meterTillDestination, 1) + "km");
                     dijkstraviController.getLblDuration().setText(UnitConverter.secondsToHoursAndMinutes(secondsTillDestination));
                 }
         );
