@@ -10,19 +10,15 @@ import org.jdom2.Attribute;
 
 public class Way {
     private ArrayList<Attribute> nodeList;
-    private boolean motorway_link;
-    private long id;
     private String name;
-    private String destinaton;
-    private int maxspeed;
+    private String destination;
+    private int maxSpeed;
 
-    Way(long wayID, ArrayList<Attribute> list, boolean ismw_link, int speed, String nameOfRoad, String roadDestination){
+    Way(ArrayList<Attribute> list, int speed, String nameOfRoad, String roadDestination){
         nodeList = list;
-        motorway_link = ismw_link;
-        id = wayID;
         name = nameOfRoad;
-        destinaton = roadDestination;
-        maxspeed = speed;
+        destination = roadDestination;
+        maxSpeed = speed;
     }
 
     //public int getLength(){
@@ -49,13 +45,9 @@ public class Way {
         return  nodeList;
     }
 
-    public long getID(){
-        return  id;
-    }
+    int getmaxspeed(){return maxSpeed;}
 
-    public int getmaxspeed(){return maxspeed;}
-
-    public String getDestinaton(){return destinaton;}
+    String getDestination(){return destination;}
 
     public String getName(){return name;}
 }

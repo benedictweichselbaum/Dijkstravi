@@ -1,11 +1,9 @@
 package application.xmlParser;
 import java.io.*;
-import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.*;
-import java.util.jar.JarOutputStream;
 
 import application.graphNavigation.graph.Graph;
 import application.graphNavigation.graph.MinimalPerformanceNode;
@@ -159,7 +157,7 @@ public class XMLParser {
         }
 
         if (ishighway) {
-            Way ow = new Way(wayid ,nodes, motorway_link, maxspeed, name, destination);
+            Way ow = new Way(nodes, maxspeed, name, destination);
             wayList.add(ow);
         }
     }
@@ -189,7 +187,7 @@ public class XMLParser {
         gr.addEdge(newID.get(ow.getFirst()), newID.get(ow.getLast()),
                 length, ow.getmaxspeed(),
                 ow.getName(),
-                ow.getDestinaton());
+                ow.getDestination());
     }
 
     private List<MinimalPerformanceNode> addWayToNodeList(Way ow){

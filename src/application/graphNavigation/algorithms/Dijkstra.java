@@ -10,7 +10,6 @@ import java.util.*;
 public class Dijkstra extends AbstractAlgorithm {
 
     private ArrayList<Node> autobahn = new ArrayList<>();
-    private HashMap<Integer, ArrayList<Connection>> links = new HashMap<>();
 
     private int startNode;
     private int targetNode;
@@ -30,7 +29,7 @@ public class Dijkstra extends AbstractAlgorithm {
 
     private void init(Graph g, int startNodeId, int targetNodeId) {
         autobahn = g.getAutobahn();
-        links = g.getLinks();
+        HashMap<Integer, ArrayList<Connection>> links = g.getLinks();
 
         startNode = startNodeId;
         targetNode = targetNodeId;
