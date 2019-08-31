@@ -4,6 +4,7 @@ import application.unitConverter.UnitConverter;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class UnitConverterTest {
 
@@ -21,13 +22,25 @@ class UnitConverterTest {
     }
 
     @Test
-    void testMeterToKilometerExtraordinaryParameters () {
-        assertEquals(12, UnitConverter.meterToKilometer(12400, -10));
+    void testMeterToKilometerValueNegative () {
+        boolean thrown = false;
+        try {
+            UnitConverter.meterToKilometer(-5, 5);
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue(thrown);
+    }
 
-        assertEquals(-12.1, UnitConverter.meterToKilometer(-12111, 1));
-        assertEquals(-13.0, UnitConverter.meterToKilometer(-12999, 1));
-
-        assertEquals(-13, UnitConverter.meterToKilometer(-12999, -10));
+    @Test
+    void testMeterToKilometerPlacesNegative () {
+        boolean thrown = false;
+        try {
+            UnitConverter.meterToKilometer(5, -5);
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue(thrown);
     }
 
     @Test
@@ -35,6 +48,39 @@ class UnitConverterTest {
         assertEquals(0.0, UnitConverter.calculateTimeForDistance(0, 130));
 
         assertEquals(2000.0, UnitConverter.calculateTimeForDistance(30000, 54));
+    }
+
+    @Test
+    void testCalculateTimeForDistanceDistanceNegative () {
+        boolean thrown = false;
+        try {
+            UnitConverter.calculateTimeForDistance(-10, 130);
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue(thrown);
+    }
+
+    @Test
+    void testCalculateTimeForDistanceSpeedNegative () {
+        boolean thrown = false;
+        try {
+            UnitConverter.calculateTimeForDistance(1000, -10);
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue(thrown);
+    }
+
+    @Test
+    void testCalculateTimeForDistanceSpeedZero () {
+        boolean thrown = false;
+        try {
+            UnitConverter.calculateTimeForDistance(1000, 0);
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue(thrown);
     }
 
     @Test
@@ -51,6 +97,14 @@ class UnitConverterTest {
         assertEquals("0 Std. 59 Min.", UnitConverter.secondsToHoursAndMinutes(3569.9));
     }
 
-
-
+    @Test
+    void testSecondsToHoursAndMinutesSecondsNegative () {
+        boolean thrown = false;
+        try {
+            UnitConverter.secondsToHoursAndMinutes(-10);
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue(thrown);
+    }
 }

@@ -7,8 +7,8 @@ import application.graphNavigation.graph.Connection;
 public abstract class UnitConverter {
 
     public static double meterToKilometer(double value, int places) {
-        if (places < 0){
-            places = 0;
+        if (value < 0 || places < 0){
+            throw new IllegalArgumentException("Converting m to km failed because of negativ parameters!");
         }
 
         double factor = Math.pow(10, places);
@@ -20,8 +20,13 @@ public abstract class UnitConverter {
         //Entfernung (distance) in Metern
         //Geschwindigkeit (speed) in km/h
 
+        if (distance < 0 || speed <= 0){
+            throw new IllegalArgumentException("Time-Calculation for Distance failed");
+        }
+
         double speedInMeterPerSeconds = (double) speed / 3.6;
         return distance / speedInMeterPerSeconds;
+
     }
 
     public static double calculateTimeForConnection(Connection connection, int personalMaxSpeed){
@@ -30,6 +35,10 @@ public abstract class UnitConverter {
     }
 
     public static String secondsToHoursAndMinutes(double seconds){
+        if (seconds < 0){
+            throw new IllegalArgumentException("Time-Calculation for Distance failed");
+        }
+
         int hours = (int) (seconds / 3600);
         int minutes = (int) Math.round((seconds % 3600)/60);
 
