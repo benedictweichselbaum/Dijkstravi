@@ -17,8 +17,10 @@ import java.util.stream.Collectors;
  *
  * The result matrix with all shortest distances is returned by the allPairsShortestPaths method.
  * It is not used here, but characterises the algorithm.
- * Other essential methods are extendShortestPaths and output
+ * Other essential methods are extendShortestPaths and output.
  * For each Node the way to each other Node is saved as a list in the precursors list.
+ *
+ * The algorithm is only able to run at test at the moment. It produces an out of memory exception if it is executed with the real graph.
  */
 
 public class MinPlusMatrixMultiplication extends AbstractAlgorithm {
@@ -33,6 +35,7 @@ public class MinPlusMatrixMultiplication extends AbstractAlgorithm {
         List<List<Integer>> graphAsMatrix = convertGraphAsAdjacencyListToAdjacencyMatrix(g);
         fillPrecursorsArrayWithDirectConnections(graphAsMatrix);
 
+        initArrays(numberOfNodes);
         List<List<Integer>> resultMatrix = allPairsShortestPaths(graphAsMatrix);
         return output(g, startNode, targetNode);
     }
@@ -67,6 +70,9 @@ public class MinPlusMatrixMultiplication extends AbstractAlgorithm {
             int indexInMatrices=2 * m - 1;
             matrices.add(indexInMatrices, curMatrix);
             m = 2 * m;
+            if (matrices.size() > 3) {
+                matrices.remove(0);
+            }
         }
         return matrices.get(matrices.size() - 1);
     }

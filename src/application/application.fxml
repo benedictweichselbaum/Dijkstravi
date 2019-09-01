@@ -49,15 +49,15 @@
     <ImageView fx:id="imgViewAutobahn" fitWidth="400.0" layoutX="560.0" layoutY="93.0" pickOnBounds="false" />
     <Button fx:id="btnCalcRoute" layoutX="28.0" layoutY="224.0" mnemonicParsing="false" onAction="#clickedCalcRoute" prefHeight="28.0" prefWidth="114.0" text="Berechnen" />
     <TextArea fx:id="txtAreaRoute" disable="false" editable="false" layoutX="254.0" layoutY="122.0" prefHeight="426.0" prefWidth="292.0" wrapText="true" />
-    <RadioButton fx:id="rbDijkstra" layoutX="28.0" layoutY="320.0" mnemonicParsing="false" text="Dijkstra" />
+    <RadioButton fx:id="rbDijkstra" layoutX="28.0" layoutY="320.0" mnemonicParsing="false" onAction="#otherRbSelected" text="Dijkstra" />
     <Label layoutX="254.0" layoutY="57.0" text="Routenbeschreibung">
       <font>
         <Font name="System Bold" size="12.0" />
       </font>
     </Label>
-    <RadioButton fx:id="rbBellmanFord" layoutX="28.0" layoutY="354.0" mnemonicParsing="false" text="Bellman-Ford" />
-    <RadioButton fx:id="rbAStrern" layoutX="28.0" layoutY="384.0" mnemonicParsing="false" text="A* Algorithmus" />
-    <RadioButton fx:id="rbSpfa" layoutX="28.0" layoutY="415.0" mnemonicParsing="false" text="SPFA" />
+    <RadioButton fx:id="rbBellmanFord" layoutX="28.0" layoutY="354.0" mnemonicParsing="false" onAction="#otherRbSelected" text="Bellman-Ford" />
+    <RadioButton fx:id="rbAStrern" layoutX="28.0" layoutY="384.0" mnemonicParsing="false" onAction="#otherRbSelected" text="A* Algorithmus" />
+    <RadioButton fx:id="rbSpfa" layoutX="28.0" layoutY="415.0" mnemonicParsing="false" onAction="#otherRbSelected" text="SPFA" />
     <Label layoutX="28.0" layoutY="284.0" text="Algorithmus" />
     <ProgressBar fx:id="pbAlgorithms" layoutX="28.0" layoutY="562.0" prefHeight="22.0" prefWidth="941.0" progress="0.0" />
     <Label fx:id="lblProgress" layoutX="28.0" layoutY="568.0" prefWidth="941.0" text="" textAlignment="CENTER" />
@@ -78,15 +78,16 @@
     </Label>
     <ScrollPane fx:id="scrollPane" content="$null" layoutX="574.0" layoutY="78.0" prefHeight="469.0" prefWidth="405.0" />
     <Button fx:id="changeDir" layoutX="184.0" layoutY="224.0" mnemonicParsing="false" onAction="#clickedChangeDir" prefHeight="28.0" text="↑↓" />
-    <ToggleButton fx:id="shortestPath" layoutX="30.0" layoutY="455.0" mnemonicParsing="false" prefWidth="198.0" selected="true" text="Kürzeste Route">
+    <ToggleButton fx:id="shortestPath" layoutX="30.0" layoutY="484.0" mnemonicParsing="false" prefWidth="198.0" selected="true" text="Kürzeste Route">
       <toggleGroup>
         <ToggleGroup fx:id="weg" />
       </toggleGroup>
     </ToggleButton>
-    <ToggleButton layoutX="30.0" layoutY="494.0" mnemonicParsing="false" prefWidth="198.0" text="Schnellste Route" toggleGroup="$weg" />
+    <ToggleButton fx:id="fastestRoute" layoutX="30.0" layoutY="523.0" mnemonicParsing="false" prefWidth="198.0" text="Schnellste Route" toggleGroup="$weg" />
     <Label layoutX="254.0" layoutY="74.0" text="Entfernung:" />
     <Label fx:id="distance" layoutX="334.0" layoutY="74.0" prefHeight="17.0" prefWidth="161.0" textAlignment="RIGHT" />
     <Label layoutX="254.0" layoutY="93.0" prefHeight="17.0" prefWidth="79.0" text="Fahrtdauer:" />
     <Label fx:id="duration" contentDisplay="CENTER" layoutX="335.0" layoutY="94.0" prefHeight="17.0" prefWidth="161.0" textAlignment="RIGHT" />
+    <RadioButton id="rbSpfa" fx:id="rbMinPlus" layoutX="28.0" layoutY="445.0" mnemonicParsing="false" onAction="#minPlusSelected" text="Minus-Plus-Matrixmulti.-Alg." />
   </children>
 </AnchorPane>
