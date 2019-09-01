@@ -3,7 +3,7 @@ package application.globalLogic;
 import application.graphNavigation.algorithms.AlgorithmThread;
 import application.graphNavigation.algorithms.Dijkstra;
 import application.graphNavigation.algorithms.AbstractAlgorithm;
-import application.graphNavigation.algorithms.exceptions.NoWayFoundException;
+import application.graphNavigation.algorithms.navigationExceptions.NoWayFoundException;
 import application.graphNavigation.graph.Graph;
 import application.graphNavigation.graph.Node;
 import org.junit.jupiter.api.BeforeAll;

@@ -1,4 +1,4 @@
-package application.graphNavigation.algorithms.exceptions;
+package application.graphNavigation.algorithms.navigationExceptions;
 /**
  * This exception is thrown if there is no way between start and end.
  */

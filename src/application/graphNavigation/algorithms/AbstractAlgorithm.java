@@ -2,7 +2,7 @@ package application.graphNavigation.algorithms;
 
 import application.DijkstraviController;
 import application.unitConverter.UnitConverter;
-import application.graphNavigation.directionGiver.DirectionGiver;
+import application.graphNavigation.directionsCreator.DirectionsCreator;
 import application.graphNavigation.graph.Connection;
 import application.graphNavigation.graph.Graph;
 
@@ -29,9 +29,7 @@ public abstract class AbstractAlgorithm {
     public abstract Stack<Integer> calculateShortestWay(Graph g, int startNode, int targetNode);
 
     String directions(Graph g, Stack<Integer> way, DijkstraviController dijkstraviController) {
-        //this.fastestPath = fastestPath;
-        //this.personalMaxSpeed = maxSpeed;
-        return new DirectionGiver().directions(g, way, personalMaxSpeed, dijkstraviController);
+        return new DirectionsCreator().directions(g, way, personalMaxSpeed, dijkstraviController);
     }
 
     public Double getProgress() {
