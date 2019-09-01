@@ -29,7 +29,6 @@ public class Dijkstra extends AbstractAlgorithm {
 
     private void init(Graph g, int startNodeId, int targetNodeId) {
         autobahn = g.getAutobahn();
-        HashMap<Integer, ArrayList<Connection>> links = g.getLinks();
 
         startNode = startNodeId;
         targetNode = targetNodeId;
@@ -97,20 +96,15 @@ public class Dijkstra extends AbstractAlgorithm {
             if (!visited.contains(neighboringNode))
             {
                 int distanceToNeighbor = getDistance(connectionToNeighbor);
-                //System.out.println(connectionToNeighbor.getAllInformationsAsString());
                 predictedDistance = getPredictedDistance(neighboringNode);
                 newDistance = distance.get(nodeNumber) + distanceToNeighbor;
-                //System.out.println("Distanz von " + nodeNumber + ": " + distance.get(nodeNumber));
 
                 if (newDistance < distance.get(neighboringNode))
                 {
-                    //System.out.println("Luftlinie von Knoten " + neighboringNode + " bis Zielknoten: " + predictedDistance + " New Distance: " + newDistance);
-
                     distance.put(neighboringNode, newDistance);
                     predecessor.put(neighboringNode, nodeNumber);
 
                     reachableUnvisitedNotes.put(neighboringNode, (newDistance + predictedDistance));
-                    //System.out.println("von " + nodeNumber + " zu " + neighboringNode + " neue kuerzeste Distanz: " + newDistance);
                 }
             }
         }
@@ -123,8 +117,6 @@ public class Dijkstra extends AbstractAlgorithm {
     private Stack<Integer> output(Graph g) {
         Stack<Integer> way = new Stack<>();
         int nodeNumber;
-        double totalDistance = ((double)distance.get(targetNode)/1000);
-
 
         if(!g.getNodeById(targetNode).getName().equals("HelperNode")){
             way.push(targetNode);
@@ -159,16 +151,18 @@ public class Dijkstra extends AbstractAlgorithm {
         }
     }
 
-     ArrayList<Node> getAutobahn() {
+    ArrayList<Node> getAutobahn() {
         return autobahn;
     }
 
-     double getLatTargetNode() {
+    double getLatTargetNode() {
         return latTargetNode;
     }
 
-     double getLngTargetNode() {
+    double getLngTargetNode() {
         return lngTargetNode;
     }
 }
+
+
 
