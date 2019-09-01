@@ -1,4 +1,4 @@
-package application.graphNavigation.directionGiver;
+package application.graphNavigation.directionsCreator;
 
 import application.DijkstraviController;
 import application.unitConverter.UnitConverter;
@@ -8,9 +8,9 @@ import javafx.application.Platform;
 
 import java.util.Stack;
 /**
- * This class generates the directions shown in the GUI.
+ * This class creates the directions shown in the GUI.
  */
-public class DirectionGiver {
+public class DirectionsCreator {
 
     private final String lineSeparator = System.getProperty("line.separator");
     private Graph g;
@@ -34,25 +34,29 @@ public class DirectionGiver {
         destination = "";
         orders = "";
         isOutputAutobahnChangeInProgress = false;
+
         if(way != null) {
-            orders = lineSeparator + lineSeparator;
+            if(!way.empty()) {
+                orders = lineSeparator + lineSeparator;
 
-            initWithFirstConnection(way);
-            Connection connection;
+                initWithFirstConnection(way);
+                Connection connection;
 
-            int from = way.pop();
-            while (!way.empty()) {
-                connection = treatmentNextConnection(way, from);
+                int from = way.pop();
+                while (!way.empty()) {
+                    connection = treatmentNextConnection(way, from);
 
-                meterTillDestination = meterTillDestination + connection.getLength();
-                secondsTillDestination = secondsTillDestination + UnitConverter.calculateTimeForConnection(connection, connection.getPersonalMaxSpeed(personalMaxSpeed));
-                from = way.pop();
+                    meterTillDestination = meterTillDestination + connection.getLength();
+                    secondsTillDestination = secondsTillDestination +
+                            UnitConverter.calculateTimeForConnection(connection, connection.getPersonalMaxSpeed(personalMaxSpeed));
+                    from = way.pop();
+                }
+
+                outputOrderAutobahnChange();
+                orders = orderFollowRoad(g.getNodeById(from).getName());
+
+                orderNavigationFinished();
             }
-
-            outputOrderAutobahnChange();
-            orders = orderFollowRoad(g.getNodeById(from).getName());
-
-            orderNavigationFinished();
         }
         return orders;
     }
