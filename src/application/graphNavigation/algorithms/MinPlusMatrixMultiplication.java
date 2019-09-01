@@ -37,7 +37,6 @@ public class MinPlusMatrixMultiplication extends AbstractAlgorithm {
                 int aim = connectionToNeighbor.getAim();
                 distanceOfNodesToOthers.set(aim, getDistance(connectionToNeighbor));
             }
-            //distanceOfNodesToOthers.set(i, 0);
             graphAsMatrix.add(distanceOfNodesToOthers);
             progress += progressUnit;
         }
@@ -56,25 +55,6 @@ public class MinPlusMatrixMultiplication extends AbstractAlgorithm {
         List<List<Integer>> resultMatrix = allPairsShortestPaths(graphAsMatrix);
         return output(g, startNode, targetNode);
     }
-
-
-    private int[][] extendShortestPaths(int[][] calculatedMatrix, int[][] inputMatrix) {
-
-        int n = inputMatrix.length;
-        int[][] shortestDistMatrix = new int[n][n];
-
-        for (int i = 0; i < numberOfNodes; i++) {
-            for (int j = 0; j < numberOfNodes; j++) {
-                shortestDistMatrix[i][j] = INFINITE;
-                for (int k = 0; k < n; k++) {
-                    shortestDistMatrix[i][j] =
-                            getMin(shortestDistMatrix[i][j], calculatedMatrix[i][k], inputMatrix[k][j], i, j, k);
-                }
-            }
-        }
-        return shortestDistMatrix;
-    }
-
 
     private List<List<Integer>> extendShortestPaths(List<List<Integer>> calculatedMatrix, List<List<Integer>> inputMatrix) {
         List<List<Integer>> shortestDistMatrix = new ArrayList<>(inputMatrix.stream().map(x -> new ArrayList<>(x)).collect(Collectors.toList()));
@@ -104,19 +84,19 @@ public class MinPlusMatrixMultiplication extends AbstractAlgorithm {
     }
 
 
-    /*private List<List<Integer>> fasterAllPairsShortestPaths(List<List<Integer>> inputMatrix) {
-        List<List<Integer>> startMatrix = new ArrayList<>(inputMatrix.stream().map(x -> new ArrayList<Integer>(x)).collect(Collectors.toList()));
-        List<List<List<Integer>>> matrices = new ArrayList<>(numberOfNodes-1);
+    private List<List<Integer>> fasterAllPairsShortestPaths(List<List<Integer>> inputMatrix) {
+        List<List<Integer>> startMatrix = new ArrayList<>(inputMatrix.stream().map(x -> new ArrayList<>(x)).collect(Collectors.toList()));
+        List<List<List<Integer>>> matrices = new ArrayList<>(numberOfNodes);
         matrices.add(startMatrix);
         int m = 1;
-        while (m < numberOfNodes - 1) {
+        while (m < numberOfNodes) {
             List<List<Integer>> curMatrix = extendShortestPaths(matrices.get(m - 1), matrices.get(m - 1));
-            matrices.add(2 * m - 1, curMatrix);
+            int indexInMatrices=2 * m - 1;
+            matrices.add(indexInMatrices, curMatrix);
             m = 2 * m;
         }
         return matrices.get(matrices.size() - 1);
-    }*/
-
+    }
 
     private List<List<Integer>> allPairsShortestPaths(List<List<Integer>> inputMatrix) {
         List<List<Integer>> startMatrix = new ArrayList<>(inputMatrix.stream().map(x -> new ArrayList<>(x)).collect(Collectors.toList()));
@@ -130,27 +110,11 @@ public class MinPlusMatrixMultiplication extends AbstractAlgorithm {
             curMatrix = extendShortestPaths(matrices.get(sizeOfList - 1), matrices.get(sizeOfList - 1));
             matrices.add(curMatrix);
             m = 2 * m;
-            /*if (sizeOfList > 3) {
+            if (sizeOfList > 3) {
                 matrices.remove(0);
-            }*/
+            }
         }
         return matrices.get(matrices.size() - 1);
-    }
-
-    private int getMin(int weightShortestDistanceMatrix, int newWeightPartOne, int newWeightPartTwo, int indexI, int indexJ, int indexK) {
-        int newWeight;
-        if ((newWeightPartOne != INFINITE) && (newWeightPartTwo != INFINITE)) {
-            newWeight = newWeightPartOne + newWeightPartTwo;
-            if (weightShortestDistanceMatrix <= newWeight) {
-                return weightShortestDistanceMatrix;
-            } else {
-                //precursors.get(indexI).set(indexK, indexJ);
-                precursors.get(indexI).set(indexJ, indexK);
-                return newWeight;
-            }
-        } else {
-            return weightShortestDistanceMatrix;
-        }
     }
 
     /*private void printOutMatrix(int[][] matrix) {
@@ -206,6 +170,5 @@ public class MinPlusMatrixMultiplication extends AbstractAlgorithm {
             return way;
         }
     }
-
 }
 
