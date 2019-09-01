@@ -83,7 +83,7 @@ public class GlobalLogic {
             if (alg == 4) {
                 dijkstraviController.getTxtAreaRoute().setText("Die Wegberechnung über den Minus-Plus-Matrix-Multi" +
                         "plikations-Algorithmus ist aufgrund des massiven Speicherverbrauchs nicht möglich. Der" +
-                        " Algorihmus selbst ist aber korrekt implementiert und getestet. Genauers wird in unserer " +
+                        " Algorihmus selbst ist aber korrekt implementiert und getestet. Genaueres wird in unserer " +
                         "Präsentation erklärt.");
                 return;
             }
