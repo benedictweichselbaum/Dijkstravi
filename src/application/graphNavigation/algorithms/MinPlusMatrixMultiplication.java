@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  */
 
 
-public class MinPlusMatrixMultiplication extends NavigationService {
+public class MinPlusMatrixMultiplication extends AbstractAlgorithm {
 
     private int numberOfNodes;
     private Graph g;
