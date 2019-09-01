@@ -8,7 +8,9 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 import static java.lang.System.exit;
-
+/*
+Main JavaFX execution class.
+ */
 public class Main extends Application{
 
     @Override

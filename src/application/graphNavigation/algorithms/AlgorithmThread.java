@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+/*
+Thread that executes the the algorithm calculations so that the GUI does not freeze.
+ */
 public class AlgorithmThread extends Thread {
 
     private AbstractAlgorithm abstractAlgorithm;

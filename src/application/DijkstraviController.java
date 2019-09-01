@@ -24,7 +24,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
-
+/*
+JavaFX controller class. Inhabits the JavaFX Elements an the methods they trigger.
+ */
 public class DijkstraviController implements Initializable {
 
     @FXML

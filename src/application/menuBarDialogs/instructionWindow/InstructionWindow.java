@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Simple Java Swing JFrame class for use of the programm.
+ * Simple Java Swing JFrame class for use of the program.
  * Information text formatted with HTML.
  */
 public class InstructionWindow extends JFrame{
