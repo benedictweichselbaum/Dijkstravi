@@ -8,6 +8,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 
+/*
+Class that provides the autobahn picture. Is needed because in the JAR-File the normal "new File(//relativ Path)" does
+not work.
+ */
 public class PictureGetter {
 
     public File getImage () throws IOException {
