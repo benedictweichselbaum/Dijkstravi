@@ -60,6 +60,7 @@ public class AlgorithmThread extends Thread {
 
             connectionFound(way);
 
+            @SuppressWarnings("unchecked")
             Stack<Integer> wayForPicture = (Stack<Integer>) way.clone();
 
             Image autobahnNetworkImage = new Image(new PictureGetter().getImage().toURI().toString());

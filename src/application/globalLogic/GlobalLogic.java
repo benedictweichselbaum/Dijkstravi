@@ -7,7 +7,7 @@ import application.graphNavigation.graph.Connection;
 import application.graphNavigation.graph.Graph;
 import application.graphNavigation.graph.Node;
 import application.menuBarDialogs.optionDialog.OptionWindow;
-import application.graphCreatorWithDialog.GraphCreater;
+import application.graphCreatorWithDialog.GraphCreator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -63,18 +63,18 @@ public class GlobalLogic {
 
     @SuppressWarnings("all")
     private void createGraph() {
-        GraphCreater graphCreater = new GraphCreater(listOfExitsById);
+        GraphCreator graphCreator = new GraphCreator(listOfExitsById);
 
-        graphCreater.start();
+        graphCreator.start();
 
-        synchronized (graphCreater) {
+        synchronized (graphCreator) {
             try {
-                graphCreater.wait();
+                graphCreator.wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        this.graph = graphCreater.getGraph();
+        this.graph = graphCreator.getGraph();
     }
 
     public void calculateWay(int alg, boolean fastestPath) {

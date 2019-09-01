@@ -22,7 +22,7 @@ public class Graph {
     public void addEdge(int start, int end, int length, int maxspeed, String name, String destination){
         if(start <= autobahn.size() && end <= autobahn.size()){
             ArrayList<Connection> al = links.get(start);
-            al.add(new Connection(end, length,false, maxspeed, name, destination));
+            al.add(new Connection(end, length, maxspeed, name, destination));
             links.put(start, al);
         }else{
             System.out.println("Liste war wohl zu kurz");
@@ -35,23 +35,11 @@ public class Graph {
 
     public Connection getConnectionBetween2Points(int id1, int id2){
         ArrayList<Connection> connections = links.get(id1);
-        Connection result = connections.stream()
+        //System.out.println(result.getAllInformationsAsString());
+        return connections.stream()
                 .filter(connection -> connection.getAim() == id2)
                 .findAny()
                 .orElse(null);
-        //System.out.println(result.getAllInformationsAsString());
-        return result;
-    }
-
-    public void test(){
-        for (int i = 0; i < links.size(); i++) {
-            ArrayList<Connection> arrayList = links.get(i);
-            System.out.println(" ");
-            System.out.println("Nachfolger von Knoten " + i);
-            for (Connection c : arrayList) {
-                //System.out.println(c.getAllInformationsAsString());
-            }
-        }
     }
 
     public int getAmountOfNodes(){
@@ -77,14 +65,11 @@ public class Graph {
 
     public void deleteLastNodeWithOutgoingConnections(){
         // JA, DA SIND VERBESSERUNGSVORSCHLÄGE, ABER NICHT VOR JAVA 13 VERSUCHEN ZU ÄNDERN! GEHT NICHT(IMMER)!
-        ArrayList<Connection> cnl = new ArrayList<>();
-        for(Connection cn : getAllConnectionsOfNode(autobahn.size()-1)){
-            //deleteConnection(autobahn.size() -1, cn);
-            cnl.add(cn);
-        }
+        //deleteConnection(autobahn.size() -1, cn);
+        ArrayList<Connection> cnl = new ArrayList<>(getAllConnectionsOfNode(autobahn.size() - 1));
 
-        for(int i = 0; i < cnl.size(); i++){
-            deleteConnection(autobahn.size() -1, cnl.get(i));
+        for (Connection connection : cnl) {
+            deleteConnection(autobahn.size() - 1, connection);
         }
         autobahn.remove(autobahn.size()-1);
     }

@@ -11,16 +11,16 @@ import java.util.HashMap;
  * This class creates the graph needed for the navigation.
  * Therefor it starts the XML parser and shows the user a dialog
  * that the graph gets calculated before the main window opens.
- * The graph creater is an extra thread.
+ * The graph creator is an extra thread.
  */
-public class GraphCreater extends Thread{
+public class GraphCreator extends Thread{
 
     private HashMap<Integer, String> listOfExitsById;
     private JFrame openingDialog;
 
     private Graph graph;
 
-    public GraphCreater (HashMap<Integer, String> listOfExitsById) {
+    public GraphCreator(HashMap<Integer, String> listOfExitsById) {
         this.graph = null;
         this.listOfExitsById = listOfExitsById;
     }
