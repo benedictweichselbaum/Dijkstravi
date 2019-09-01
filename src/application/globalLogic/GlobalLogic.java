@@ -94,6 +94,7 @@ public class GlobalLogic {
         }catch (Exception ignored){
             dijkstraviController.enableFields();
             dijkstraviController.getTxtAreaRoute().setText("Die Berechnung konnte leider nicht erfolgreich durchgeführt werden.\nÜberprüfe bitte die Eingaben.");
+            dijkstraviController.deleteDistanceAndDuration();
         }
     }
 
