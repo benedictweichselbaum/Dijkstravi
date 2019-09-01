@@ -3,7 +3,7 @@ package application.graphNavigation.algorithms;
 import application.DijkstraviController;
 import application.PictureGetter;
 import application.algorithmProgess.ProgressBarAlgorithmUpdater;
-import application.graphNavigation.algorithms.exceptions.NoWayFoundException;
+import application.graphNavigation.algorithms.navigationExceptions.NoWayFoundException;
 import application.graphNavigation.graph.Graph;
 import application.graphNavigation.graph.Node;
 import application.graphNavigation.runningTime.RuntimeCalculation;
