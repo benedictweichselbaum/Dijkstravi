@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Anyway, the results differ from real navigation systems, because only length-values from edges could be used
  */
 
-class NavigationAlgorithmsWithoutGraphTest {
+class NavigationAlgorithmsTest {
 
     //Graf ohne Verbindungen
     private static Graph g;
@@ -37,7 +37,7 @@ class NavigationAlgorithmsWithoutGraphTest {
         shortestPathCombinationOfSimpleWays(new Dijkstra());
         shortestPathWithStopoverToHorb(new Dijkstra());
         algorithmsHelperNodeIntegration(new Dijkstra());
-        shortestFastestPathseparationTest(new Dijkstra());
+        shortestFastestPathSeparationTest(new Dijkstra());
     }
 
     @Test
@@ -45,7 +45,7 @@ class NavigationAlgorithmsWithoutGraphTest {
         shortestPathCombinationOfSimpleWays(new AStar());
         shortestPathWithStopoverToHorb(new AStar());
         algorithmsHelperNodeIntegration(new AStar());
-        shortestFastestPathseparationTest(new AStar());
+        shortestFastestPathSeparationTest(new AStar());
     }
 
     @Test
@@ -53,7 +53,7 @@ class NavigationAlgorithmsWithoutGraphTest {
         shortestPathWithStopoverToHorb(new BellmanFord());
         shortestPathCombinationOfSimpleWays(new BellmanFord());
         algorithmsHelperNodeIntegration(new BellmanFord());
-        shortestFastestPathseparationTest(new BellmanFord());
+        shortestFastestPathSeparationTest(new BellmanFord());
     }
 
     @Test
@@ -61,7 +61,7 @@ class NavigationAlgorithmsWithoutGraphTest {
         shortestPathWithStopoverToHorb(new ShortestPathFasterAlgorithm());
         shortestPathCombinationOfSimpleWays(new ShortestPathFasterAlgorithm());
         algorithmsHelperNodeIntegration(new ShortestPathFasterAlgorithm());
-        shortestFastestPathseparationTest(new ShortestPathFasterAlgorithm());
+        shortestFastestPathSeparationTest(new ShortestPathFasterAlgorithm());
     }
 
     @Test
@@ -69,15 +69,15 @@ class NavigationAlgorithmsWithoutGraphTest {
         shortestPathWithStopoverToHorb(new BellmanFordFast());
         shortestPathCombinationOfSimpleWays(new BellmanFordFast());
         algorithmsHelperNodeIntegration(new BellmanFordFast());
-        shortestFastestPathseparationTest(new BellmanFordFast());
+        shortestFastestPathSeparationTest(new BellmanFordFast());
     }
 
     @Test
     void minPlusMatrixMultiplication(){
-        //shortestPathCombinationOfSimpleWays(new MinPlusMatrixMultiplication());
+        shortestPathCombinationOfSimpleWays(new MinPlusMatrixMultiplication());
         shortestPathWithStopoverToHorb(new MinPlusMatrixMultiplication());
-        //algorithmsHelperNodeIntegration(new MinPlusMatrixMultiplication());
-        //shortestFastestPathseparationTest(new MinPlusMatrixMultiplication());
+        algorithmsHelperNodeIntegration(new MinPlusMatrixMultiplication());
+        shortestFastestPathSeparationTest(new MinPlusMatrixMultiplication());
     }
 
     void shortestPathCombinationOfSimpleWays(AbstractAlgorithm abstractAlgorithm) {
@@ -90,7 +90,6 @@ class NavigationAlgorithmsWithoutGraphTest {
 
     void shortestPathWithStopoverToHorb(AbstractAlgorithm abstractAlgorithm) {
         System.out.println("Shortest Path with stopover to Horb");
-        //Stack<Integer> way = navigationService.calculateShortestWay(g, 1, 7);
         Stack<Integer> way = abstractAlgorithm.initCalculateShortestWay(g, 1, 7, 130, false);
         assertEquals(1, way.pop());
         assertEquals(3, way.pop());
@@ -101,7 +100,6 @@ class NavigationAlgorithmsWithoutGraphTest {
 
     void algorithmsHelperNodeIntegration(AbstractAlgorithm abstractAlgorithm) {
         System.out.println("Algorithm Helper Node Integration");
-        //Stack<Integer> way = navigationService.calculateShortestWay(g, 1, 7);
         Stack<Integer> way = abstractAlgorithm.initCalculateShortestWay(g, 4, 8, 130, false);
         assertEquals(4, way.pop());
         assertEquals(5, way.pop());
@@ -109,7 +107,7 @@ class NavigationAlgorithmsWithoutGraphTest {
         assertTrue(way.isEmpty());
     }
 
-    void shortestFastestPathseparationTest(AbstractAlgorithm abstractAlgorithm) {
+    void shortestFastestPathSeparationTest(AbstractAlgorithm abstractAlgorithm) {
         System.out.println("Shortest/Fastest Path separation Test");
         Stack<Integer> way = abstractAlgorithm.initCalculateShortestWay(g, 10, 13, 200, false);
         assertEquals(10, way.pop());
@@ -187,7 +185,6 @@ class NavigationAlgorithmsWithoutGraphTest {
     }
 
     private static void printAllConnectionsOfAllNodes(Graph gr) {
-
         for (int i = 0; i < gr.getAmountOfNodes(); i++)
             printAllConnectionsOfNode(i, gr);
     }

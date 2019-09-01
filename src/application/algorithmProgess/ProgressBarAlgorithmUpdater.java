@@ -3,6 +3,10 @@ package application.algorithmProgess;
 import application.DijkstraviController;
 import application.graphNavigation.algorithms.AbstractAlgorithm;
 
+/*
+Thead that updates the progress bar seen on the bottom of the GUI. It listens to the the progress attribute from the
+AbstractAlgorithm.
+ */
 public class ProgressBarAlgorithmUpdater extends Thread {
 
     private AbstractAlgorithm abstractAlgorithm;

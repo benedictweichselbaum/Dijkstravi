@@ -79,6 +79,15 @@ public class GlobalLogic {
 
     public void calculateWay(int alg, boolean fastestPath) {
         try {
+
+            if (alg == 4) {
+                dijkstraviController.getTxtAreaRoute().setText("Die Wegberechnung über den Minus-Plus-Matrix-Multi" +
+                        "plikations-Algorithmus ist aufgrund des massiven Speicherverbrauchs nicht möglich. Der" +
+                        " Algorihmus selbst ist aber korrekt implementiert und getestet. Genaueres wird in unserer " +
+                        "Präsentation erklärt.");
+                return;
+            }
+
             initialiseForNewWay();
 
             String fromStr = dijkstraviController.getCbFrom().getEditor().getText();
@@ -91,7 +100,7 @@ public class GlobalLogic {
 
             AlgorithmThread algorithmThread = createAlgorithmThread(alg, fromStr, toStr, fastestPath);
             algorithmThread.start();
-        }catch (Exception ignored){
+        } catch (Exception ignored){
             dijkstraviController.enableFields();
             dijkstraviController.getTxtAreaRoute().setText("Die Berechnung konnte leider nicht erfolgreich durchgeführt werden.\nÜberprüfe bitte die Eingaben.");
             dijkstraviController.deleteDistanceAndDuration();
@@ -118,6 +127,10 @@ public class GlobalLogic {
             case 3:
                 algorithmus = "SPF";
                 abstractAlgorithm = new ShortestPathFasterAlgorithm();
+                break;
+            case 4:
+                algorithmus = "MPMM";
+                abstractAlgorithm = new MinPlusMatrixMultiplication();
                 break;
         }
 
