@@ -8,7 +8,7 @@ import javafx.application.Platform;
 
 import java.util.Stack;
 /**
- * This class generates the directions shown in the UI.
+ * This class generates the directions shown in the GUI.
  */
 public class DirectionGiver {
 
@@ -35,7 +35,6 @@ public class DirectionGiver {
         orders = "";
         isOutputAutobahnChangeInProgress = false;
         if(way != null) {
-            //System.out.println(way.size());
             orders = lineSeparator + lineSeparator;
 
             initWithFirstConnection(way);
@@ -61,7 +60,6 @@ public class DirectionGiver {
     private void initWithFirstConnection(Stack<Integer> way) {
         int from = way.pop();
         Connection connection = g.getConnectionBetween2Points(from, way.peek());
-        //System.out.println(connection.getAllInformationAsString() + " Von ID:" + from + " Von:" + g.getNodeById(from).getName());
         meterTillNextOrder = connection.getLength();
         secondsTillNextOrder = UnitConverter.calculateTimeForConnection(connection, connection.getPersonalMaxSpeed(personalMaxSpeed));
         meterTillDestination = connection.getLength();
@@ -76,7 +74,6 @@ public class DirectionGiver {
 
         String actualLocation = g.getNodeById(from).getName();
         String actualRoadName = connection.getName().trim();
-        //System.out.println(connection.getAllInformationAsString() + " Von ID:" + from + " Von:" + actualLocation);
 
 
         if(roadName.trim().equals("") && !actualRoadName.equals("")){

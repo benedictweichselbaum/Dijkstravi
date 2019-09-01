@@ -16,7 +16,7 @@ public abstract class UnitConverter {
         return Math.round(value) / factor;
     }
 
-    public static double calculateTimeForDistance(double distance, int speed){
+    public static double calculateTimeForDistance(int distance, int speed){
         //Entfernung (distance) in Metern
         //Geschwindigkeit (speed) in km/h
 

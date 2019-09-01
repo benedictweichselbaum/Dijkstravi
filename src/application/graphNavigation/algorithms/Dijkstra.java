@@ -21,7 +21,7 @@ public class Dijkstra extends AbstractAlgorithm {
     private Set<Integer> visited;
     private Map<Integer, Integer> distance;
     private Map<Integer, Integer> predecessor;
-    private Map<Integer, Double> reachableUnvisitedNotes;
+    private Map<Integer, Integer> reachableUnvisitedNotes;
 
     public Dijkstra(){
 
@@ -43,7 +43,7 @@ public class Dijkstra extends AbstractAlgorithm {
 
         // die rot markierten Knoten -> PP
         reachableUnvisitedNotes = new HashMap<>();
-        reachableUnvisitedNotes.put(startNode, 0.0);
+        reachableUnvisitedNotes.put(startNode, 0);
 
         for (int i = 0; i < numberOfNodes; i++) {
             distance.put(i, INFINITE);
@@ -89,7 +89,7 @@ public class Dijkstra extends AbstractAlgorithm {
 
     private void calculateDistanceToUnvisitedNeighboringNodes(Graph g, int nodeNumber) {
         int newDistance;
-        double predictedDistance;
+        int predictedDistance;
         //falls Nachbarknoten noch nicht besucht
         ArrayList<Connection> allConnectionsOfNode = g.getAllConnectionsOfNode(nodeNumber);
         for (Connection connectionToNeighbor : allConnectionsOfNode){
@@ -116,8 +116,8 @@ public class Dijkstra extends AbstractAlgorithm {
         }
     }
 
-    public double getPredictedDistance(int neighboringNode) {
-        return 0.0;
+    public int getPredictedDistance(int neighboringNode) {
+        return 0;
     }
 
     private Stack<Integer> output(Graph g) {
@@ -143,10 +143,10 @@ public class Dijkstra extends AbstractAlgorithm {
         return way;
     }
 
-    private int getPositionOfUnvisitedNodeWithShortestDistance(Map<Integer, Double> nodeAndDistance) {
+    private int getPositionOfUnvisitedNodeWithShortestDistance(Map<Integer, Integer> nodeAndDistance) {
 
-        Map.Entry<Integer, Double> min = null;
-        for (Map.Entry<Integer, Double> entry : nodeAndDistance.entrySet()) {
+        Map.Entry<Integer, Integer> min = null;
+        for (Map.Entry<Integer, Integer> entry : nodeAndDistance.entrySet()) {
             if (min == null || min.getValue() > entry.getValue()) {
                 min = entry;
             }
@@ -159,16 +159,18 @@ public class Dijkstra extends AbstractAlgorithm {
         }
     }
 
-     ArrayList<Node> getAutobahn() {
+    ArrayList<Node> getAutobahn() {
         return autobahn;
     }
 
-     double getLatTargetNode() {
+    double getLatTargetNode() {
         return latTargetNode;
     }
 
-     double getLngTargetNode() {
+    double getLngTargetNode() {
         return lngTargetNode;
     }
 }
+
+
 
