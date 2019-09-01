@@ -32,6 +32,7 @@ public class DirectionGiver {
         this.dijkstraviController = dijkstraviController;
         location = "";
         destination = "";
+        orders = "";
         isOutputAutobahnChangeInProgress = false;
         if(way != null) {
             //System.out.println(way.size());
@@ -54,15 +55,13 @@ public class DirectionGiver {
 
             orderNavigationFinished();
         }
-        else{
-            outputWayNotFound();
-        }
         return orders;
     }
 
     private void initWithFirstConnection(Stack<Integer> way) {
         int from = way.pop();
         Connection connection = g.getConnectionBetween2Points(from, way.peek());
+        //System.out.println(connection.getAllInformationAsString() + " Von ID:" + from + " Von:" + g.getNodeById(from).getName());
         meterTillNextOrder = connection.getLength();
         secondsTillNextOrder = UnitConverter.calculateTimeForConnection(connection, connection.getPersonalMaxSpeed(personalMaxSpeed));
         meterTillDestination = connection.getLength();
@@ -190,12 +189,6 @@ public class DirectionGiver {
                     dijkstraviController.getLblDuration().setText(UnitConverter.secondsToHoursAndMinutes(secondsTillDestination));
                 }
         );
-    }
-
-    private void outputWayNotFound() {
-        orders = lineSeparator + lineSeparator + "Bitte warten!"
-                + lineSeparator + "Ihr gewünschter Zielort ist leider noch nicht von Ihrem Startpunkt aus über Autobahnen zu erreichen."
-                + lineSeparator + lineSeparator + "Danke für die Navigation mit Dijkstravi!";
     }
 
     private String getLimitedNumberOfDestinations(int limit){

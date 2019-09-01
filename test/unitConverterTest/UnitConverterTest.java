@@ -1,4 +1,4 @@
-package application.unitConverterTest;
+package unitConverterTest;
 
 import application.unitConverter.UnitConverter;
 import org.junit.jupiter.api.Test;
