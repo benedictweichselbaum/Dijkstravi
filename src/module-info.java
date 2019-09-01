@@ -10,5 +10,6 @@ module Dijkstravi {
     requires jdk.xml.dom;
     requires jdom;
     requires javafx.graphics;
+    requires org.junit.jupiter.api;
     opens application;
 }

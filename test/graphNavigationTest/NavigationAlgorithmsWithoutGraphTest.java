@@ -72,6 +72,13 @@ class NavigationAlgorithmsWithoutGraphTest {
         shortestFastestPathseparationTest(new BellmanFordFast());
     }
 
+    @Test
+    void minPlusMatrixMultiplication(){
+        //shortestPathCombinationOfSimpleWays(new MinPlusMatrixMultiplication());
+        shortestPathWithStopoverToHorb(new MinPlusMatrixMultiplication());
+        //algorithmsHelperNodeIntegration(new MinPlusMatrixMultiplication());
+        //shortestFastestPathseparationTest(new MinPlusMatrixMultiplication());
+    }
 
     void shortestPathCombinationOfSimpleWays(NavigationService navigationService) {
         System.out.println("Shortest Path combination of simple ways");
