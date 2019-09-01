@@ -47,6 +47,8 @@ class UnitConverterTest {
     void testCalculateTimeForDistance () {
         assertEquals(0.0, UnitConverter.calculateTimeForDistance(0, 130));
 
+        assertEquals(5.0, UnitConverter.calculateTimeForDistance(37.5, 27));
+
         assertEquals(2000.0, UnitConverter.calculateTimeForDistance(30000, 54));
     }
 
