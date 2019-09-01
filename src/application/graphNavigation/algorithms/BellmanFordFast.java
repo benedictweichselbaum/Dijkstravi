@@ -4,8 +4,10 @@ import application.graphNavigation.graph.Connection;
 import application.graphNavigation.graph.Graph;
 
 import java.util.Stack;
-
-public class BellmanFordFast extends NavigationService {
+/**
+ * Smart implementation of the Bellman Ford Algorithm. This algorithm calculates the fastest/shortest ways from the startNode to all other Nodes.
+ */
+public class BellmanFordFast extends AbstractAlgorithm {
 
     @Override
     public Stack<Integer> calculateShortestWay(Graph g, int startNode, int targetNode) {

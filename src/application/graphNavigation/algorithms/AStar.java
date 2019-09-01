@@ -1,6 +1,6 @@
 package application.graphNavigation.algorithms;
 
-import application.Mathematics.MathematicOperations;
+import application.unitConverter.UnitConverter;
 import application.graphNavigation.graph.MinimalPerformanceNode;
 
 public class AStar extends Dijkstra{
@@ -8,14 +8,16 @@ public class AStar extends Dijkstra{
     @Override
     public int getPredictedDistance(int neighboringNode) {
         //predictedDistance: prognostizierte Distanz vom Nachbarknoten zum Zielknoten
-        int distance = (int) application.xmlParser.DistanceCalculator.calculateDistanceBetweenTwoNodes(
+        double distanceExact = application.xmlParser.DistanceCalculator.calculateDistanceBetweenTwoNodes(
                 new MinimalPerformanceNode(getLngTargetNode(), getLatTargetNode()),
                 new MinimalPerformanceNode(getAutobahn().get(neighboringNode).getLongitude(),
                         getAutobahn().get(neighboringNode).getLatitude()
                 ));
 
+        int distance = (int) Math.round(distanceExact);
+
         if(this.isFastestPath()){
-            return (int) Math.round(MathematicOperations.calculateTimeForDistance(distance, this.getPersonalMaxSpeed()));
+            return (int) Math.round(UnitConverter.calculateTimeForDistance(distance, this.getPersonalMaxSpeed()));
         }
         else {
             return distance;

@@ -1,5 +1,8 @@
 package application.xmlParser;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.*;
 
 import application.graphNavigation.graph.Graph;
@@ -30,7 +33,18 @@ public class XMLParser {
 
     public Graph init(){
         try {
-            File inputFile = new File("src/application/german_autobahn.osm");
+            Path temp = Files.createTempFile("resource-", "ext");
+            Files.copy(this.getClass().getResourceAsStream("german_autobahn.osm"), temp, StandardCopyOption.REPLACE_EXISTING);
+
+            FileInputStream fileInputStream = new FileInputStream(temp.toFile());
+            byte[] bytes = new byte[fileInputStream.available()];
+            fileInputStream.read(bytes);
+            fileInputStream.close();
+            File inputFile = new File("osm.tmp");
+            FileOutputStream outputStream = new FileOutputStream(inputFile);
+            outputStream.write(bytes);
+            outputStream.flush();
+            outputStream.close();
             SAXBuilder saxBuilder = new SAXBuilder();
             Document document = saxBuilder.build(inputFile);
             Element classElement = document.getRootElement();
@@ -143,7 +157,7 @@ public class XMLParser {
         }
 
         if (ishighway) {
-            Way ow = new Way(wayid ,nodes, motorway_link, maxspeed, name, destination);
+            Way ow = new Way(nodes, maxspeed, name, destination);
             wayList.add(ow);
         }
     }
@@ -173,7 +187,7 @@ public class XMLParser {
         gr.addEdge(newID.get(ow.getFirst()), newID.get(ow.getLast()),
                 length, ow.getmaxspeed(),
                 ow.getName(),
-                ow.getDestinaton());
+                ow.getDestination());
     }
 
     private List<MinimalPerformanceNode> addWayToNodeList(Way ow){

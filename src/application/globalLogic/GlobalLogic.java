@@ -1,13 +1,13 @@
 package application.globalLogic;
 
 import application.DijkstraviController;
-import application.algorithmProgess.ProgressAleBarUpdater;
+import application.algorithmProgess.ProgressBarAlgorithmUpdater;
 import application.graphNavigation.algorithms.*;
 import application.graphNavigation.graph.Connection;
 import application.graphNavigation.graph.Graph;
 import application.graphNavigation.graph.Node;
 import application.menuBarDialogs.optionDialog.OptionWindow;
-import application.graphCreatorWithDialog.GraphCreater;
+import application.graphCreatorWithDialog.GraphCreator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -63,18 +63,18 @@ public class GlobalLogic {
 
     @SuppressWarnings("all")
     private void createGraph() {
-        GraphCreater graphCreater = new GraphCreater(listOfExitsById);
+        GraphCreator graphCreator = new GraphCreator(listOfExitsById);
 
-        graphCreater.start();
+        graphCreator.start();
 
-        synchronized (graphCreater) {
+        synchronized (graphCreator) {
             try {
-                graphCreater.wait();
+                graphCreator.wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        this.graph = graphCreater.getGraph();
+        this.graph = graphCreator.getGraph();
     }
 
     public void calculateWay(int alg, boolean fastestPath) {
@@ -94,35 +94,36 @@ public class GlobalLogic {
         }catch (Exception ignored){
             dijkstraviController.enableFields();
             dijkstraviController.getTxtAreaRoute().setText("Die Berechnung konnte leider nicht erfolgreich durchgeführt werden.\nÜberprüfe bitte die Eingaben.");
+            dijkstraviController.deleteDistanceAndDuration();
         }
     }
 
     private AlgorithmThread createAlgorithmThread(int alg, String fromStr, String toStr, boolean fastestPath){
         String algorithmus = "";
-        NavigationService navigationService = null;
+        AbstractAlgorithm abstractAlgorithm = null;
         switch (alg) {
             case 0:
                 algorithmus = "Dijkstra";
-                navigationService = new Dijkstra();
+                abstractAlgorithm = new Dijkstra();
                 break;
             case 1:
                 algorithmus = "A*";
-                navigationService = new AStar();
+                abstractAlgorithm = new AStar();
                 break;
             case 2:
                 algorithmus = "Bellman-Ford";
-                navigationService = new BellmanFordFast();
+                abstractAlgorithm = new BellmanFordFast();
                 //navigationService = new BellmanFord();
                 break;
             case 3:
                 algorithmus = "SPF";
-                navigationService = new ShortestPathFasterAlgorithm();
+                abstractAlgorithm = new ShortestPathFasterAlgorithm();
                 break;
         }
 
-        ProgressAleBarUpdater progressAleBarUpdater = new ProgressAleBarUpdater(dijkstraviController, navigationService);
-        return new AlgorithmThread(navigationService, graph, idFrom, idTo,
-                progressAleBarUpdater, dijkstraviController, fromStr, toStr, algorithmus, optionWindow.getMaxSpeed(), fastestPath);
+        ProgressBarAlgorithmUpdater progressBarAlgorithmUpdater = new ProgressBarAlgorithmUpdater(dijkstraviController, abstractAlgorithm);
+        return new AlgorithmThread(abstractAlgorithm, graph, idFrom, idTo,
+                progressBarAlgorithmUpdater, dijkstraviController, fromStr, toStr, algorithmus, optionWindow.getMaxSpeed(), fastestPath);
     }
 
     private void initialiseForNewWay(){

@@ -1,0 +1,5 @@
+Damit Sie das mitgelieferte JAR richtig ausführen können, ist es notwending folgenden Befehl über die Kommandozeile
+auszuführen (Die spitzen Klammern sind Platzhalter):
+java --module-path="<Pfad zu JavaFX>/javafx-sdk-11.0.2/lib/" --add-modules="javafx.base,javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.swing,javafx.web" -jar <Pfad zur JAR>/Dijkstravi.jar
+
+Dies ist nötig, da die JVM nicht automatisch die JavaFX-Module kennt.

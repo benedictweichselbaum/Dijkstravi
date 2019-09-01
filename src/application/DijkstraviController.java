@@ -1,14 +1,21 @@
 package application;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.ResourceBundle;
 
 import application.autocompleteComboBox.AutoCompleteComboBoxListener;
 import application.globalLogic.GlobalLogic;
-import application.imageManipulation.Zoomer;
-import application.menuBarDialogs.beschreibungWindow.BeschreibungWindow;
+import application.routeDrawing.Zoomer;
+import application.menuBarDialogs.instructionWindow.InstructionWindow;
 import application.menuBarDialogs.informationWindow.InformationWindow;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -23,6 +30,10 @@ public class DijkstraviController implements Initializable {
     @FXML
     public Button changeDir;
     public ToggleButton shortestPath;
+    @FXML
+    Label distance;
+    @FXML
+    public Label duration;
 
     @FXML
     AnchorPane pane;
@@ -96,8 +107,22 @@ public class DijkstraviController implements Initializable {
         rbDijkstra.setToggleGroup(algRadioButtonGroup);
         rbSpfa.setToggleGroup(algRadioButtonGroup);
         algRadioButtonGroup.selectToggle(rbDijkstra);
-
-        File imageFile = new File("src/application/autobahnnetz_DE.png");
+        File imageFile = null;
+        try {
+            Path temp = Files.createTempFile("picture-", "ext");
+            Files.copy(this.getClass().getResourceAsStream("autobahnnetz_DE.png"), temp, StandardCopyOption.REPLACE_EXISTING);
+            FileInputStream fileInputStream = new FileInputStream(temp.toFile());
+            byte[] bytes = new byte[fileInputStream.available()];
+            fileInputStream.read(bytes);
+            fileInputStream.close();
+            imageFile = new File ("tempPic.tmp");
+            FileOutputStream outputStream = new FileOutputStream(imageFile);
+            outputStream.write(bytes);
+            outputStream.flush();
+            outputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         javafx.scene.image.Image autobahnNetworkImage = new Image(imageFile.toURI().toString());
         imgViewAutobahn.setImage(autobahnNetworkImage);
 
@@ -132,8 +157,8 @@ public class DijkstraviController implements Initializable {
 
     @FXML
     public void pressedBeschreibung(ActionEvent actionEvent) {
-        BeschreibungWindow beschreibungWindow = new BeschreibungWindow();
-        beschreibungWindow.setVisible(true);
+        InstructionWindow instructionWindow = new InstructionWindow();
+        instructionWindow.setVisible(true);
     }
 
     @FXML
@@ -143,6 +168,16 @@ public class DijkstraviController implements Initializable {
 
     public Label getLblProgress() {
         return lblProgress;
+    }
+
+    @FXML
+    public Label getLblDistance() {
+        return distance;
+    }
+
+    @FXML
+    public Label getLblDuration() {
+        return duration;
     }
 
     public ProgressBar getPbAlgorithms() {
@@ -169,14 +204,29 @@ public class DijkstraviController implements Initializable {
         globalLogic.changeDirection();
     }
 
+    public void deleteDistanceAndDuration(){
+        Platform.runLater(
+                () -> {
+                    getLblDistance().setText("");
+                    getLblDuration().setText("");
+                }
+        );
+    }
+
     public void disableFields(){
         getTxtAreaRoute().setDisable(true);
         btnCalcRoute.setDisable(true);
+        getLblDistance().setDisable(true);
+        getLblDuration().setDisable(true);
+
     }
 
+    @FXML
     public void enableFields(){
         getTxtAreaRoute().setDisable(false);
         btnCalcRoute.setDisable(false);
+        getLblDistance().setDisable(false);
+        getLblDuration().setDisable(false);
     }
 }
 

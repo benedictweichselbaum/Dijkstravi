@@ -1,12 +1,13 @@
 package application.graphNavigation.algorithms;
 
 import application.DijkstraviController;
-import application.algorithmProgess.ProgressAleBarUpdater;
+import application.PictureGetter;
+import application.algorithmProgess.ProgressBarAlgorithmUpdater;
 import application.graphNavigation.algorithms.exceptions.NoWayFoundException;
 import application.graphNavigation.graph.Graph;
 import application.graphNavigation.graph.Node;
 import application.graphNavigation.runningTime.RuntimeCalculation;
-import application.imageManipulation.MapManipulator;
+import application.routeDrawing.MapRouteDrawer;
 import javafx.scene.image.Image;
 
 import java.io.File;
@@ -16,12 +17,12 @@ import java.util.Stack;
 
 public class AlgorithmThread extends Thread {
 
-    private NavigationService navigationService;
+    private AbstractAlgorithm abstractAlgorithm;
     private Stack<Integer> way;
     private Graph graph;
     private int startNode;
     private int targetNode;
-    private ProgressAleBarUpdater progressAleBarUpdater;
+    private ProgressBarAlgorithmUpdater progressBarAlgorithmUpdater;
     private DijkstraviController controller;
     private String fromStr;
     private String toStr;
@@ -30,15 +31,15 @@ public class AlgorithmThread extends Thread {
     private boolean fastestPath;
     private RuntimeCalculation rc;
 
-    public AlgorithmThread(NavigationService navigationService, Graph graph, int startNode, int targetNode,
-                           ProgressAleBarUpdater progressAleBarUpdater, DijkstraviController controller,
+    public AlgorithmThread(AbstractAlgorithm abstractAlgorithm, Graph graph, int startNode, int targetNode,
+                           ProgressBarAlgorithmUpdater progressBarAlgorithmUpdater, DijkstraviController controller,
                            String fromStr, String toStr, String algorithm, int maxSpeed, boolean fastestPath) {
-        this.navigationService = navigationService;
+        this.abstractAlgorithm = abstractAlgorithm;
         this.way = null;
         this.graph = graph;
         this.startNode = startNode;
         this.targetNode = targetNode;
-        this.progressAleBarUpdater = progressAleBarUpdater;
+        this.progressBarAlgorithmUpdater = progressBarAlgorithmUpdater;
         this.controller = controller;
         this.fromStr = fromStr;
         this.toStr = toStr;
@@ -51,51 +52,33 @@ public class AlgorithmThread extends Thread {
 
     @Override
     public void run() {
-        progressAleBarUpdater.start();
+        progressBarAlgorithmUpdater.start();
         try {
             rc = new RuntimeCalculation();
-            way = navigationService.initCalculateShortestWay(graph, startNode, targetNode, maxSpeed, fastestPath);
+            way = abstractAlgorithm.initCalculateShortestWay(graph, startNode, targetNode, maxSpeed, fastestPath);
             rc.stopCalculation();
 
-            try {
-                if (connectionFound(way)) {
-                    Stack<Integer> wayForPicture = (Stack<Integer>) way.clone();
+            connectionFound(way);
 
-                    File imageFile = new File("src/application/autobahnnetz_DE.png");
-                    Image autobahnNetworkImage = new Image(imageFile.toURI().toString());
-                    List<Node> listOfNodesForPicture = new ArrayList<>();
+            @SuppressWarnings("unchecked")
+            Stack<Integer> wayForPicture = (Stack<Integer>) way.clone();
 
-                    setImage(wayForPicture, autobahnNetworkImage, listOfNodesForPicture);
-                }
-            } catch (NoWayFoundException e) {
-                orderWayNotFound();
-            }
+            Image autobahnNetworkImage = new Image(new PictureGetter().getImage().toURI().toString());
+            List<Node> listOfNodesForPicture = new ArrayList<>();
 
-            /*
-            //Der alte Code
-            if (way != null) {
-                Stack<Integer> wayForPicture = (Stack<Integer>) way.clone();
+            setImage(wayForPicture, autobahnNetworkImage, listOfNodesForPicture);
 
-                File imageFile = new File("src/application/autobahnnetz_DE.png");
-                Image autobahnNetworkImage = new Image(imageFile.toURI().toString());
-                List<Node> listOfNodesForPicture = new ArrayList<>();
-
-                setImage(wayForPicture, autobahnNetworkImage, listOfNodesForPicture);
-            }else{
-                throw new NoWayFoundException();
-            }*/
-
-            String orders = navigationService.directions(graph, way, maxSpeed, fastestPath);
+            String orders = abstractAlgorithm.directions(graph, way, controller);
 
             controller.enableFields();
 
             initialOrder(orders);
-            this.navigationService.progress = 1.0;
+            this.abstractAlgorithm.progress = 1.0;
 
         } catch (Exception e) {
             orderWayNotFound();
         }
-        progressAleBarUpdater.interrupt();
+        progressBarAlgorithmUpdater.interrupt();
         this.interrupt();
     }
 
@@ -119,7 +102,7 @@ public class AlgorithmThread extends Thread {
             }
         }
         controller.getImgViewAutobahn()
-                .setImage(MapManipulator.drawWayWithListOfNodes(autobahnNetworkImage, listOfNodesForPicture));
+                .setImage(MapRouteDrawer.drawWayWithListOfNodes(autobahnNetworkImage, listOfNodesForPicture));
     }
 
     private void initialOrder(String orders) {
@@ -137,9 +120,9 @@ public class AlgorithmThread extends Thread {
 
     private void orderWayNotFound() {
         controller.getTxtAreaRoute().setText("Es konnte keine Route von " + fromStr + " nach " + toStr + " gefunden werden.");
-        this.navigationService.progress = 1.0;
+        this.abstractAlgorithm.progress = 1.0;
         controller.enableFields();
-
+        controller.deleteDistanceAndDuration();
         File imageFile = new File("src/application/autobahnnetz_DE.png");
         Image autobahnNetworkImage = new Image(imageFile.toURI().toString());
         controller.getImgViewAutobahn()

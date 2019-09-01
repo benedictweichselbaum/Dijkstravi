@@ -4,8 +4,10 @@ import application.graphNavigation.graph.Connection;
 import application.graphNavigation.graph.Graph;
 
 import java.util.*;
-
-public class ShortestPathFasterAlgorithm extends NavigationService {
+/**
+ * Implementation of the Shortest Path Faster Algorithms. This algorithm calculates the fastest/shortest ways from the startNode to all other Nodes.
+ */
+public class ShortestPathFasterAlgorithm extends AbstractAlgorithm {
 
     @Override
     public Stack<Integer> calculateShortestWay(Graph g, int startNode, int targetNode) {

@@ -2,7 +2,7 @@ package application.globalLogic;
 
 import application.graphNavigation.algorithms.AlgorithmThread;
 import application.graphNavigation.algorithms.Dijkstra;
-import application.graphNavigation.algorithms.NavigationService;
+import application.graphNavigation.algorithms.AbstractAlgorithm;
 import application.graphNavigation.algorithms.exceptions.NoWayFoundException;
 import application.graphNavigation.graph.Graph;
 import application.graphNavigation.graph.Node;
@@ -28,8 +28,8 @@ class NoWayFoundExceptionTest {
         System.out.println("NoWayFoundExceptionThrown:");
         boolean thrown = false;
         try {
-            NavigationService navigationService=new Dijkstra();
-            Stack<Integer> way = navigationService.initCalculateShortestWay(g, 0,2,130,false);
+            AbstractAlgorithm abstractAlgorithm =new Dijkstra();
+            Stack<Integer> way = abstractAlgorithm.initCalculateShortestWay(g, 0,2,130,false);
             AlgorithmThread at=new AlgorithmThread();
             boolean connectionFound=at.connectionFound(way);
         } catch (NoWayFoundException e) {
