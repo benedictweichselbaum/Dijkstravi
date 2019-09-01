@@ -8,7 +8,7 @@ import javafx.application.Platform;
 
 import java.util.Stack;
 /**
- * This class generates the directions for the UI.
+ * This class generates the directions shown in the UI.
  */
 public class DirectionGiver {
 
