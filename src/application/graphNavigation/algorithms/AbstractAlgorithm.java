@@ -65,10 +65,7 @@ public abstract class AbstractAlgorithm {
     }
 
     int getDistance(Connection con){
-
-       // System.out.println(fastestPath + "gD fP");
         if(fastestPath) {
-            //System.out.println(Math.round(UnitConverter.calculateTimeForConnection(con, personalMaxSpeed)) + " " + personalMaxSpeed);
             return (int) Math.round(UnitConverter.calculateTimeForConnection(con, personalMaxSpeed));
         }
         else
