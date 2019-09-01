@@ -7,6 +7,10 @@ import application.graphNavigation.graph.Node;
 
 import java.util.*;
 
+/**
+ * Implementation of the Dijkstra Algorithm. This algorithm calculates the fastest/shortest way from the startNode to the target node.
+ */
+
 public class Dijkstra extends AbstractAlgorithm {
 
     private ArrayList<Node> autobahn = new ArrayList<>();
@@ -21,11 +25,8 @@ public class Dijkstra extends AbstractAlgorithm {
     private Set<Integer> visited;
     private Map<Integer, Integer> distance;
     private Map<Integer, Integer> predecessor;
-    private Map<Integer, Integer> reachableUnvisitedNotes;
+    private Map<Integer, Integer> reachableUnvisitedNodes;
 
-    public Dijkstra(){
-
-    }
 
     private void init(Graph g, int startNodeId, int targetNodeId) {
         autobahn = g.getAutobahn();
@@ -36,13 +37,12 @@ public class Dijkstra extends AbstractAlgorithm {
         lngTargetNode = autobahn.get(targetNode).getLongitude();
 
         numberOfNodes = g.getAmountOfNodes();
-        visited = new HashSet<>();
+        visited = new HashSet<>();  // green marked nodes in power point
         distance = new HashMap<>();
         predecessor = new HashMap<>();
 
-        // die rot markierten Knoten -> PP
-        reachableUnvisitedNotes = new HashMap<>();
-        reachableUnvisitedNotes.put(startNode, 0);
+        reachableUnvisitedNodes = new HashMap<>();  // red marked nodes in power point
+        reachableUnvisitedNodes.put(startNode, 0);
 
         for (int i = 0; i < numberOfNodes; i++) {
             distance.put(i, INFINITE);
@@ -59,18 +59,18 @@ public class Dijkstra extends AbstractAlgorithm {
         int nodeNumber;
         init(g, startNodeId, targetNodeId);
 
-        // wiederhole bis alle Knoten besucht sind / Zielknoten besucht ist
+        // repeat until all nodes are visited / target node is found
         Double progressUnit = 1.0/numberOfNodes;
         for (int i = 0; i < numberOfNodes; i++)
         {
-            if(reachableUnvisitedNotes == null){
+            if(reachableUnvisitedNodes == null){
                 break;
             }
-            nodeNumber = getPositionOfUnvisitedNodeWithShortestDistance(reachableUnvisitedNotes);
+            nodeNumber = getPositionOfUnvisitedNodeWithShortestDistance(reachableUnvisitedNodes);
             visited.add(nodeNumber);
-            reachableUnvisitedNotes.remove(nodeNumber);
+            reachableUnvisitedNodes.remove(nodeNumber);
 
-            //um nicht zu allen Knoten den kürzesten Weg vom Startknoten aus zu berechnen
+            // to stop calculating when target node is found
             if(nodeNumber == targetNode){
                 break;
             }
@@ -78,6 +78,7 @@ public class Dijkstra extends AbstractAlgorithm {
             calculateDistanceToUnvisitedNeighboringNodes(g, nodeNumber);
             progress += progressUnit;
         }
+        //if visited contains target node, there exists a way
         if(visited.contains(targetNode)) {
             return output(g);
         }
@@ -89,10 +90,11 @@ public class Dijkstra extends AbstractAlgorithm {
     private void calculateDistanceToUnvisitedNeighboringNodes(Graph g, int nodeNumber) {
         int newDistance;
         int predictedDistance;
-        //falls Nachbarknoten noch nicht besucht
+
         ArrayList<Connection> allConnectionsOfNode = g.getAllConnectionsOfNode(nodeNumber);
         for (Connection connectionToNeighbor : allConnectionsOfNode){
             int neighboringNode = connectionToNeighbor.getAim();
+            // in case neighboringNode node has not been visited yet
             if (!visited.contains(neighboringNode))
             {
                 int distanceToNeighbor = getDistance(connectionToNeighbor);
@@ -104,7 +106,7 @@ public class Dijkstra extends AbstractAlgorithm {
                     distance.put(neighboringNode, newDistance);
                     predecessor.put(neighboringNode, nodeNumber);
 
-                    reachableUnvisitedNotes.put(neighboringNode, (newDistance + predictedDistance));
+                    reachableUnvisitedNodes.put(neighboringNode, (newDistance + predictedDistance));
                 }
             }
         }
@@ -118,6 +120,8 @@ public class Dijkstra extends AbstractAlgorithm {
         Stack<Integer> way = new Stack<>();
         int nodeNumber;
 
+        // possible HelperNodes are excluded from stack
+        // Result: stack includes way from start (top) to target (bottom)
         if(!g.getNodeById(targetNode).getName().equals("HelperNode")){
             way.push(targetNode);
         }
