@@ -21,9 +21,9 @@ import org.jdom2.input.SAXBuilder;
 public class XMLParser {
 
     private Graph gr;
-    private HashMap<Long, Double> hmaplon = new HashMap<>();
-    private HashMap<Long, Double> hmaplat = new HashMap<>();
-    private HashMap<Long, String> hmapname = new HashMap<>();
+    private HashMap<Long, Double> hashMapLongitude = new HashMap<>();
+    private HashMap<Long, Double> hashMapLatitude = new HashMap<>();
+    private HashMap<Long, String> hashMapName = new HashMap<>();
     private List<Way> wayList = new ArrayList<>();
     private HashMap<Integer, String> listOfExits;
 
@@ -65,14 +65,14 @@ public class XMLParser {
     }
     private MinimalPerformanceNode createNode(long node)
     {
-        return new MinimalPerformanceNode(hmaplon.get(node), hmaplat.get(node));
+        return new MinimalPerformanceNode(hashMapLongitude.get(node), hashMapLatitude.get(node));
     }
 
     private Node createNode2(int newNodeID, long node){
-        String name = hmapname.get(node);
+        String name = hashMapName.get(node);
         if(name != null)
             listOfExits.put(newNodeID, name);
-        return new Node(newNodeID, false, hmaplat.get(node), hmaplon.get(node), name);
+        return new Node(newNodeID, false, hashMapLatitude.get(node), hashMapLongitude.get(node), name);
     }
 
     private void saveXML(List<Element> list){
@@ -98,14 +98,14 @@ public class XMLParser {
     private void addNode(Element el) throws Exception{
         long nodeId =  el.getAttribute("id").getLongValue();
 
-        hmaplat.put(nodeId, el.getAttribute("lat").getDoubleValue());
-        hmaplon.put(nodeId, el.getAttribute("lon").getDoubleValue());
+        hashMapLatitude.put(nodeId, el.getAttribute("lat").getDoubleValue());
+        hashMapLongitude.put(nodeId, el.getAttribute("lon").getDoubleValue());
 
         List<Element> tagList = el.getChildren();
 
         for (Element tag : tagList) {
             if (tag.getAttribute("k").getValue().equals("name")) {
-                hmapname.put(nodeId, tag.getAttribute("v").getValue());
+                hashMapName.put(nodeId, tag.getAttribute("v").getValue());
             }
         }
     }
