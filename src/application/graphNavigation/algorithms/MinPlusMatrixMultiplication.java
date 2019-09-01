@@ -26,7 +26,7 @@ public class MinPlusMatrixMultiplication extends AbstractAlgorithm {
         numberOfNodes = g.getAmountOfNodes();
         initArrays(numberOfNodes);
         List<List<Integer>> graphAsMatrix = new ArrayList<>(numberOfNodes);
-
+        double progressUnit = (1.0/numberOfNodes)/2.0;
         for (int i = 0; i < numberOfNodes; i++) {
             List<Integer> distanceOfNodesToOthers = new ArrayList<>(numberOfNodes);
             for(int j= 0; j<numberOfNodes; j++){
@@ -39,6 +39,7 @@ public class MinPlusMatrixMultiplication extends AbstractAlgorithm {
             }
             //distanceOfNodesToOthers.set(i, 0);
             graphAsMatrix.add(distanceOfNodesToOthers);
+            progress += progressUnit;
         }
         for (int i = 0; i < numberOfNodes; i++) {
             for (int j = 0; j < numberOfNodes; j++) {
@@ -49,7 +50,9 @@ public class MinPlusMatrixMultiplication extends AbstractAlgorithm {
                     precursors.get(i).set(j, INFINITE);
                 }
             }
+            progress += progressUnit;
         }
+        progress = 1.0;
         List<List<Integer>> resultMatrix = allPairsShortestPaths(graphAsMatrix);
         return output(g, startNode, targetNode);
     }

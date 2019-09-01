@@ -16,7 +16,7 @@ public class InstructionWindow extends JFrame{
         super("Kurzbedienungsanleitung des Programms");
         Container pane = this.getContentPane();
         this.setLayout(new FlowLayout());
-        this.setSize(700, 800);
+        this.setSize(700, 850);
         this.initJObjectsForInformationWindow();
         this.setResizable(false);
         this.setLocation(200, 0);
@@ -56,7 +56,9 @@ public class InstructionWindow extends JFrame{
                 "<li>Herauszoomen: \"-\" oder \"M\"</li>" +
                 "<li>Im Bild navigieren: Pfeiltasten oder Mausrad</li>" +
                 "<li>Bild zurückzoomen: N oder Z</li>" +
-                "<li></li>" +
+                "<li></li>"+
+                "<h3>Einstellen einer Höchstgeschwindigkeit</h3>" +
+                "<p>Über \"Einstellungen\" --> \"Optionen\" können Sie eine persönliche Höchstgeschwindigkeit einstellen, die bei der Zeitberechnung auf nicht beschränkten Fahrbahnabschnitten berücksichtigt wird.</p>" +
                 "</ul>" +
                 "</br></p></body></html>";
         this.informationText = new JLabel(informationText);

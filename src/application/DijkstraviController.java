@@ -60,6 +60,9 @@ public class DijkstraviController implements Initializable {
     private RadioButton rbSpfa;
 
     @FXML
+    private RadioButton rbMinPlus;
+
+    @FXML
     private TextArea txtAreaRoute;
 
     @FXML
@@ -82,6 +85,9 @@ public class DijkstraviController implements Initializable {
 
     @FXML ComboBox cbTo;
 
+    @FXML
+    private ToggleButton fastestRoute;
+
     private ToggleGroup algRadioButtonGroup;
     private GlobalLogic globalLogic;
     private Zoomer zoomer;
@@ -97,6 +103,8 @@ public class DijkstraviController implements Initializable {
            globalLogic.calculateWay(2, fastestPath);
        else if(algRadioButtonGroup.getSelectedToggle() == rbSpfa)
            globalLogic.calculateWay(3, fastestPath);
+       else if (algRadioButtonGroup.getSelectedToggle() == rbMinPlus)
+           globalLogic.calculateWay(4, fastestPath);
     }
 
     @Override
@@ -106,6 +114,7 @@ public class DijkstraviController implements Initializable {
         rbBellmanFord.setToggleGroup(algRadioButtonGroup);
         rbDijkstra.setToggleGroup(algRadioButtonGroup);
         rbSpfa.setToggleGroup(algRadioButtonGroup);
+        rbMinPlus.setToggleGroup(algRadioButtonGroup);
         algRadioButtonGroup.selectToggle(rbDijkstra);
         File imageFile = null;
         try {
@@ -227,6 +236,17 @@ public class DijkstraviController implements Initializable {
         btnCalcRoute.setDisable(false);
         getLblDistance().setDisable(false);
         getLblDuration().setDisable(false);
+    }
+
+    @FXML
+    public void minPlusSelected () {
+        fastestRoute.setDisable(true);
+        fastestRoute.setSelected(false);
+        shortestPath.setSelected(true);
+    }
+
+    @FXML void otherRbSelected () {
+        fastestRoute.setDisable(false);
     }
 }
 
