@@ -8,9 +8,11 @@ import application.graphNavigation.graph.Graph;
 
 import java.util.ArrayList;
 import java.util.Stack;
+
 /**
- * Abstract superclass of the algorithms.
+ * Abstract superclass of the algorithms. Every navigation-algorithm can be called by this class.
  */
+
 public abstract class AbstractAlgorithm {
 
     int INFINITE = Integer.MAX_VALUE;
@@ -68,8 +70,9 @@ public abstract class AbstractAlgorithm {
         if(fastestPath) {
             return (int) Math.round(UnitConverter.calculateTimeForConnection(con, personalMaxSpeed));
         }
-        else
+        else {
             return con.getLength();
+        }
     }
 
     boolean isFastestPath() {

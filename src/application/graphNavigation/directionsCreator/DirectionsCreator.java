@@ -7,9 +7,12 @@ import application.graphNavigation.graph.Graph;
 import javafx.application.Platform;
 
 import java.util.Stack;
+
 /**
  * This class creates the directions shown in the GUI.
+ * The directions are created step-by-step as soon as the necessary information has been collected.
  */
+
 public class DirectionsCreator {
 
     private final String lineSeparator = System.getProperty("line.separator");
@@ -43,6 +46,8 @@ public class DirectionsCreator {
                 Connection connection;
 
                 int from = way.pop();
+
+                // runs through the way (stack) ones
                 while (!way.empty()) {
                     connection = treatmentNextConnection(way, from);
 
@@ -79,7 +84,8 @@ public class DirectionsCreator {
         String actualLocation = g.getNodeById(from).getName();
         String actualRoadName = connection.getName().trim();
 
-
+        // It's possible, that the roadName equals "" at the beginning
+        // - should be set as soon as possible
         if(roadName.trim().equals("") && !actualRoadName.equals("")){
             meterTillNextOrder = meterTillNextOrder + connection.getLength();
             secondsTillNextOrder = secondsTillNextOrder + timeForConnection;
@@ -124,7 +130,7 @@ public class DirectionsCreator {
 
     private void getDestination(Connection connection) {
         if (destination.equals("") && isOutputAutobahnChangeInProgress) {
-            destination = connection.getDestination();
+            destination = connection.getDestination().trim();
         }
     }
 

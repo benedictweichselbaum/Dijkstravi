@@ -17,20 +17,19 @@ public abstract class UnitConverter {
     }
 
     public static double calculateTimeForDistance(int distance, int speed){
-        //Entfernung (distance) in Metern
-        //Geschwindigkeit (speed) in km/h
+        // Required units:
+        // distance: meters
+        // speed: km/h
 
         if (distance < 0 || speed <= 0){
-            throw new IllegalArgumentException("Time-Calculation for Distance failed");
+            throw new IllegalArgumentException("Time-Calculation for Distance failed!");
         }
 
         double speedInMeterPerSeconds = (double) speed / 3.6;
         return distance / speedInMeterPerSeconds;
-
     }
 
     public static double calculateTimeForConnection(Connection connection, int personalMaxSpeed){
-
         return calculateTimeForDistance(connection.getLength(), connection.getPersonalMaxSpeed(personalMaxSpeed));
     }
 
